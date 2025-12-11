@@ -76,6 +76,7 @@ header {
     font-size: 1.5rem;
     background: linear-gradient(to right, #fff, var(--text-muted));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.02em;
 }
@@ -147,6 +148,7 @@ h1 span {
     display: block;
     background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -616,4 +618,59 @@ footer {
         display: none;
         /* Simple hide for mobile for now, can be expanded to burger if requested */
     }
+}
+
+/* Disabled Button State */
+.btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #475569;
+    /* Slate 600 */
+    color: #94a3b8;
+    /* Slate 400 */
+    pointer-events: all;
+    /* Ensure we can catch clicks */
+}
+
+.btn.disabled:hover {
+    box-shadow: none;
+    transform: none;
+}
+
+/* Tooltip */
+.validation-tooltip {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #ef4444;
+    /* Red 500 */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    z-index: 50;
+}
+
+.validation-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #ef4444 transparent transparent transparent;
+}
+
+.validation-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }

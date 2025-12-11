@@ -79,5 +79,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // 5. Contact Form Validation
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        const submitBtn = document.getElementById('submitBtn');
+        const tooltip = document.getElementById('formTooltip');
+        const inputs = contactForm.querySelectorAll('input, textarea');
+        const messageInput = document.getElementById('message');
+
+        function checkValidity() {
+            let allFilled = true;
+            inputs.forEach(input => {
+                if (!input.value.trim()) allFilled = false;
+            });
+
+            const messageLength = messageInput.value.length;
+            const isMsgValid = messageLength >= 41;
+
+            if (allFilled && isMsgValid) {
+                submitBtn.classList.remove('disabled');
+                return true;
+            } else {
+                submitBtn.classList.add('disabled');
+                return false;
+            }
+        }
+
+        // Real-time validation
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                checkValidity();
+                // Hide tooltip if user is typing
+                tooltip.classList.remove('visible');
+            });
+        });
+
+        // Click handler for passive button
+        submitBtn.addEventListener('click', (e) => {
+            if (submitBtn.classList.contains('disabled')) {
+                e.preventDefault();
+                tooltip.classList.add('visible');
+
+                // Auto hide after 3 seconds
+                setTimeout(() => {
+                    tooltip.classList.remove('visible');
+                }, 3000);
+            }
+        });
+    }
+
     console.log("Menguhan's Portfolio Loaded and Ready");
 });
