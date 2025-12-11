@@ -231,7 +231,13 @@
                 </div>
 
                 <!-- Netlify Form -->
-                <form name="contact" method="POST" action="/success.html" data-netlify="true" class="contact-form">
+                <form action="https://formsubmit.co/menguhan@gmail.com" method="POST" class="contact-form">
+                    <!-- Helper fields for FormSubmit -->
+                    <input type="hidden" name="_subject" value="New Portfolio Message!">
+                    <input type="hidden" name="_next" value="https://menguhan.com/success.html">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Jane Doe">
