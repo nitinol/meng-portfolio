@@ -2,171 +2,59 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal | MengDev</title>
-    <!-- Global Style -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Page Specific Style -->
-    <link rel="stylesheet" href="personal.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <!-- GA4 -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4EZV6NZH"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
+
         gtag('config', 'G-TE4EZV6NZH');
     </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menguhan - Personal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .back-link {
+            margin-top: 2rem;
+            color: #fff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="cursor-glow"></div>
     <div class="background-glow"></div>
-
-    <!-- Floating Dock Navigation -->
-    <div class="floating-dock-container">
-        <nav class="floating-dock">
-            <button class="dock-item active" data-target="tab-photos">
-                <i class="fas fa-user-astronaut"></i> 私
-            </button>
-            <button class="dock-item" data-target="tab-news">
-                <i class="fas fa-newspaper"></i> News
-            </button>
-            <button class="dock-item" data-target="tab-music">
-                <i class="fas fa-music"></i> Music
-            </button>
-            <a href="index.html" class="dock-item"
-                style="border-left: 1px solid var(--glass-border); padding-left: 1rem; margin-left: 0.5rem;">
-                <i class="fas fa-arrow-left"></i> Home
-            </a>
-        </nav>
-    </div>
-
-    <main class="dashboard-container">
-
-        <!-- PHOTO VLOG TAB (私) -->
-        <section id="tab-photos" class="tab-content active">
-            <div class="museum-grid">
-                <!-- Row 1: Big Hero + Title Text -->
-                <div class="museum-item item-1">
-                    <img src="museum1.jpg" alt="War Museum London">
-                </div>
-
-                <div class="item-text-1">
-                    <span class="museum-caption">The Entrance</span>
-                    <h1 class="museum-title">The Museum Chronicle.</h1>
-                    <p class="museum-text">
-                        "Museums are great places where you can learn about the past..."
-                    </p>
-                </div>
-
-                <!-- Row 2: Text Left + Vertical Image Right -->
-                <div class="item-text-2">
-                    <span class="museum-caption">Imperial War Museum</span>
-                    <p class="museum-text">
-                        "...but you have to think carefully to not get trapped with the wrong history."
-                    </p>
-                </div>
-
-                <div class="museum-item item-2">
-                    <img src="museum2.jpg" alt="Rocket Engine">
-                </div>
-
-                <!-- Row 3: Square + Wide -->
-                <div class="museum-item item-3">
-                    <img src="museum3.jpg" alt="Science Museum Display">
-                </div>
-
-                <div class="item-text-2" style="grid-column: 4 / 10; text-align: center; margin: 3rem 0;">
-                    <span class="museum-caption">Reflections</span>
-                    <p class="museum-text">
-                        History isn't just what happened. It's how we remember it. These machines, frozen in time, tell
-                        stories of ambition and destruction.
-                    </p>
-                </div>
-
-                <div class="museum-item item-4">
-                    <img src="museum4.jpg" alt="Cutaway Car">
-                </div>
-            </div>
-        </section>
-
-        <!-- NEWS TAB -->
-        <section id="tab-news" class="tab-content">
-            <div class="news-subnav">
-                <button class="subnav-item active" data-sub="news-world">World</button>
-                <button class="subnav-item" data-sub="news-tech">Tech</button>
-            </div>
-
-            <!-- WORLD GRID -->
-            <div id="news-world" class="news-category-container active">
-                <div id="grid-world" class="news-container"></div>
-            </div>
-
-            <!-- TECH GRID -->
-            <div id="news-tech" class="news-category-container">
-                <div id="grid-tech" class="news-container"></div>
-            </div>
-
-            <div id="news-sentinel" style="height: 50px; text-align: center; padding: 2rem; color: var(--text-muted);">
-                <div class="spinner"><i class="fas fa-satellite-dish fa-spin"></i> Fetching global updates...</div>
-            </div>
-        </section>
-
-        <!-- MUSIC TAB -->
-        <section id="tab-music" class="tab-content">
-            <div class="music-player-container">
-                <div class="music-header">
-                    <h2 class="museum-title" style="font-size: 2rem; margin: 0;">My Playlist</h2>
-                    <span class="music-badge"><i class="fas fa-headphones"></i> Live Sync</span>
-                </div>
-
-                <!-- Audio Controls (No Video) -->
-                <div class="audio-controls">
-                    <div class="current-song-info">
-                        <div id="current-song-title" class="current-song-title">Select a song to play</div>
-                        <div id="song-artist" class="song-artist"></div>
-                    </div>
-
-                    <!-- Progress Bar -->
-                    <div class="progress-container">
-                        <span id="current-time" class="time-display">0:00</span>
-                        <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
-                        <span id="duration-time" class="time-display">0:00</span>
-                    </div>
-
-                    <div class="playback-controls">
-                        <button id="prev-btn" class="control-btn"><i class="fas fa-step-backward"></i></button>
-                        <button id="play-pause-btn" class="control-btn main-btn"><i class="fas fa-play"></i></button>
-                        <button id="next-btn" class="control-btn"><i class="fas fa-step-forward"></i></button>
-
-                        <!-- Volume Control -->
-                        <div class="volume-control">
-                            <button id="volume-btn" class="control-btn"><i class="fas fa-volume-up"></i></button>
-                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="70">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hidden YouTube Player -->
-                <div id="youtube-player" style="display: none;"></div>
-
-                <!-- Song List Container -->
-                <div id="playlist-loading" class="playlist-loading">
-                    <i class="fas fa-spinner fa-spin"></i> Loading your music...
-                </div>
-                <div id="song-list" class="song-list"></div>
-            </div>
-        </section>
-
-    </main>
-
-    <script src="personal.js"></script>
-    <script src="script.js"></script> <!-- Main script for cursor effects -->
+    <h1>Under Construction</h1>
+    <p>This side of me is still loading...</p>
+    <a href="index.html" class="back-link">Return Home</a>
 </body>
 
 </html>
