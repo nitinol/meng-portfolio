@@ -130,99 +130,6 @@
                 opacity: 1;
             }
         }
-
-        .demo-panel {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 30;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 15px 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 95vw;
-        }
-
-        .demo-title {
-            font-size: 0.65rem;
-            text-align: center;
-            margin-bottom: 10px;
-            opacity: 0.5;
-            letter-spacing: 2px;
-        }
-
-        .demo-row {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 6px;
-        }
-
-        .demo-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .demo-row button {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 5px 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.6rem;
-            transition: all 0.2s;
-        }
-
-        .demo-row button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .demo-row button.active {
-            background: rgba(80, 140, 255, 0.4);
-            border-color: rgba(80, 140, 255, 0.6);
-        }
-
-        .wind-slider-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .wind-slider-row label {
-            font-size: 0.65rem;
-            opacity: 0.7;
-        }
-
-        .wind-slider-row input[type="range"] {
-            width: 200px;
-            height: 4px;
-            -webkit-appearance: none;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            cursor: pointer;
-        }
-
-        .wind-slider-row input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            background: white;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .wind-value {
-            font-size: 0.7rem;
-            min-width: 55px;
-            text-align: right;
-        }
     </style>
 </head>
 
@@ -247,48 +154,7 @@
         <div class="subtitle">Under Development</div>
     </div>
 
-    <div id="demoPanel" class="demo-panel" style="display: none;">
-        <div class="demo-title">🎬 COMPREHENSIVE WEATHER DEMO</div>
-        <div class="demo-row">
-            <button onclick="setDemo({code:0,wind:0,temp:25,hum:50})">☀️ Clear</button>
-            <button onclick="setDemo({code:1,wind:5,temp:28,hum:55})">🌤️ Sunny</button>
-            <button onclick="setDemo({code:2,wind:8,temp:22,hum:60})">⛅ Partly</button>
-            <button onclick="setDemo({code:3,wind:10,temp:18,hum:70})">☁️ Cloudy</button>
-            <button onclick="setDemo({code:3,wind:5,temp:15,hum:75})">🌥️ Overcast</button>
-        </div>
-        <div class="demo-row">
-            <button onclick="setDemo({code:51,wind:5,temp:12,hum:85})">🌧️ Drizzle</button>
-            <button onclick="setDemo({code:61,wind:8,temp:14,hum:80})">🌧️ Light Rain</button>
-            <button onclick="setDemo({code:63,wind:12,temp:13,hum:85})">🌧️ Rain</button>
-            <button onclick="setDemo({code:65,wind:15,temp:11,hum:90})">🌧️ Heavy</button>
-            <button onclick="setDemo({code:65,wind:35,temp:10,hum:88})">🌬️ Windy Rain</button>
-        </div>
-        <div class="demo-row">
-            <button onclick="setDemo({code:71,wind:5,temp:-2,hum:75})">🌨️ Light Snow</button>
-            <button onclick="setDemo({code:73,wind:10,temp:-5,hum:80})">🌨️ Snow</button>
-            <button onclick="setDemo({code:75,wind:20,temp:-8,hum:85})">❄️ Heavy</button>
-            <button onclick="setDemo({code:75,wind:45,temp:-12,hum:90})">🌨️ Blizzard</button>
-            <button onclick="setDemo({code:77,wind:8,temp:-3,hum:70})">🌨️ Flurries</button>
-        </div>
-        <div class="demo-row">
-            <button onclick="setDemo({code:95,wind:25,temp:18,hum:85})">⛈️ Thunder</button>
-            <button onclick="setDemo({code:96,wind:40,temp:15,hum:90})">⛈️ Severe</button>
-            <button onclick="setDemo({code:45,wind:2,temp:8,hum:95})">🌫️ Fog</button>
-            <button onclick="setDemo({code:48,wind:3,temp:2,hum:98})">🌫️ Dense Fog</button>
-            <button onclick="setDemo({code:0,wind:3,temp:20,hum:92})">🌫️ Haze</button>
-        </div>
-        <div class="demo-row">
-            <button onclick="setDemo({code:0,wind:0,temp:38,hum:30})">🔥 Hot</button>
-            <button onclick="setDemo({code:0,wind:0,temp:-15,hum:60})">🥶 Freezing</button>
-            <button onclick="setDemo({code:66,wind:10,temp:-1,hum:85})">🧊 Freezing Rain</button>
-            <button onclick="resetDemo()" style="background:#522;">🔄</button>
-        </div>
-        <div class="wind-slider-row">
-            <label>💨 Wind:</label>
-            <input type="range" id="windSlider" min="0" max="60" value="10" oninput="updateWind(this.value)">
-            <span class="wind-value" id="windValue">10 km/h</span>
-        </div>
-    </div>
+
 
     <script>
         // ==========================================
@@ -306,9 +172,7 @@
             isDay: 1,
             sunrise: 7, sunset: 19,
             timezone: "UTC",
-            debug: false,
-            demoMode: false,
-            demo: { code: 0, wind: 5, temp: 20, hum: 50 },
+
             locationSource: "pending"
         };
 
@@ -324,7 +188,7 @@
             canvas: document.getElementById('weatherCanvas'),
             topBar: document.querySelector('.top-bar'),
             centerTitle: document.querySelector('.title'),
-            demoPanel: document.getElementById('demoPanel')
+
         };
 
         const CTX = ELS.canvas.getContext('2d');
@@ -337,66 +201,7 @@
         let starsData = [];
         let comets = [];
 
-        // ==========================================
-        //  DEMO SYSTEM
-        // ==========================================
-        function setDemo(cfg) {
-            STATE.demoMode = true;
-            STATE.demo = cfg;
-            STATE.weatherCode = cfg.code;
-            STATE.windSpeed = cfg.wind;
-            STATE.temp = cfg.temp;
-            STATE.humidity = cfg.hum;
-            STATE.sunrise = 6;
-            STATE.sunset = STATE.isDay ? 20 : 16;
-            particles = [];
-            splashes = [];
-            hazeParticles = [];
-            tickClock();
-            document.querySelectorAll('.demo-row button').forEach(b => b.classList.remove('active'));
-            if (event?.target) event.target.classList.add('active');
 
-            // Sync wind slider with button's wind value
-            const slider = document.getElementById('windSlider');
-            const valueEl = document.getElementById('windValue');
-            if (slider && valueEl) {
-                slider.value = cfg.wind;
-                valueEl.textContent = cfg.wind + ' km/h';
-            }
-        }
-
-        function updateWind(value) {
-            // Update wind speed in real-time via slider
-            const wind = parseInt(value);
-            STATE.demo.wind = wind;
-            STATE.windSpeed = wind;
-            document.getElementById('windValue').textContent = wind + ' km/h';
-
-            // Enable demo mode if not already
-            if (!STATE.demoMode) {
-                STATE.demoMode = true;
-                STATE.demo.code = STATE.weatherCode;
-                STATE.demo.temp = STATE.temp;
-                STATE.demo.hum = STATE.humidity;
-            }
-        }
-
-        function resetDemo() {
-            STATE.demoMode = false;
-            particles = [];
-            splashes = [];
-            hazeParticles = [];
-            fetchWeather();
-            document.querySelectorAll('.demo-row button').forEach(b => b.classList.remove('active'));
-
-            // Reset slider to current real wind
-            const slider = document.getElementById('windSlider');
-            const valueEl = document.getElementById('windValue');
-            if (slider && valueEl) {
-                slider.value = STATE.windSpeed;
-                valueEl.textContent = STATE.windSpeed + ' km/h';
-            }
-        }
 
         // ==========================================
         //  INITIALIZATION
@@ -405,9 +210,8 @@
             setupCanvas();
             window.addEventListener('resize', setupCanvas);
             initStars();
-            ELS.topBar.onclick = toggleDebug;
             setInterval(tickClock, 1000);
-            setInterval(() => { if (!STATE.demoMode) fetchWeather(); }, 60000);
+            setInterval(fetchWeather, 60000);
             requestAnimationFrame(renderLoop);
             await getLocation();
         }
@@ -518,12 +322,12 @@
         }
 
         // ==========================================
-        //  GET CURRENT VALUES (Live or Demo)
+        //  GET CURRENT VALUES
         // ==========================================
-        function getCode() { return STATE.demoMode ? STATE.demo.code : STATE.weatherCode; }
-        function getWind() { return STATE.demoMode ? STATE.demo.wind : STATE.windSpeed; }
-        function getTemp() { return STATE.demoMode ? STATE.demo.temp : STATE.temp; }
-        function getHum() { return STATE.demoMode ? STATE.demo.hum : STATE.humidity; }
+        function getCode() { return STATE.weatherCode; }
+        function getWind() { return STATE.windSpeed; }
+        function getTemp() { return STATE.temp; }
+        function getHum() { return STATE.humidity; }
 
         // ==========================================
         //  WEATHER MAPPING SYSTEMS
@@ -631,7 +435,7 @@
         //  SKY & TIME RENDERING
         // ==========================================
         function tickClock() {
-            if (!STATE.loaded && !STATE.demoMode) return;
+            if (!STATE.loaded) return;
 
             const code = getCode();
             const wind = getWind();
@@ -640,10 +444,10 @@
 
             // UI
             ELS.icon.textContent = getWeatherIcon(code, STATE.isDay);
-            ELS.temp.textContent = STATE.demoMode ? "DEMO" : `${STATE.temp}°`;
+            ELS.temp.textContent = `${STATE.temp}°`;
 
             // Time
-            let time = STATE.demoMode ? (STATE.isDay ? 12 : 22) : getRemoteTime(STATE.timezone);
+            let time = getRemoteTime(STATE.timezone);
             const sunR = STATE.sunrise, sunS = STATE.sunset;
 
             // Sky gradient
@@ -702,23 +506,7 @@
             ELS.stars.style.opacity = starOp;
         }
 
-        function toggleDebug() {
-            STATE.debug = !STATE.debug;
-            ELS.demoPanel.style.display = STATE.debug ? 'block' : 'none';
 
-            if (STATE.debug) {
-                const wind = getWind();
-                const temp = getTemp();
-                const hum = getHum();
-                ELS.centerTitle.textContent = `${STATE.lat?.toFixed(2)}, ${STATE.lon?.toFixed(2)}\nWind: ${wind}km/h | Temp: ${temp}°C | Hum: ${hum}%`;
-                ELS.centerTitle.style.fontSize = "0.8rem";
-                ELS.centerTitle.style.whiteSpace = "pre-line";
-            } else {
-                ELS.centerTitle.textContent = "Menguhan";
-                ELS.centerTitle.style.fontSize = "3rem";
-                ELS.centerTitle.style.whiteSpace = "normal";
-            }
-        }
 
         // ==========================================
         //  CINEMATIC RENDER LOOP
@@ -731,7 +519,7 @@
             STAR_CTX.clearRect(0, 0, w, h);
             HAZE_CTX.clearRect(0, 0, w, h);
 
-            if (!STATE.loaded && !STATE.demoMode) {
+            if (!STATE.loaded) {
                 requestAnimationFrame(renderLoop);
                 return;
             }
