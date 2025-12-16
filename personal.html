@@ -68,6 +68,9 @@
             right: 50px;
             z-index: 20;
             font-weight: 300;
+            cursor: pointer;
+            /* Clickable */
+            user-select: none;
         }
 
         .mini-stat {
@@ -77,8 +80,6 @@
             font-size: 1.5rem;
             /* Larger, cleaner text */
             opacity: 0.9;
-            /* No background, "Text Only" */
-            cursor: default;
         }
 
         .weather-icon {
@@ -161,7 +162,10 @@
             windSpeed: 0,
             humidity: 0,
             isDay: 1,
-            thunderTimer: 0
+            sunrise: 7, // Default 
+            sunset: 19, // Default 
+            thunderTimer: 0,
+            debug: false
         };
 
         const ELS = {
@@ -171,7 +175,9 @@
             flash: document.getElementById('flashOverlay'),
             icon: document.getElementById('wIcon'),
             temp: document.getElementById('wTemp'),
-            canvas: document.getElementById('weatherCanvas')
+            canvas: document.getElementById('weatherCanvas'),
+            topBar: document.querySelector('.top-bar'),
+            centerTitle: document.querySelector('.title')
         };
         const CTX = ELS.canvas.getContext('2d');
         const STAR_CTX = ELS.stars.getContext('2d');
@@ -180,6 +186,18 @@
             resize();
             window.onresize = resize;
             renderStars();
+
+            // Click to toggle Debug Location
+            ELS.topBar.onclick = () => {
+                STATE.debug = !STATE.debug;
+                if (STATE.debug) {
+                    ELS.centerTitle.textContent = `${STATE.lat.toFixed(2)}, ${STATE.lon.toFixed(2)}`;
+                    ELS.centerTitle.style.fontSize = "1rem";
+                } else {
+                    ELS.centerTitle.textContent = "Menguhan";
+                    ELS.centerTitle.style.fontSize = "3rem";
+                }
+            };
 
             setInterval(tickClock, 1000);
             setInterval(fetchData, 60000);
@@ -190,7 +208,7 @@
                     STATE.lat = pos.coords.latitude;
                     STATE.lon = pos.coords.longitude;
                     fetchData();
-                }, () => fetchData());
+                }, () => fetchData(), { enableHighAccuracy: true });
             } else fetchData();
         }
 
@@ -218,7 +236,8 @@
 
         async function fetchData() {
             try {
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${STATE.lat}&longitude=${STATE.lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&timezone=auto`;
+                // TRUE SOLAR: Getting daily=sunrise,sunset
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${STATE.lat}&longitude=${STATE.lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=auto`;
                 const res = await fetch(url);
                 const data = await res.json();
 
@@ -227,6 +246,15 @@
                 STATE.isDay = data.current.is_day;
                 STATE.weatherCode = data.current.weather_code;
                 STATE.windSpeed = data.current.wind_speed_10m;
+
+                if (data.daily) {
+                    const getHour = (iso) => {
+                        const d = new Date(iso);
+                        return d.getHours() + (d.getMinutes() / 60);
+                    };
+                    STATE.sunrise = getHour(data.daily.sunrise[0]);
+                    STATE.sunset = getHour(data.daily.sunset[0]);
+                }
 
                 STATE.loaded = true;
                 tickClock();
@@ -246,28 +274,42 @@
                 ELS.icon.textContent = "•";
             }
 
-            // --- SKY CALCULATION ---
+            // --- TRUE SOLAR CYCLE ---
             const time = h + (m / 60);
+            const sunR = STATE.sunrise;
+            const sunS = STATE.sunset;
+
+            // Colors
+            const C_DEEP_NIGHT = [[222, 47, 11], [222, 47, 15]];
+            const C_PRE_DAWN = [[222, 47, 15], [222, 47, 20]];
+            const C_DAWN = [[210, 80, 50], [25, 90, 60]];
+            const C_DAY = [[200, 90, 50], [195, 90, 80]];
+            const C_SUNSET = [[260, 60, 30], [340, 70, 60]];
+            const C_TWILIGHT = [[240, 50, 20], [240, 50, 10]];
 
             const keys = [
-                { t: 0, c: [[222, 47, 11], [222, 47, 15]] },
-                { t: 5, c: [[222, 47, 15], [222, 47, 20]] },
-                { t: 7, c: [[210, 80, 50], [25, 90, 60]] },
-                { t: 10, c: [[200, 90, 50], [195, 90, 80]] },
-                { t: 16, c: [[200, 90, 50], [195, 90, 80]] },
-                { t: 18, c: [[220, 80, 40], [320, 70, 60]] },
-                { t: 20, c: [[240, 50, 20], [240, 50, 10]] },
-                { t: 24, c: [[222, 47, 11], [222, 47, 15]] }
+                { t: 0, c: C_DEEP_NIGHT },
+                { t: sunR - 1.5, c: C_PRE_DAWN },
+                { t: sunR, c: C_DAWN },
+                { t: sunR + 1.5, c: C_DAY },
+                { t: sunS - 1.5, c: C_DAY },
+                { t: sunS, c: C_SUNSET },
+                { t: sunS + 1.0, c: C_TWILIGHT },
+                { t: 24, c: C_DEEP_NIGHT }
             ];
 
             let start = keys[0];
             let end = keys[keys.length - 1];
+
             for (let i = 0; i < keys.length - 1; i++) {
                 if (time >= keys[i].t && time < keys[i + 1].t) {
                     start = keys[i]; end = keys[i + 1]; break;
                 }
             }
-            const p = (time - start.t) / (end.t - start.t);
+
+            let p = 0;
+            if (end.t !== start.t) p = (time - start.t) / (end.t - start.t);
+            p = Math.max(0, Math.min(1, p));
 
             const top = lerpColorHSL(start.c[0], end.c[0], p);
             const bot = lerpColorHSL(start.c[1], end.c[1], p);
@@ -281,18 +323,17 @@
             ELS.sky.style.background = `linear-gradient(to bottom, ${topFinal}, ${botFinal})`;
             ELS.overlay.style.background = mod.overlay;
 
-            // --- DYNAMIC TEXT COLOR (Contrast) ---
-            if (topL > 60) {
-                document.body.style.color = 'rgba(0,0,0,0.8)';
-            } else {
-                document.body.style.color = 'white';
-            }
+            // Contrast
+            if (topL > 60) document.body.style.color = 'rgba(0,0,0,0.8)';
+            else document.body.style.color = 'white';
 
-            // --- STAR LOGIC ---
+            // Stars
             let starOp = 0;
-            if (time >= 20 || time < 6) starOp = 1;
-            if (time >= 19 && time < 21) starOp = (time - 19) / 2;
-            if (time >= 5 && time < 7) starOp = 1 - ((time - 5) / 2);
+            const isDark = (time > (sunS + 0.5)) || (time < (sunR - 1.0));
+            if (isDark) starOp = 1;
+
+            if (time >= sunS && time < sunS + 0.5) starOp = (time - sunS) / 0.5;
+            if (time >= sunR - 1 && time < sunR) starOp = 1 - (time - (sunR - 1));
 
             if (STATE.weatherCode > 2) starOp = 0;
             else if (STATE.weatherCode === 2) starOp *= 0.5;
