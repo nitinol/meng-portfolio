@@ -17,22 +17,20 @@
             overflow: hidden;
             font-family: 'Montserrat', sans-serif;
             color: white;
-            /* Default, controlled by JS */
             background: #000;
             transition: color 1s ease;
         }
 
-        /* LAYERS */
         #skyLayer,
         #starCanvas,
         #weatherOverlay,
         #flashOverlay,
         #weatherCanvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
         }
 
@@ -61,15 +59,13 @@
             z-index: 4;
         }
 
-        /* TOP RIGHT PANEL (Just Degree) */
         .top-bar {
-            position: absolute;
+            position: fixed;
             top: 40px;
             right: 50px;
             z-index: 20;
             font-weight: 300;
             cursor: pointer;
-            /* Clickable */
             user-select: none;
         }
 
@@ -78,7 +74,6 @@
             align-items: center;
             gap: 10px;
             font-size: 1.5rem;
-            /* Larger, cleaner text */
             opacity: 0.9;
         }
 
@@ -90,9 +85,8 @@
             font-weight: 200;
         }
 
-        /* CENTER MESSAGE */
         .center-message {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -108,6 +102,7 @@
             letter-spacing: 4px;
             margin-bottom: 10px;
             text-transform: uppercase;
+            transition: font-size 0.3s;
         }
 
         .subtitle {
@@ -127,24 +122,19 @@
 </head>
 
 <body>
-
-    <!-- SCENE LAYERS -->
     <div id="skyLayer"></div>
     <canvas id="starCanvas"></canvas>
     <div id="weatherOverlay"></div>
     <div id="flashOverlay"></div>
     <canvas id="weatherCanvas"></canvas>
 
-    <!-- TOP RIGHT INFO -->
     <div class="top-bar">
-        <!-- Weather Text Only -->
         <div class="mini-stat" id="weatherBox">
             <span id="wIcon" class="weather-icon"></span>
             <span id="wTemp" class="degree-text">--°</span>
         </div>
     </div>
 
-    <!-- CENTER TEXT -->
     <div class="center-message">
         <div class="title">Menguhan</div>
         <div class="subtitle">Under Development</div>
@@ -152,10 +142,13 @@
 
     <script>
         // ==========================================
-        //  THE ENGINE
+        //  LIVING ATMOSPHERE ENGINE v2.0
+        //  Fixed: Location, Canvas Scaling, Particles
         // ==========================================
+
         const STATE = {
-            lat: 40.18, lon: 29.06,
+            lat: null,
+            lon: null,
             loaded: false,
             temp: 0,
             weatherCode: 0,
@@ -165,8 +158,8 @@
             sunrise: 7,
             sunset: 19,
             timezone: "UTC",
-            thunderTimer: 0,
-            debug: false
+            debug: false,
+            locationSource: "pending"
         };
 
         const ELS = {
@@ -180,69 +173,143 @@
             topBar: document.querySelector('.top-bar'),
             centerTitle: document.querySelector('.title')
         };
+
         const CTX = ELS.canvas.getContext('2d');
         const STAR_CTX = ELS.stars.getContext('2d');
 
-        // Star & Comet Data
+        // FIX: Declare particles array
+        let particles = [];
         let starsData = [];
         let comets = [];
 
-        function init() {
-            resize();
-            window.onresize = resize;
+        // ==========================================
+        //  INITIALIZATION
+        // ==========================================
+        async function init() {
+            console.log("[Engine] Initializing...");
 
-            // Init Stars (Dynamic)
+            setupCanvas();
+            window.addEventListener('resize', setupCanvas);
+
             initStars();
 
-            ELS.topBar.onclick = () => {
-                STATE.debug = !STATE.debug;
-                if (STATE.debug) {
-                    ELS.centerTitle.textContent = `${STATE.lat.toFixed(2)}, ${STATE.lon.toFixed(2)} [${STATE.timezone}]`;
-                    ELS.centerTitle.style.fontSize = "1rem";
-                } else {
-                    ELS.centerTitle.textContent = "Menguhan";
-                    ELS.centerTitle.style.fontSize = "3rem";
-                }
-            };
+            ELS.topBar.onclick = toggleDebug;
 
+            // Start loops
             setInterval(tickClock, 1000);
-            setInterval(fetchData, 60000);
+            setInterval(fetchWeather, 60000);
             requestAnimationFrame(renderLoop);
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    STATE.lat = pos.coords.latitude;
-                    STATE.lon = pos.coords.longitude;
-                    fetchData();
-                }, () => fetchData(), { enableHighAccuracy: true });
-            } else fetchData();
+            // Get location (IP-based first, then try GPS)
+            await getLocation();
         }
 
-        function resize() {
-            ELS.canvas.width = window.innerWidth;
-            ELS.canvas.height = window.innerHeight;
-            ELS.stars.width = window.innerWidth;
-            ELS.stars.height = window.innerHeight;
+        // FIX: Proper canvas scaling for zoom/devicePixelRatio
+        function setupCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
+            // Weather canvas
+            ELS.canvas.width = w * dpr;
+            ELS.canvas.height = h * dpr;
+            ELS.canvas.style.width = w + 'px';
+            ELS.canvas.style.height = h + 'px';
+            CTX.scale(dpr, dpr);
+
+            // Star canvas
+            ELS.stars.width = w * dpr;
+            ELS.stars.height = h * dpr;
+            ELS.stars.style.width = w + 'px';
+            ELS.stars.style.height = h + 'px';
+            STAR_CTX.scale(dpr, dpr);
+
+            // Re-init stars with new dimensions
             initStars();
+
+            console.log(`[Canvas] Resized to ${w}x${h} (DPR: ${dpr})`);
         }
 
         function initStars() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
             starsData = [];
             for (let i = 0; i < 400; i++) {
                 starsData.push({
-                    x: Math.random() * ELS.stars.width,
-                    y: Math.random() * ELS.stars.height * 0.8,
-                    size: Math.random() * 1.5,
+                    x: Math.random() * w,
+                    y: Math.random() * h * 0.8,
+                    size: Math.random() * 1.5 + 0.5,
                     alpha: Math.random() * 0.8 + 0.2,
-                    tSpeed: Math.random() * 0.05 + 0.005,
+                    tSpeed: Math.random() * 0.03 + 0.005,
                     tPhase: Math.random() * Math.PI * 2
                 });
             }
         }
 
-        async function fetchData() {
+        // ==========================================
+        //  LOCATION (IP-based, no permission needed)
+        // ==========================================
+        async function getLocation() {
+            console.log("[Location] Getting location...");
+
+            // Method 1: IP-based (always works, no permission)
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                if (data.latitude && data.longitude) {
+                    STATE.lat = data.latitude;
+                    STATE.lon = data.longitude;
+                    STATE.locationSource = "IP";
+                    console.log(`[Location] IP-based: ${STATE.lat}, ${STATE.lon}`);
+                    await fetchWeather();
+                    return;
+                }
+            } catch (e) {
+                console.warn("[Location] IP lookup failed:", e);
+            }
+
+            // Method 2: Try browser geolocation
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                        STATE.lat = pos.coords.latitude;
+                        STATE.lon = pos.coords.longitude;
+                        STATE.locationSource = "GPS";
+                        console.log(`[Location] GPS: ${STATE.lat}, ${STATE.lon}`);
+                        await fetchWeather();
+                    },
+                    async (err) => {
+                        console.warn("[Location] GPS failed:", err.message);
+                        // Fallback to default
+                        if (!STATE.lat) {
+                            STATE.lat = 40.18;
+                            STATE.lon = 29.06;
+                            STATE.locationSource = "DEFAULT";
+                            await fetchWeather();
+                        }
+                    },
+                    { enableHighAccuracy: false, timeout: 5000 }
+                );
+            } else {
+                // No geolocation support, use default
+                STATE.lat = 40.18;
+                STATE.lon = 29.06;
+                STATE.locationSource = "DEFAULT";
+                await fetchWeather();
+            }
+        }
+
+        // ==========================================
+        //  WEATHER API
+        // ==========================================
+        async function fetchWeather() {
+            if (!STATE.lat || !STATE.lon) return;
+
             try {
                 const url = `https://api.open-meteo.com/v1/forecast?latitude=${STATE.lat}&longitude=${STATE.lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=auto`;
+                console.log("[Weather] Fetching:", url);
+
                 const res = await fetch(url);
                 const data = await res.json();
 
@@ -251,27 +318,34 @@
                 STATE.isDay = data.current.is_day;
                 STATE.weatherCode = data.current.weather_code;
                 STATE.windSpeed = data.current.wind_speed_10m;
-                STATE.timezone = data.timezone; // STORE IT
+                STATE.timezone = data.timezone;
 
                 if (data.daily) {
-                    const getHour = (iso) => {
-                        const d = new Date(iso);
-                        return d.getHours() + (d.getMinutes() / 60);
-                    };
-                    STATE.sunrise = getHour(data.daily.sunrise[0]);
-                    STATE.sunset = getHour(data.daily.sunset[0]);
+                    STATE.sunrise = parseTimeToHours(data.daily.sunrise[0]);
+                    STATE.sunset = parseTimeToHours(data.daily.sunset[0]);
                 }
 
                 STATE.loaded = true;
+                console.log(`[Weather] Loaded: ${STATE.temp}°, Code: ${STATE.weatherCode}, TZ: ${STATE.timezone}`);
+
                 tickClock();
-            } catch (e) { console.error("API Error", e); }
+            } catch (e) {
+                console.error("[Weather] API Error:", e);
+            }
         }
 
-        // Helper: Get Decimal Hour for specific Timezone
+        function parseTimeToHours(isoString) {
+            const d = new Date(isoString);
+            return d.getHours() + (d.getMinutes() / 60);
+        }
+
+        // ==========================================
+        //  TIME & SKY COLOR
+        // ==========================================
         function getRemoteTime(tz) {
             try {
-                const s = new Date().toLocaleString("en-US", { timeZone: tz });
-                const d = new Date(s);
+                const str = new Date().toLocaleString("en-US", { timeZone: tz });
+                const d = new Date(str);
                 return d.getHours() + (d.getMinutes() / 60);
             } catch (e) {
                 const d = new Date();
@@ -280,19 +354,19 @@
         }
 
         function tickClock() {
-            if (STATE.loaded) {
-                ELS.temp.textContent = `${STATE.temp}°`;
-                const cond = getWeatherCondition(STATE.weatherCode);
-                ELS.icon.textContent = STATE.isDay ? cond.icon : cond.iconNight;
-            } else {
-                ELS.icon.textContent = "•";
-            }
+            if (!STATE.loaded) return;
 
-            // --- CRITICAL FIX: USE REMOTE TIME ---
+            // Update UI
+            ELS.temp.textContent = `${STATE.temp}°`;
+            const cond = getWeatherCondition(STATE.weatherCode);
+            ELS.icon.textContent = STATE.isDay ? cond.icon : cond.iconNight;
+
+            // Calculate sky color based on REMOTE time
             const time = getRemoteTime(STATE.timezone);
             const sunR = STATE.sunrise;
             const sunS = STATE.sunset;
 
+            // Color keyframes
             const C_DEEP_NIGHT = [[222, 47, 11], [222, 47, 15]];
             const C_PRE_DAWN = [[222, 47, 15], [222, 47, 20]];
             const C_DAWN = [[210, 80, 50], [25, 90, 60]];
@@ -316,12 +390,13 @@
 
             for (let i = 0; i < keys.length - 1; i++) {
                 if (time >= keys[i].t && time < keys[i + 1].t) {
-                    start = keys[i]; end = keys[i + 1]; break;
+                    start = keys[i];
+                    end = keys[i + 1];
+                    break;
                 }
             }
 
-            let p = 0;
-            if (end.t !== start.t) p = (time - start.t) / (end.t - start.t);
+            let p = (end.t !== start.t) ? (time - start.t) / (end.t - start.t) : 0;
             p = Math.max(0, Math.min(1, p));
 
             const top = lerpColorHSL(start.c[0], end.c[0], p);
@@ -336,10 +411,10 @@
             ELS.sky.style.background = `linear-gradient(to bottom, ${topFinal}, ${botFinal})`;
             ELS.overlay.style.background = mod.overlay;
 
-            if (topL > 60) document.body.style.color = 'rgba(0,0,0,0.8)';
-            else document.body.style.color = 'white';
+            // Text contrast
+            document.body.style.color = topL > 60 ? 'rgba(0,0,0,0.8)' : 'white';
 
-            // --- STAR OPACITY (Remote Time Logic) ---
+            // Star visibility
             let starOp = 0;
             const isDark = (time > (sunS + 0.5)) || (time < (sunR - 1.0));
             if (isDark) starOp = 1;
@@ -353,34 +428,52 @@
             ELS.stars.style.opacity = starOp;
         }
 
-        // ==========================
-        // 4. ANIMATION LOOP (Particles + Stars)
-        // ==========================
+        // ==========================================
+        //  DEBUG TOGGLE
+        // ==========================================
+        function toggleDebug() {
+            STATE.debug = !STATE.debug;
+            if (STATE.debug) {
+                const time = getRemoteTime(STATE.timezone);
+                ELS.centerTitle.textContent = `${STATE.lat?.toFixed(2) || '?'}, ${STATE.lon?.toFixed(2) || '?'} [${STATE.locationSource}]\n${STATE.timezone} | ${time.toFixed(2)}h`;
+                ELS.centerTitle.style.fontSize = "0.9rem";
+                ELS.centerTitle.style.whiteSpace = "pre-line";
+            } else {
+                ELS.centerTitle.textContent = "Menguhan";
+                ELS.centerTitle.style.fontSize = "3rem";
+                ELS.centerTitle.style.whiteSpace = "normal";
+            }
+        }
+
+        // ==========================================
+        //  RENDER LOOP
+        // ==========================================
         function renderLoop() {
-            // Weather
-            CTX.clearRect(0, 0, ELS.canvas.width, ELS.canvas.height);
+            const w = window.innerWidth;
+            const h = window.innerHeight;
 
-            // Stars & Comets (Clear for animation)
-            STAR_CTX.clearRect(0, 0, ELS.stars.width, ELS.stars.height);
+            // Clear canvases
+            CTX.clearRect(0, 0, w, h);
+            STAR_CTX.clearRect(0, 0, w, h);
 
-            if (!STATE.loaded) { requestAnimationFrame(renderLoop); return; }
+            if (!STATE.loaded) {
+                requestAnimationFrame(renderLoop);
+                return;
+            }
 
-            // --- STARS LOGIC ---
-            // Only draw/animate if visible
+            // Stars
             const starOp = parseFloat(ELS.stars.style.opacity || 0);
-
             if (starOp > 0) {
                 STAR_CTX.fillStyle = "white";
-                starsData.forEach(s => {
-                    // Twinkle
-                    s.tPhase += s.tSpeed;
-                    const twinkle = Math.sin(s.tPhase) * 0.5; // +/- 0.5 opacity
-                    let a = s.alpha + (twinkle * 0.3);
-                    if (a < 0) a = 0; if (a > 1) a = 1;
 
-                    // Drift (Left)
-                    s.x -= 0.05;
-                    if (s.x < 0) s.x = ELS.stars.width;
+                starsData.forEach(s => {
+                    s.tPhase += s.tSpeed;
+                    const twinkle = Math.sin(s.tPhase) * 0.3;
+                    let a = s.alpha + twinkle;
+                    a = Math.max(0.1, Math.min(1, a));
+
+                    s.x -= 0.03;
+                    if (s.x < 0) s.x = w;
 
                     STAR_CTX.globalAlpha = a;
                     STAR_CTX.beginPath();
@@ -388,89 +481,96 @@
                     STAR_CTX.fill();
                 });
 
-                // --- COMET LOGIC ---
-                // Random spawn chance (rare)
-                if (Math.random() < 0.001) {
+                // Comets
+                if (Math.random() < 0.0008) {
                     comets.push({
-                        x: Math.random() < 0.5 ? ELS.stars.width : 0, // From side
-                        y: Math.random() * ELS.stars.height * 0.5,
-                        dx: (Math.random() > 0.5 ? -1 : 1) * (4 + Math.random() * 4), // Fast
-                        dy: 1 + Math.random(), // Downwards slightly
-                        len: 50 + Math.random() * 100,
+                        x: Math.random() < 0.5 ? w : 0,
+                        y: Math.random() * h * 0.5,
+                        dx: (Math.random() > 0.5 ? -1 : 1) * (5 + Math.random() * 5),
+                        dy: 1.5 + Math.random(),
                         life: 1.0
                     });
                 }
 
-                // Draw Comets
-                for (let i = 0; i < comets.length; i++) {
+                for (let i = comets.length - 1; i >= 0; i--) {
                     let c = comets[i];
                     c.x += c.dx;
                     c.y += c.dy;
-                    c.life -= 0.01;
+                    c.life -= 0.012;
 
-                    if (c.life <= 0 || c.x < -200 || c.x > ELS.stars.width + 200) {
-                        comets.splice(i, 1); i--; continue;
+                    if (c.life <= 0 || c.x < -100 || c.x > w + 100) {
+                        comets.splice(i, 1);
+                        continue;
                     }
 
-                    // Draw Head
-                    const grad = STAR_CTX.createLinearGradient(c.x, c.y, c.x - c.dx * 30, c.y - c.dy * 30);
+                    const grad = STAR_CTX.createLinearGradient(c.x, c.y, c.x - c.dx * 25, c.y - c.dy * 25);
                     grad.addColorStop(0, `rgba(255,255,255,${c.life})`);
                     grad.addColorStop(1, `rgba(255,255,255,0)`);
 
                     STAR_CTX.strokeStyle = grad;
                     STAR_CTX.lineWidth = 2;
+                    STAR_CTX.globalAlpha = 1;
                     STAR_CTX.beginPath();
                     STAR_CTX.moveTo(c.x, c.y);
-                    STAR_CTX.lineTo(c.x - c.dx * 20, c.y - c.dy * 20); // Trail
+                    STAR_CTX.lineTo(c.x - c.dx * 20, c.y - c.dy * 20);
                     STAR_CTX.stroke();
                 }
             }
 
-            // --- WEATHER PARTICLES LOGIC ---
+            // Weather particles
             const cfg = getParticleConfig(STATE.weatherCode);
 
-            if (cfg.thunder && Math.random() < 0.005) {
-                ELS.flash.style.opacity = 0.8;
-                setTimeout(() => ELS.flash.style.opacity = 0, 100);
+            if (cfg.thunder && Math.random() < 0.004) {
+                ELS.flash.style.opacity = 0.7;
+                setTimeout(() => ELS.flash.style.opacity = 0, 80);
             }
 
-            if (cfg.type !== 'none' && particles.length < cfg.count) {
-                particles.push(createParticle(cfg));
+            while (cfg.type !== 'none' && particles.length < cfg.count) {
+                particles.push(createParticle(cfg, w, h));
             }
 
             CTX.fillStyle = 'rgba(255,255,255,0.6)';
             CTX.strokeStyle = 'rgba(255,255,255,0.4)';
             CTX.lineWidth = 1;
 
-            for (let i = 0; i < particles.length; i++) {
+            for (let i = particles.length - 1; i >= 0; i--) {
                 let p = particles[i];
                 p.y += p.dy;
-                p.x += p.dx + (STATE.windSpeed * 0.2);
+                p.x += p.dx + (STATE.windSpeed * 0.15);
 
                 if (p.type === 'rain') {
-                    CTX.beginPath(); CTX.moveTo(p.x, p.y);
-                    CTX.lineTo(p.x + (STATE.windSpeed * 0.2), p.y + p.len); CTX.stroke();
+                    CTX.beginPath();
+                    CTX.moveTo(p.x, p.y);
+                    CTX.lineTo(p.x + (STATE.windSpeed * 0.15), p.y + p.len);
+                    CTX.stroke();
                 } else if (p.type === 'snow') {
-                    p.x += Math.sin(p.y * 0.01) * 0.5;
-                    CTX.beginPath(); CTX.arc(p.x, p.y, p.size, 0, Math.PI * 2); CTX.fill();
+                    p.x += Math.sin(p.y * 0.01) * 0.4;
+                    CTX.globalAlpha = 0.8;
+                    CTX.beginPath();
+                    CTX.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    CTX.fill();
+                    CTX.globalAlpha = 1;
                 } else if (p.type === 'fog') {
-                    CTX.fillStyle = `rgba(255,255,255, ${0.05})`;
-                    CTX.beginPath(); CTX.arc(p.x, p.y, p.size, 0, Math.PI * 2); CTX.fill();
-                    CTX.fillStyle = 'rgba(255,255,255,0.6)';
+                    CTX.globalAlpha = 0.03;
+                    CTX.beginPath();
+                    CTX.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    CTX.fill();
+                    CTX.globalAlpha = 1;
                 }
 
-                if (p.y > ELS.canvas.height + 20 || p.x > ELS.canvas.width + 20) {
-                    particles.splice(i, 1); i--;
+                if (p.y > h + 30 || p.x > w + 30 || p.x < -30) {
+                    particles.splice(i, 1);
                 }
             }
+
             requestAnimationFrame(renderLoop);
         }
 
-        function createParticle(cfg) {
+        function createParticle(cfg, w, h) {
             return {
-                x: Math.random() * ELS.canvas.width,
+                x: Math.random() * w,
                 y: -20,
-                dx: (Math.random() - 0.5) * 0.5,
+                dx: (Math.random() - 0.5) * 0.4,
                 dy: cfg.speed + (Math.random() * 2),
                 size: cfg.size + Math.random(),
                 len: cfg.len + (Math.random() * 5),
@@ -478,8 +578,9 @@
             };
         }
 
-        // Helpers
-        function pad(n) { return n < 10 ? '0' + n : n; }
+        // ==========================================
+        //  HELPERS
+        // ==========================================
         function lerpColorHSL(a, b, p) {
             return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p];
         }
@@ -487,46 +588,56 @@
         function getWeatherModifier(code) {
             let sat = 1.0, light = 1.0, overlay = 'transparent';
             if (code >= 95) { sat = 0.4; light = 0.3; overlay = 'rgba(20,0,30,0.3)'; }
-            else if (code >= 60 || code >= 80) { sat = 0.5; light = 0.7; overlay = 'rgba(0,0,10,0.2)'; }
-            else if (code >= 70) { sat = 0.2; light = 1.1; overlay = 'rgba(255,255,255,0.1)'; }
-            else if (code >= 45) { sat = 0.1; light = 0.8; overlay = 'rgba(200,200,200,0.2)'; }
-            else if (code >= 3) { sat = 0.6; light = 0.9; }
+            else if (code >= 80) { sat = 0.5; light = 0.6; overlay = 'rgba(0,0,20,0.25)'; }
+            else if (code >= 70) { sat = 0.3; light = 1.0; overlay = 'rgba(255,255,255,0.1)'; }
+            else if (code >= 60) { sat = 0.5; light = 0.7; overlay = 'rgba(0,0,10,0.2)'; }
+            else if (code >= 45) { sat = 0.2; light = 0.85; overlay = 'rgba(180,180,180,0.2)'; }
+            else if (code >= 3) { sat = 0.7; light = 0.9; }
             return { sat, light, overlay };
         }
 
         function getParticleConfig(code) {
-            let c = { type: 'none', count: 0, speed: 0, size: 0, len: 0, thunder: false };
-            if (code >= 95) c = { type: 'rain', count: 300, speed: 15, size: 1, len: 20, thunder: true };
-            else if (code >= 70 && code <= 77) {
-                c = { type: 'snow', count: 200, speed: 1, size: 2, len: 0, thunder: false };
-                if (code === 71) c.count = 100; if (code === 75) { c.count = 400; c.speed = 3; }
-            } else if ((code >= 51 && code <= 67) || (code >= 80)) {
-                c = { type: 'rain', count: 200, speed: 10, size: 1, len: 15, thunder: false };
-                if (code <= 55) { c.count = 50; c.speed = 5; }
-                if (code >= 65) { c.count = 400; c.speed = 18; }
-            } else if (code === 45 || code === 48) {
-                c = { type: 'fog', count: 20, speed: 0.2, size: 50, len: 0, thunder: false };
+            if (code >= 95) return { type: 'rain', count: 350, speed: 16, size: 1, len: 22, thunder: true };
+            if (code >= 80) return { type: 'rain', count: 250, speed: 12, size: 1, len: 18, thunder: false };
+            if (code >= 70 && code <= 77) {
+                const intensity = code === 75 ? 400 : code === 71 ? 100 : 200;
+                return { type: 'snow', count: intensity, speed: 1.5, size: 2.5, len: 0, thunder: false };
             }
-            return c;
+            if (code >= 60) return { type: 'rain', count: 200, speed: 10, size: 1, len: 15, thunder: false };
+            if (code >= 51 && code <= 55) return { type: 'rain', count: 80, speed: 6, size: 1, len: 10, thunder: false };
+            if (code === 45 || code === 48) return { type: 'fog', count: 25, speed: 0.15, size: 60, len: 0, thunder: false };
+            return { type: 'none', count: 0, speed: 0, size: 0, len: 0, thunder: false };
         }
 
         function getWeatherCondition(code) {
             const map = {
-                0: { l: "Clear Sky", i: "☀️", n: "🌙" },
-                1: { l: "Mainly Clear", i: "🌤️", n: "🌙" },
-                2: { l: "Partly Cloudy", i: "⛅", n: "☁️" },
-                3: { l: "Overcast", i: "☁️", n: "☁️" },
-                45: { l: "Fog", i: "🌫️", n: "🌫️" }, 48: { l: "Rime Fog", i: "🌫️", n: "🌫️" },
-                51: { l: "Light Drizzle", i: "🌦️", n: "🌧️" }, 53: { l: "Drizzle", i: "🌦️", n: "🌧️" }, 55: { l: "Heavy Drizzle", i: "🌧️", n: "🌧️" },
-                61: { l: "Slight Rain", i: "🌦️", n: "🌧️" }, 63: { l: "Rain", i: "🌧️", n: "🌧️" }, 65: { l: "Heavy Rain", i: "🌧️", n: "🌧️" },
-                71: { l: "Light Snow", i: "🌨️", n: "🌨️" }, 73: { l: "Snow", i: "🌨️", n: "🌨️" }, 75: { l: "Heavy Snow", i: "❄️", n: "❄️" },
-                77: { l: "Snow Grains", i: "🌨️", n: "🌨️" },
-                80: { l: "Showers", i: "🌦️", n: "🌧️" }, 81: { l: "Heavy Showers", i: "🌧️", n: "🌧️" }, 82: { l: "Violent Showers", i: "⛈️", n: "⛈️" },
-                95: { l: "Thunderstorm", i: "⛈️", n: "⚡" }, 96: { l: "Thunderstorm & Hail", i: "⛈️", n: "⚡" }, 99: { l: "Heavy Hail Storm", i: "⛈️", n: "⚡" }
+                0: { l: "Clear", icon: "☀️", iconNight: "🌙" },
+                1: { l: "Mainly Clear", icon: "🌤️", iconNight: "🌙" },
+                2: { l: "Partly Cloudy", icon: "⛅", iconNight: "☁️" },
+                3: { l: "Overcast", icon: "☁️", iconNight: "☁️" },
+                45: { l: "Fog", icon: "🌫️", iconNight: "🌫️" },
+                48: { l: "Rime Fog", icon: "🌫️", iconNight: "🌫️" },
+                51: { l: "Light Drizzle", icon: "🌦️", iconNight: "🌧️" },
+                53: { l: "Drizzle", icon: "🌦️", iconNight: "🌧️" },
+                55: { l: "Heavy Drizzle", icon: "🌧️", iconNight: "🌧️" },
+                61: { l: "Light Rain", icon: "🌦️", iconNight: "🌧️" },
+                63: { l: "Rain", icon: "🌧️", iconNight: "🌧️" },
+                65: { l: "Heavy Rain", icon: "🌧️", iconNight: "🌧️" },
+                71: { l: "Light Snow", icon: "🌨️", iconNight: "🌨️" },
+                73: { l: "Snow", icon: "🌨️", iconNight: "🌨️" },
+                75: { l: "Heavy Snow", icon: "❄️", iconNight: "❄️" },
+                77: { l: "Snow Grains", icon: "🌨️", iconNight: "🌨️" },
+                80: { l: "Showers", icon: "🌦️", iconNight: "🌧️" },
+                81: { l: "Heavy Showers", icon: "🌧️", iconNight: "🌧️" },
+                82: { l: "Violent Showers", icon: "⛈️", iconNight: "⛈️" },
+                95: { l: "Thunderstorm", icon: "⛈️", iconNight: "⚡" },
+                96: { l: "Thunderstorm & Hail", icon: "⛈️", iconNight: "⚡" },
+                99: { l: "Heavy Hail", icon: "⛈️", iconNight: "⚡" }
             };
-            return map[code] || { l: "Unknown", i: "?", n: "?" };
+            return map[code] || { l: "Unknown", icon: "?", iconNight: "?" };
         }
 
+        // Start
         init();
     </script>
 </body>
