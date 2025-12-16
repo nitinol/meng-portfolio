@@ -23,7 +23,9 @@
 
         #skyLayer,
         #starCanvas,
+        #tempOverlay,
         #weatherOverlay,
+        #hazeLayer,
         #flashOverlay,
         #weatherCanvas {
             position: fixed;
@@ -36,27 +38,38 @@
 
         #skyLayer {
             z-index: 0;
-            transition: background 5s ease;
+            transition: background 2s ease;
         }
 
         #starCanvas {
             z-index: 1;
-            transition: opacity 5s ease;
+            transition: opacity 2s ease;
+        }
+
+        #tempOverlay {
+            z-index: 2;
+            transition: background 3s ease;
+            opacity: 0.3;
         }
 
         #weatherOverlay {
-            z-index: 2;
-            transition: background 2s ease;
+            z-index: 3;
+            transition: background 1s ease;
+        }
+
+        #hazeLayer {
+            z-index: 4;
+            transition: opacity 2s ease;
         }
 
         #flashOverlay {
-            z-index: 3;
+            z-index: 5;
             background: white;
             opacity: 0;
         }
 
         #weatherCanvas {
-            z-index: 4;
+            z-index: 6;
         }
 
         .top-bar {
@@ -110,7 +123,6 @@
             font-weight: 400;
             letter-spacing: 2px;
             opacity: 0.8;
-            margin-top: 5px;
         }
 
         @keyframes fadeIn {
@@ -118,18 +130,113 @@
                 opacity: 1;
             }
         }
+
+        .demo-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 15px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 95vw;
+        }
+
+        .demo-title {
+            font-size: 0.65rem;
+            text-align: center;
+            margin-bottom: 10px;
+            opacity: 0.5;
+            letter-spacing: 2px;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .demo-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .demo-row button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.6rem;
+            transition: all 0.2s;
+        }
+
+        .demo-row button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .demo-row button.active {
+            background: rgba(80, 140, 255, 0.4);
+            border-color: rgba(80, 140, 255, 0.6);
+        }
+
+        .wind-slider-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .wind-slider-row label {
+            font-size: 0.65rem;
+            opacity: 0.7;
+        }
+
+        .wind-slider-row input[type="range"] {
+            width: 200px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .wind-slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .wind-value {
+            font-size: 0.7rem;
+            min-width: 55px;
+            text-align: right;
+        }
     </style>
 </head>
 
 <body>
     <div id="skyLayer"></div>
     <canvas id="starCanvas"></canvas>
+    <div id="tempOverlay"></div>
     <div id="weatherOverlay"></div>
+    <canvas id="hazeLayer"></canvas>
     <div id="flashOverlay"></div>
     <canvas id="weatherCanvas"></canvas>
 
     <div class="top-bar">
-        <div class="mini-stat" id="weatherBox">
+        <div class="mini-stat">
             <span id="wIcon" class="weather-icon"></span>
             <span id="wTemp" class="degree-text">--°</span>
         </div>
@@ -140,100 +247,190 @@
         <div class="subtitle">Under Development</div>
     </div>
 
+    <div id="demoPanel" class="demo-panel" style="display: none;">
+        <div class="demo-title">🎬 COMPREHENSIVE WEATHER DEMO</div>
+        <div class="demo-row">
+            <button onclick="setDemo({code:0,wind:0,temp:25,hum:50})">☀️ Clear</button>
+            <button onclick="setDemo({code:1,wind:5,temp:28,hum:55})">🌤️ Sunny</button>
+            <button onclick="setDemo({code:2,wind:8,temp:22,hum:60})">⛅ Partly</button>
+            <button onclick="setDemo({code:3,wind:10,temp:18,hum:70})">☁️ Cloudy</button>
+            <button onclick="setDemo({code:3,wind:5,temp:15,hum:75})">🌥️ Overcast</button>
+        </div>
+        <div class="demo-row">
+            <button onclick="setDemo({code:51,wind:5,temp:12,hum:85})">🌧️ Drizzle</button>
+            <button onclick="setDemo({code:61,wind:8,temp:14,hum:80})">🌧️ Light Rain</button>
+            <button onclick="setDemo({code:63,wind:12,temp:13,hum:85})">🌧️ Rain</button>
+            <button onclick="setDemo({code:65,wind:15,temp:11,hum:90})">🌧️ Heavy</button>
+            <button onclick="setDemo({code:65,wind:35,temp:10,hum:88})">🌬️ Windy Rain</button>
+        </div>
+        <div class="demo-row">
+            <button onclick="setDemo({code:71,wind:5,temp:-2,hum:75})">🌨️ Light Snow</button>
+            <button onclick="setDemo({code:73,wind:10,temp:-5,hum:80})">🌨️ Snow</button>
+            <button onclick="setDemo({code:75,wind:20,temp:-8,hum:85})">❄️ Heavy</button>
+            <button onclick="setDemo({code:75,wind:45,temp:-12,hum:90})">🌨️ Blizzard</button>
+            <button onclick="setDemo({code:77,wind:8,temp:-3,hum:70})">🌨️ Flurries</button>
+        </div>
+        <div class="demo-row">
+            <button onclick="setDemo({code:95,wind:25,temp:18,hum:85})">⛈️ Thunder</button>
+            <button onclick="setDemo({code:96,wind:40,temp:15,hum:90})">⛈️ Severe</button>
+            <button onclick="setDemo({code:45,wind:2,temp:8,hum:95})">🌫️ Fog</button>
+            <button onclick="setDemo({code:48,wind:3,temp:2,hum:98})">🌫️ Dense Fog</button>
+            <button onclick="setDemo({code:0,wind:3,temp:20,hum:92})">🌫️ Haze</button>
+        </div>
+        <div class="demo-row">
+            <button onclick="setDemo({code:0,wind:0,temp:38,hum:30})">🔥 Hot</button>
+            <button onclick="setDemo({code:0,wind:0,temp:-15,hum:60})">🥶 Freezing</button>
+            <button onclick="setDemo({code:66,wind:10,temp:-1,hum:85})">🧊 Freezing Rain</button>
+            <button onclick="resetDemo()" style="background:#522;">🔄</button>
+        </div>
+        <div class="wind-slider-row">
+            <label>💨 Wind:</label>
+            <input type="range" id="windSlider" min="0" max="60" value="10" oninput="updateWind(this.value)">
+            <span class="wind-value" id="windValue">10 km/h</span>
+        </div>
+    </div>
+
     <script>
         // ==========================================
-        //  LIVING ATMOSPHERE ENGINE v2.0
-        //  Fixed: Location, Canvas Scaling, Particles
+        //  LIVING ATMOSPHERE ENGINE v4.0
+        //  Comprehensive Weather System
         // ==========================================
 
         const STATE = {
-            lat: null,
-            lon: null,
+            lat: null, lon: null,
             loaded: false,
-            temp: 0,
+            temp: 20,
             weatherCode: 0,
-            windSpeed: 0,
-            humidity: 0,
+            windSpeed: 5,
+            humidity: 50,
             isDay: 1,
-            sunrise: 7,
-            sunset: 19,
+            sunrise: 7, sunset: 19,
             timezone: "UTC",
             debug: false,
+            demoMode: false,
+            demo: { code: 0, wind: 5, temp: 20, hum: 50 },
             locationSource: "pending"
         };
 
         const ELS = {
             sky: document.getElementById('skyLayer'),
             stars: document.getElementById('starCanvas'),
+            tempOverlay: document.getElementById('tempOverlay'),
             overlay: document.getElementById('weatherOverlay'),
+            haze: document.getElementById('hazeLayer'),
             flash: document.getElementById('flashOverlay'),
             icon: document.getElementById('wIcon'),
             temp: document.getElementById('wTemp'),
             canvas: document.getElementById('weatherCanvas'),
             topBar: document.querySelector('.top-bar'),
-            centerTitle: document.querySelector('.title')
+            centerTitle: document.querySelector('.title'),
+            demoPanel: document.getElementById('demoPanel')
         };
 
         const CTX = ELS.canvas.getContext('2d');
         const STAR_CTX = ELS.stars.getContext('2d');
+        const HAZE_CTX = ELS.haze.getContext('2d');
 
-        // FIX: Declare particles array
         let particles = [];
+        let splashes = [];
+        let hazeParticles = [];
         let starsData = [];
         let comets = [];
+
+        // ==========================================
+        //  DEMO SYSTEM
+        // ==========================================
+        function setDemo(cfg) {
+            STATE.demoMode = true;
+            STATE.demo = cfg;
+            STATE.weatherCode = cfg.code;
+            STATE.windSpeed = cfg.wind;
+            STATE.temp = cfg.temp;
+            STATE.humidity = cfg.hum;
+            STATE.sunrise = 6;
+            STATE.sunset = STATE.isDay ? 20 : 16;
+            particles = [];
+            splashes = [];
+            hazeParticles = [];
+            tickClock();
+            document.querySelectorAll('.demo-row button').forEach(b => b.classList.remove('active'));
+            if (event?.target) event.target.classList.add('active');
+
+            // Sync wind slider with button's wind value
+            const slider = document.getElementById('windSlider');
+            const valueEl = document.getElementById('windValue');
+            if (slider && valueEl) {
+                slider.value = cfg.wind;
+                valueEl.textContent = cfg.wind + ' km/h';
+            }
+        }
+
+        function updateWind(value) {
+            // Update wind speed in real-time via slider
+            const wind = parseInt(value);
+            STATE.demo.wind = wind;
+            STATE.windSpeed = wind;
+            document.getElementById('windValue').textContent = wind + ' km/h';
+
+            // Enable demo mode if not already
+            if (!STATE.demoMode) {
+                STATE.demoMode = true;
+                STATE.demo.code = STATE.weatherCode;
+                STATE.demo.temp = STATE.temp;
+                STATE.demo.hum = STATE.humidity;
+            }
+        }
+
+        function resetDemo() {
+            STATE.demoMode = false;
+            particles = [];
+            splashes = [];
+            hazeParticles = [];
+            fetchWeather();
+            document.querySelectorAll('.demo-row button').forEach(b => b.classList.remove('active'));
+
+            // Reset slider to current real wind
+            const slider = document.getElementById('windSlider');
+            const valueEl = document.getElementById('windValue');
+            if (slider && valueEl) {
+                slider.value = STATE.windSpeed;
+                valueEl.textContent = STATE.windSpeed + ' km/h';
+            }
+        }
 
         // ==========================================
         //  INITIALIZATION
         // ==========================================
         async function init() {
-            console.log("[Engine] Initializing...");
-
             setupCanvas();
             window.addEventListener('resize', setupCanvas);
-
             initStars();
-
             ELS.topBar.onclick = toggleDebug;
-
-            // Start loops
             setInterval(tickClock, 1000);
-            setInterval(fetchWeather, 60000);
+            setInterval(() => { if (!STATE.demoMode) fetchWeather(); }, 60000);
             requestAnimationFrame(renderLoop);
-
-            // Get location (IP-based first, then try GPS)
             await getLocation();
         }
 
-        // FIX: Proper canvas scaling for zoom/devicePixelRatio
         function setupCanvas() {
             const dpr = window.devicePixelRatio || 1;
             const w = window.innerWidth;
             const h = window.innerHeight;
 
-            // Weather canvas
-            ELS.canvas.width = w * dpr;
-            ELS.canvas.height = h * dpr;
-            ELS.canvas.style.width = w + 'px';
-            ELS.canvas.style.height = h + 'px';
+            [ELS.canvas, ELS.stars, ELS.haze].forEach(c => {
+                c.width = w * dpr;
+                c.height = h * dpr;
+                c.style.width = w + 'px';
+                c.style.height = h + 'px';
+            });
             CTX.scale(dpr, dpr);
-
-            // Star canvas
-            ELS.stars.width = w * dpr;
-            ELS.stars.height = h * dpr;
-            ELS.stars.style.width = w + 'px';
-            ELS.stars.style.height = h + 'px';
             STAR_CTX.scale(dpr, dpr);
-
-            // Re-init stars with new dimensions
+            HAZE_CTX.scale(dpr, dpr);
             initStars();
-
-            console.log(`[Canvas] Resized to ${w}x${h} (DPR: ${dpr})`);
         }
 
         function initStars() {
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-
+            const w = window.innerWidth, h = window.innerHeight;
             starsData = [];
             for (let i = 0; i < 400; i++) {
                 starsData.push({
@@ -248,12 +445,9 @@
         }
 
         // ==========================================
-        //  LOCATION (IP-based, no permission needed)
+        //  LOCATION & WEATHER API
         // ==========================================
         async function getLocation() {
-            console.log("[Location] Getting location...");
-
-            // Method 1: IP-based (always works, no permission)
             try {
                 const res = await fetch('https://ipapi.co/json/');
                 const data = await res.json();
@@ -261,55 +455,37 @@
                     STATE.lat = data.latitude;
                     STATE.lon = data.longitude;
                     STATE.locationSource = "IP";
-                    console.log(`[Location] IP-based: ${STATE.lat}, ${STATE.lon}`);
                     await fetchWeather();
                     return;
                 }
-            } catch (e) {
-                console.warn("[Location] IP lookup failed:", e);
-            }
+            } catch (e) { }
 
-            // Method 2: Try browser geolocation
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     async (pos) => {
                         STATE.lat = pos.coords.latitude;
                         STATE.lon = pos.coords.longitude;
                         STATE.locationSource = "GPS";
-                        console.log(`[Location] GPS: ${STATE.lat}, ${STATE.lon}`);
                         await fetchWeather();
                     },
-                    async (err) => {
-                        console.warn("[Location] GPS failed:", err.message);
-                        // Fallback to default
-                        if (!STATE.lat) {
-                            STATE.lat = 40.18;
-                            STATE.lon = 29.06;
-                            STATE.locationSource = "DEFAULT";
-                            await fetchWeather();
-                        }
+                    async () => {
+                        STATE.lat = 40.18; STATE.lon = 29.06;
+                        STATE.locationSource = "DEFAULT";
+                        await fetchWeather();
                     },
                     { enableHighAccuracy: false, timeout: 5000 }
                 );
             } else {
-                // No geolocation support, use default
-                STATE.lat = 40.18;
-                STATE.lon = 29.06;
+                STATE.lat = 40.18; STATE.lon = 29.06;
                 STATE.locationSource = "DEFAULT";
                 await fetchWeather();
             }
         }
 
-        // ==========================================
-        //  WEATHER API
-        // ==========================================
         async function fetchWeather() {
             if (!STATE.lat || !STATE.lon) return;
-
             try {
                 const url = `https://api.open-meteo.com/v1/forecast?latitude=${STATE.lat}&longitude=${STATE.lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=auto`;
-                console.log("[Weather] Fetching:", url);
-
                 const res = await fetch(url);
                 const data = await res.json();
 
@@ -321,122 +497,221 @@
                 STATE.timezone = data.timezone;
 
                 if (data.daily) {
-                    STATE.sunrise = parseTimeToHours(data.daily.sunrise[0]);
-                    STATE.sunset = parseTimeToHours(data.daily.sunset[0]);
+                    STATE.sunrise = parseTime(data.daily.sunrise[0]);
+                    STATE.sunset = parseTime(data.daily.sunset[0]);
                 }
-
                 STATE.loaded = true;
-                console.log(`[Weather] Loaded: ${STATE.temp}°, Code: ${STATE.weatherCode}, TZ: ${STATE.timezone}`);
-
                 tickClock();
-            } catch (e) {
-                console.error("[Weather] API Error:", e);
-            }
+            } catch (e) { }
         }
 
-        function parseTimeToHours(isoString) {
-            const d = new Date(isoString);
-            return d.getHours() + (d.getMinutes() / 60);
+        function parseTime(iso) {
+            const d = new Date(iso);
+            return d.getHours() + d.getMinutes() / 60;
         }
 
-        // ==========================================
-        //  TIME & SKY COLOR
-        // ==========================================
         function getRemoteTime(tz) {
             try {
-                const str = new Date().toLocaleString("en-US", { timeZone: tz });
-                const d = new Date(str);
-                return d.getHours() + (d.getMinutes() / 60);
-            } catch (e) {
-                const d = new Date();
-                return d.getHours() + (d.getMinutes() / 60);
-            }
+                const d = new Date(new Date().toLocaleString("en-US", { timeZone: tz }));
+                return d.getHours() + d.getMinutes() / 60;
+            } catch (e) { return new Date().getHours(); }
         }
 
+        // ==========================================
+        //  GET CURRENT VALUES (Live or Demo)
+        // ==========================================
+        function getCode() { return STATE.demoMode ? STATE.demo.code : STATE.weatherCode; }
+        function getWind() { return STATE.demoMode ? STATE.demo.wind : STATE.windSpeed; }
+        function getTemp() { return STATE.demoMode ? STATE.demo.temp : STATE.temp; }
+        function getHum() { return STATE.demoMode ? STATE.demo.hum : STATE.humidity; }
+
+        // ==========================================
+        //  WEATHER MAPPING SYSTEMS
+        // ==========================================
+
+        // Wind modifier: affects particle angle and turbulence
+        function getWindModifier(wind) {
+            if (wind >= 50) return { label: 'Strong', angle: 0.6, turb: 0.8, dx: 0.35, diagonal: true };
+            if (wind >= 35) return { label: 'Very Windy', angle: 0.45, turb: 0.5, dx: 0.25, diagonal: true };
+            if (wind >= 20) return { label: 'Windy', angle: 0.3, turb: 0.3, dx: 0.18, diagonal: true };
+            if (wind >= 10) return { label: 'Breezy', angle: 0.12, turb: 0.15, dx: 0.08, diagonal: false };
+            return { label: 'Calm', angle: 0, turb: 0, dx: 0, diagonal: false };
+        }
+
+        // Temperature modifier: affects sky tint
+        function getTempModifier(temp) {
+            if (temp >= 35) return { label: 'Very Hot', tint: 'rgba(255,100,50,0.15)', hue: 15 };
+            if (temp >= 28) return { label: 'Hot', tint: 'rgba(255,150,80,0.08)', hue: 25 };
+            if (temp >= 20) return { label: 'Warm', tint: 'transparent', hue: 0 };
+            if (temp >= 12) return { label: 'Mild', tint: 'transparent', hue: 0 };
+            if (temp >= 5) return { label: 'Cool', tint: 'rgba(100,150,255,0.05)', hue: -5 };
+            if (temp >= -5) return { label: 'Cold', tint: 'rgba(80,120,255,0.1)', hue: -10 };
+            return { label: 'Freezing', tint: 'rgba(150,200,255,0.18)', hue: -15 };
+        }
+
+        // Humidity modifier: affects haze
+        function getHumModifier(hum) {
+            if (hum >= 90) return { label: 'Muggy', haze: 80, alpha: 0.025 };
+            if (hum >= 80) return { label: 'Humid', haze: 50, alpha: 0.015 };
+            if (hum >= 60) return { label: 'Normal', haze: 0, alpha: 0 };
+            return { label: 'Dry', haze: 0, alpha: 0, crisp: true };
+        }
+
+        // Weather code -> particle config (expanded)
+        function getParticleConfig(code) {
+            // Thunderstorms (95-99)
+            if (code >= 95) return { type: 'rain', count: 800, speed: 24, size: 1.3, len: 38, thunder: true };
+            // Heavy showers (82)
+            if (code === 82) return { type: 'rain', count: 650, speed: 22, size: 1.2, len: 34, thunder: false };
+            // Moderate showers (81)
+            if (code === 81) return { type: 'rain', count: 500, speed: 18, size: 1.0, len: 28, thunder: false };
+            // Light showers (80)
+            if (code === 80) return { type: 'rain', count: 350, speed: 15, size: 0.9, len: 24, thunder: false };
+            // Snow grains (77)
+            if (code === 77) return { type: 'snow', count: 120, speed: 0.6, size: 1.5, len: 0, thunder: false };
+            // Heavy snow (75)
+            if (code === 75) return { type: 'snow', count: 500, speed: 1.8, size: 4, len: 0, thunder: false };
+            // Moderate snow (73)
+            if (code === 73) return { type: 'snow', count: 300, speed: 1.2, size: 3, len: 0, thunder: false };
+            // Light snow (71)
+            if (code === 71) return { type: 'snow', count: 150, speed: 0.7, size: 2.2, len: 0, thunder: false };
+            // Freezing drizzle/rain (66-67)
+            if (code >= 66 && code <= 67) return { type: 'rain', count: 400, speed: 16, size: 0.9, len: 22, thunder: false, ice: true };
+            // Heavy rain (65)
+            if (code === 65) return { type: 'rain', count: 650, speed: 22, size: 1.1, len: 32, thunder: false };
+            // Moderate rain (63)
+            if (code === 63) return { type: 'rain', count: 450, speed: 17, size: 0.9, len: 26, thunder: false };
+            // Light rain (61)
+            if (code === 61) return { type: 'rain', count: 300, speed: 14, size: 0.8, len: 22, thunder: false };
+            // Heavy drizzle (55)
+            if (code === 55) return { type: 'rain', count: 280, speed: 11, size: 0.6, len: 16, thunder: false };
+            // Moderate drizzle (53)
+            if (code === 53) return { type: 'rain', count: 200, speed: 9, size: 0.5, len: 14, thunder: false };
+            // Light drizzle (51)
+            if (code === 51) return { type: 'rain', count: 130, speed: 7, size: 0.4, len: 11, thunder: false };
+            // Rime fog (48)
+            if (code === 48) return { type: 'fog', count: 70, speed: 0.03, size: 130, len: 0, thunder: false };
+            // Fog (45)
+            if (code === 45) return { type: 'fog', count: 55, speed: 0.02, size: 110, len: 0, thunder: false };
+            // No particles for clear/cloudy
+            return { type: 'none', count: 0, speed: 0, size: 0, len: 0, thunder: false };
+        }
+
+        // Sky modifier based on weather code
+        function getWeatherModifier(code) {
+            if (code >= 95) return { sat: 0.2, light: 0.18, overlay: 'rgba(10,0,30,0.5)' };
+            if (code >= 80) return { sat: 0.4, light: 0.5, overlay: 'rgba(0,5,20,0.35)' };
+            if (code >= 70) return { sat: 0.3, light: 1.0, overlay: 'rgba(240,248,255,0.15)' };
+            if (code >= 60) return { sat: 0.45, light: 0.55, overlay: 'rgba(0,10,25,0.3)' };
+            if (code >= 50) return { sat: 0.5, light: 0.65, overlay: 'rgba(0,5,15,0.2)' };
+            if (code >= 45) return { sat: 0.12, light: 0.7, overlay: 'rgba(150,160,175,0.45)' };
+            if (code === 3) return { sat: 0.4, light: 0.75, overlay: 'rgba(0,0,0,0.15)' };
+            if (code === 2) return { sat: 0.7, light: 0.9, overlay: 'rgba(0,0,0,0.05)' };
+            if (code === 1) return { sat: 0.9, light: 0.98, overlay: 'transparent' };
+            return { sat: 1, light: 1, overlay: 'transparent' };
+        }
+
+        function getWeatherIcon(code, isDay) {
+            const icons = {
+                0: isDay ? "☀️" : "🌙",
+                1: isDay ? "🌤️" : "🌙",
+                2: "⛅", 3: "☁️",
+                45: "🌫️", 48: "🌫️",
+                51: "🌧️", 53: "🌧️", 55: "🌧️",
+                61: "🌧️", 63: "🌧️", 65: "🌧️",
+                66: "🧊", 67: "🧊",
+                71: "🌨️", 73: "🌨️", 75: "❄️", 77: "🌨️",
+                80: "🌦️", 81: "🌧️", 82: "⛈️",
+                95: "⛈️", 96: "⛈️", 99: "⛈️"
+            };
+            return icons[code] || "?";
+        }
+
+        // ==========================================
+        //  SKY & TIME RENDERING
+        // ==========================================
         function tickClock() {
-            if (!STATE.loaded) return;
+            if (!STATE.loaded && !STATE.demoMode) return;
 
-            // Update UI
-            ELS.temp.textContent = `${STATE.temp}°`;
-            const cond = getWeatherCondition(STATE.weatherCode);
-            ELS.icon.textContent = STATE.isDay ? cond.icon : cond.iconNight;
+            const code = getCode();
+            const wind = getWind();
+            const temp = getTemp();
+            const hum = getHum();
 
-            // Calculate sky color based on REMOTE time
-            const time = getRemoteTime(STATE.timezone);
-            const sunR = STATE.sunrise;
-            const sunS = STATE.sunset;
+            // UI
+            ELS.icon.textContent = getWeatherIcon(code, STATE.isDay);
+            ELS.temp.textContent = STATE.demoMode ? "DEMO" : `${STATE.temp}°`;
 
-            // Color keyframes
-            const C_DEEP_NIGHT = [[222, 47, 11], [222, 47, 15]];
-            const C_PRE_DAWN = [[222, 47, 15], [222, 47, 20]];
-            const C_DAWN = [[210, 80, 50], [25, 90, 60]];
-            const C_DAY = [[200, 90, 50], [195, 90, 80]];
-            const C_SUNSET = [[260, 60, 30], [340, 70, 60]];
-            const C_TWILIGHT = [[240, 50, 20], [240, 50, 10]];
+            // Time
+            let time = STATE.demoMode ? (STATE.isDay ? 12 : 22) : getRemoteTime(STATE.timezone);
+            const sunR = STATE.sunrise, sunS = STATE.sunset;
+
+            // Sky gradient
+            const C_NIGHT = [[222, 50, 8], [222, 50, 12]];
+            const C_PREDAWN = [[222, 45, 15], [222, 45, 20]];
+            const C_DAWN = [[210, 75, 45], [30, 85, 55]];
+            const C_DAY = [[200, 90, 55], [195, 88, 80]];
+            const C_SUNSET = [[265, 55, 30], [345, 70, 55]];
+            const C_TWILIGHT = [[245, 50, 18], [245, 50, 12]];
 
             const keys = [
-                { t: 0, c: C_DEEP_NIGHT },
-                { t: sunR - 1.5, c: C_PRE_DAWN },
+                { t: 0, c: C_NIGHT },
+                { t: sunR - 1.5, c: C_PREDAWN },
                 { t: sunR, c: C_DAWN },
                 { t: sunR + 1.5, c: C_DAY },
                 { t: sunS - 1.5, c: C_DAY },
                 { t: sunS, c: C_SUNSET },
-                { t: sunS + 1.0, c: C_TWILIGHT },
-                { t: 24, c: C_DEEP_NIGHT }
+                { t: sunS + 1, c: C_TWILIGHT },
+                { t: 24, c: C_NIGHT }
             ];
 
-            let start = keys[0];
-            let end = keys[keys.length - 1];
-
+            let start = keys[0], end = keys[keys.length - 1];
             for (let i = 0; i < keys.length - 1; i++) {
                 if (time >= keys[i].t && time < keys[i + 1].t) {
-                    start = keys[i];
-                    end = keys[i + 1];
-                    break;
+                    start = keys[i]; end = keys[i + 1]; break;
                 }
             }
 
             let p = (end.t !== start.t) ? (time - start.t) / (end.t - start.t) : 0;
             p = Math.max(0, Math.min(1, p));
 
-            const top = lerpColorHSL(start.c[0], end.c[0], p);
-            const bot = lerpColorHSL(start.c[1], end.c[1], p);
+            const top = lerpHSL(start.c[0], end.c[0], p);
+            const bot = lerpHSL(start.c[1], end.c[1], p);
 
-            const mod = getWeatherModifier(STATE.weatherCode);
+            const wMod = getWeatherModifier(code);
+            const tMod = getTempModifier(temp);
 
-            const topL = top[2] * mod.light;
-            const topFinal = `hsl(${top[0]}, ${top[1] * mod.sat}%, ${topL}%)`;
-            const botFinal = `hsl(${bot[0]}, ${bot[1] * mod.sat}%, ${bot[2] * mod.light}%)`;
+            // Apply temperature hue shift
+            const topH = top[0] + tMod.hue;
+            const botH = bot[0] + tMod.hue;
+            const topL = top[2] * wMod.light;
 
-            ELS.sky.style.background = `linear-gradient(to bottom, ${topFinal}, ${botFinal})`;
-            ELS.overlay.style.background = mod.overlay;
+            ELS.sky.style.background = `linear-gradient(to bottom, hsl(${topH},${top[1] * wMod.sat}%,${topL}%), hsl(${botH},${bot[1] * wMod.sat}%,${bot[2] * wMod.light}%))`;
+            ELS.overlay.style.background = wMod.overlay;
+            ELS.tempOverlay.style.background = tMod.tint;
 
             // Text contrast
-            document.body.style.color = topL > 60 ? 'rgba(0,0,0,0.8)' : 'white';
+            document.body.style.color = topL > 50 ? 'rgba(0,0,0,0.75)' : 'white';
 
-            // Star visibility
+            // Stars
             let starOp = 0;
-            const isDark = (time > (sunS + 0.5)) || (time < (sunR - 1.0));
-            if (isDark) starOp = 1;
-
+            if ((time > sunS + 0.5) || (time < sunR - 1)) starOp = 1;
             if (time >= sunS && time < sunS + 0.5) starOp = (time - sunS) / 0.5;
             if (time >= sunR - 1 && time < sunR) starOp = 1 - (time - (sunR - 1));
-
-            if (STATE.weatherCode > 2) starOp = 0;
-            else if (STATE.weatherCode === 2) starOp *= 0.5;
-
+            if (code > 2) starOp = 0;
             ELS.stars.style.opacity = starOp;
         }
 
-        // ==========================================
-        //  DEBUG TOGGLE
-        // ==========================================
         function toggleDebug() {
             STATE.debug = !STATE.debug;
+            ELS.demoPanel.style.display = STATE.debug ? 'block' : 'none';
+
             if (STATE.debug) {
-                const time = getRemoteTime(STATE.timezone);
-                ELS.centerTitle.textContent = `${STATE.lat?.toFixed(2) || '?'}, ${STATE.lon?.toFixed(2) || '?'} [${STATE.locationSource}]\n${STATE.timezone} | ${time.toFixed(2)}h`;
-                ELS.centerTitle.style.fontSize = "0.9rem";
+                const wind = getWind();
+                const temp = getTemp();
+                const hum = getHum();
+                ELS.centerTitle.textContent = `${STATE.lat?.toFixed(2)}, ${STATE.lon?.toFixed(2)}\nWind: ${wind}km/h | Temp: ${temp}°C | Hum: ${hum}%`;
+                ELS.centerTitle.style.fontSize = "0.8rem";
                 ELS.centerTitle.style.whiteSpace = "pre-line";
             } else {
                 ELS.centerTitle.textContent = "Menguhan";
@@ -446,35 +721,37 @@
         }
 
         // ==========================================
-        //  RENDER LOOP
+        //  CINEMATIC RENDER LOOP
         // ==========================================
         function renderLoop() {
             const w = window.innerWidth;
             const h = window.innerHeight;
 
-            // Clear canvases
             CTX.clearRect(0, 0, w, h);
             STAR_CTX.clearRect(0, 0, w, h);
+            HAZE_CTX.clearRect(0, 0, w, h);
 
-            if (!STATE.loaded) {
+            if (!STATE.loaded && !STATE.demoMode) {
                 requestAnimationFrame(renderLoop);
                 return;
             }
 
-            // Stars
+            const code = getCode();
+            const wind = getWind();
+            const hum = getHum();
+            const windMod = getWindModifier(wind);
+            const humMod = getHumModifier(hum);
+
+            // ========== STARS ==========
             const starOp = parseFloat(ELS.stars.style.opacity || 0);
             if (starOp > 0) {
                 STAR_CTX.fillStyle = "white";
-
                 starsData.forEach(s => {
                     s.tPhase += s.tSpeed;
-                    const twinkle = Math.sin(s.tPhase) * 0.3;
-                    let a = s.alpha + twinkle;
+                    let a = s.alpha + Math.sin(s.tPhase) * 0.25;
                     a = Math.max(0.1, Math.min(1, a));
-
-                    s.x -= 0.03;
+                    s.x -= 0.015;
                     if (s.x < 0) s.x = w;
-
                     STAR_CTX.globalAlpha = a;
                     STAR_CTX.beginPath();
                     STAR_CTX.arc(s.x, s.y, s.size, 0, Math.PI * 2);
@@ -482,162 +759,229 @@
                 });
 
                 // Comets
-                if (Math.random() < 0.0008) {
+                if (Math.random() < 0.0004) {
                     comets.push({
                         x: Math.random() < 0.5 ? w : 0,
-                        y: Math.random() * h * 0.5,
-                        dx: (Math.random() > 0.5 ? -1 : 1) * (5 + Math.random() * 5),
-                        dy: 1.5 + Math.random(),
-                        life: 1.0
+                        y: Math.random() * h * 0.35,
+                        dx: (Math.random() > 0.5 ? -1 : 1) * (5 + Math.random() * 4),
+                        dy: 1 + Math.random() * 0.5,
+                        life: 1
                     });
                 }
 
                 for (let i = comets.length - 1; i >= 0; i--) {
                     let c = comets[i];
-                    c.x += c.dx;
-                    c.y += c.dy;
-                    c.life -= 0.012;
-
-                    if (c.life <= 0 || c.x < -100 || c.x > w + 100) {
-                        comets.splice(i, 1);
-                        continue;
+                    c.x += c.dx; c.y += c.dy; c.life -= 0.015;
+                    if (c.life <= 0 || c.x < -50 || c.x > w + 50) {
+                        comets.splice(i, 1); continue;
                     }
-
-                    const grad = STAR_CTX.createLinearGradient(c.x, c.y, c.x - c.dx * 25, c.y - c.dy * 25);
+                    const grad = STAR_CTX.createLinearGradient(c.x, c.y, c.x - c.dx * 18, c.y - c.dy * 18);
                     grad.addColorStop(0, `rgba(255,255,255,${c.life})`);
-                    grad.addColorStop(1, `rgba(255,255,255,0)`);
-
+                    grad.addColorStop(1, 'transparent');
                     STAR_CTX.strokeStyle = grad;
-                    STAR_CTX.lineWidth = 2;
+                    STAR_CTX.lineWidth = 1.5;
                     STAR_CTX.globalAlpha = 1;
                     STAR_CTX.beginPath();
                     STAR_CTX.moveTo(c.x, c.y);
-                    STAR_CTX.lineTo(c.x - c.dx * 20, c.y - c.dy * 20);
+                    STAR_CTX.lineTo(c.x - c.dx * 14, c.y - c.dy * 14);
                     STAR_CTX.stroke();
                 }
             }
 
-            // Weather particles
-            const cfg = getParticleConfig(STATE.weatherCode);
-
-            if (cfg.thunder && Math.random() < 0.004) {
-                ELS.flash.style.opacity = 0.7;
-                setTimeout(() => ELS.flash.style.opacity = 0, 80);
+            // ========== HUMIDITY HAZE ==========
+            if (humMod.haze > 0) {
+                while (hazeParticles.length < humMod.haze) {
+                    hazeParticles.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        size: 80 + Math.random() * 120,
+                        phase: Math.random() * Math.PI * 2
+                    });
+                }
+                HAZE_CTX.fillStyle = 'rgba(200,210,220,1)';
+                hazeParticles.forEach(hz => {
+                    hz.x += Math.sin(Date.now() * 0.00003 + hz.phase) * 0.15;
+                    HAZE_CTX.globalAlpha = humMod.alpha;
+                    HAZE_CTX.beginPath();
+                    HAZE_CTX.arc(hz.x, hz.y, hz.size, 0, Math.PI * 2);
+                    HAZE_CTX.fill();
+                });
+                HAZE_CTX.globalAlpha = 1;
             }
 
+            // ========== WEATHER PARTICLES ==========
+            const cfg = getParticleConfig(code);
+
+            // Thunder
+            if (cfg.thunder && Math.random() < 0.001) {
+                ELS.flash.style.opacity = 0.3 + Math.random() * 0.4;
+                setTimeout(() => ELS.flash.style.opacity = 0, 40 + Math.random() * 60);
+            }
+
+            // Spawn particles with depth
             while (cfg.type !== 'none' && particles.length < cfg.count) {
-                particles.push(createParticle(cfg, w, h));
+                particles.push(createDepthParticle(cfg, w, h, windMod));
             }
 
-            CTX.fillStyle = 'rgba(255,255,255,0.6)';
-            CTX.strokeStyle = 'rgba(255,255,255,0.4)';
-            CTX.lineWidth = 1;
+            // Sort by depth (far first)
+            particles.sort((a, b) => a.depth - b.depth);
 
             for (let i = particles.length - 1; i >= 0; i--) {
                 let p = particles[i];
                 p.y += p.dy;
-                p.x += p.dx + (STATE.windSpeed * 0.15);
+                p.x += p.dx;
+
+                // Add turbulence for gusty wind
+                if (windMod.turb > 0) {
+                    p.x += (Math.random() - 0.5) * windMod.turb * p.depth;
+                }
 
                 if (p.type === 'rain') {
+                    const angle = windMod.angle * p.depth;
+                    const endX = p.x + angle * p.len;
+                    const endY = p.y + p.len;
+
+                    const alpha = p.alpha * (0.4 + p.depth * 0.6);
+                    const grad = CTX.createLinearGradient(p.x, p.y, endX, endY);
+
+                    // Ice effect for freezing rain
+                    if (cfg.ice) {
+                        grad.addColorStop(0, `rgba(180,220,255,${alpha * 0.3})`);
+                        grad.addColorStop(0.5, `rgba(200,230,255,${alpha})`);
+                        grad.addColorStop(1, `rgba(180,220,255,${alpha * 0.2})`);
+                    } else {
+                        grad.addColorStop(0, `rgba(170,195,225,${alpha * 0.25})`);
+                        grad.addColorStop(0.4, `rgba(195,215,240,${alpha})`);
+                        grad.addColorStop(1, `rgba(170,195,225,${alpha * 0.15})`);
+                    }
+
+                    CTX.strokeStyle = grad;
+                    CTX.lineWidth = p.size * (0.6 + p.depth * 0.6);
+                    CTX.lineCap = 'round';
                     CTX.beginPath();
                     CTX.moveTo(p.x, p.y);
-                    CTX.lineTo(p.x + (STATE.windSpeed * 0.15), p.y + p.len);
+                    CTX.lineTo(endX, endY);
                     CTX.stroke();
+
+                    // Screen splash for close raindrops
+                    if (p.depth > 0.88 && p.y > h - 4) {
+                        splashes.push({
+                            x: p.x, y: h - 1,
+                            radius: 0, alpha: 0.35 + p.depth * 0.25,
+                            maxRadius: 6 + p.depth * 10
+                        });
+                        particles.splice(i, 1);
+                        continue;
+                    }
+
                 } else if (p.type === 'snow') {
-                    p.x += Math.sin(p.y * 0.01) * 0.4;
-                    CTX.globalAlpha = 0.8;
+                    p.x += Math.sin(p.y * 0.002 + p.phase) * (0.25 + p.depth * 0.35);
+                    p.x += windMod.dx * p.depth * 0.8;
+
+                    const alpha = p.alpha * (0.5 + p.depth * 0.5);
+
+                    // Soft glow for close snowflakes
+                    if (p.depth > 0.55) {
+                        CTX.globalAlpha = alpha * 0.2;
+                        CTX.fillStyle = 'white';
+                        CTX.beginPath();
+                        CTX.arc(p.x, p.y, p.size * 2.2, 0, Math.PI * 2);
+                        CTX.fill();
+                    }
+
+                    CTX.globalAlpha = alpha;
+                    CTX.fillStyle = 'white';
                     CTX.beginPath();
                     CTX.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     CTX.fill();
                     CTX.globalAlpha = 1;
+
                 } else if (p.type === 'fog') {
-                    CTX.globalAlpha = 0.03;
+                    p.x += Math.sin(Date.now() * 0.00004 + p.phase) * 0.25;
+                    CTX.globalAlpha = 0.01 + p.depth * 0.008;
+                    CTX.fillStyle = 'rgba(210,218,230,1)';
                     CTX.beginPath();
                     CTX.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     CTX.fill();
                     CTX.globalAlpha = 1;
                 }
 
-                if (p.y > h + 30 || p.x > w + 30 || p.x < -30) {
+                if (p.y > h + 80 || p.x > w + 80 || p.x < -80) {
                     particles.splice(i, 1);
                 }
+            }
+
+            // ========== SCREEN SPLASHES ==========
+            for (let i = splashes.length - 1; i >= 0; i--) {
+                let s = splashes[i];
+                s.radius += 1.2;
+                s.alpha -= 0.02;
+
+                if (s.alpha <= 0 || s.radius > s.maxRadius) {
+                    splashes.splice(i, 1);
+                    continue;
+                }
+
+                CTX.strokeStyle = `rgba(190,210,235,${s.alpha})`;
+                CTX.lineWidth = 0.8;
+                CTX.beginPath();
+                CTX.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                CTX.stroke();
+
+                CTX.fillStyle = `rgba(190,210,235,${s.alpha * 0.25})`;
+                CTX.beginPath();
+                CTX.arc(s.x, s.y, s.radius * 0.25, 0, Math.PI * 2);
+                CTX.fill();
             }
 
             requestAnimationFrame(renderLoop);
         }
 
-        function createParticle(cfg, w, h) {
+        function createDepthParticle(cfg, w, h, windMod) {
+            const depth = 0.25 + Math.random() * 0.75;
+            const baseSpeed = cfg.speed * (0.45 + depth * 0.75);
+
+            // Rain spawns from TOP everywhere, but falls at ANGLE based on wind
+            let startX, startY;
+            if (cfg.type === 'fog') {
+                startX = Math.random() * w;
+                startY = Math.random() * h;
+            } else {
+                // Spawn from top, spread across screen width
+                startX = Math.random() * w * 1.4 - w * 0.2;
+                startY = -Math.random() * 150 * depth;
+            }
+
+            // Horizontal velocity creates the ANGLE of fall
+            // Higher wind = more horizontal movement = steeper diagonal
+            let dx;
+            if (cfg.type === 'rain') {
+                // Wind creates the angled fall - rain is "light" so heavily affected
+                dx = windMod.dx * depth * 8;  // Increased from 4 to 8 for more wind effect
+            } else if (cfg.type === 'snow') {
+                dx = windMod.dx * depth * 4;  // Snow also more affected now
+            } else {
+                dx = (Math.random() - 0.5) * 0.1;
+            }
+
             return {
-                x: Math.random() * w,
-                y: -20,
-                dx: (Math.random() - 0.5) * 0.4,
-                dy: cfg.speed + (Math.random() * 2),
-                size: cfg.size + Math.random(),
-                len: cfg.len + (Math.random() * 5),
+                x: startX,
+                y: startY,
+                dx: dx,
+                dy: baseSpeed,
+                size: cfg.size * (0.35 + depth * 0.75),
+                len: cfg.type === 'rain' ? cfg.len * (0.5 + depth * 0.6) : 0,
+                alpha: 0.3 + depth * 0.5,
+                phase: Math.random() * Math.PI * 2,
+                depth: depth,
                 type: cfg.type
             };
         }
 
-        // ==========================================
-        //  HELPERS
-        // ==========================================
-        function lerpColorHSL(a, b, p) {
+        function lerpHSL(a, b, p) {
             return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p];
         }
 
-        function getWeatherModifier(code) {
-            let sat = 1.0, light = 1.0, overlay = 'transparent';
-            if (code >= 95) { sat = 0.4; light = 0.3; overlay = 'rgba(20,0,30,0.3)'; }
-            else if (code >= 80) { sat = 0.5; light = 0.6; overlay = 'rgba(0,0,20,0.25)'; }
-            else if (code >= 70) { sat = 0.3; light = 1.0; overlay = 'rgba(255,255,255,0.1)'; }
-            else if (code >= 60) { sat = 0.5; light = 0.7; overlay = 'rgba(0,0,10,0.2)'; }
-            else if (code >= 45) { sat = 0.2; light = 0.85; overlay = 'rgba(180,180,180,0.2)'; }
-            else if (code >= 3) { sat = 0.7; light = 0.9; }
-            return { sat, light, overlay };
-        }
-
-        function getParticleConfig(code) {
-            if (code >= 95) return { type: 'rain', count: 350, speed: 16, size: 1, len: 22, thunder: true };
-            if (code >= 80) return { type: 'rain', count: 250, speed: 12, size: 1, len: 18, thunder: false };
-            if (code >= 70 && code <= 77) {
-                const intensity = code === 75 ? 400 : code === 71 ? 100 : 200;
-                return { type: 'snow', count: intensity, speed: 1.5, size: 2.5, len: 0, thunder: false };
-            }
-            if (code >= 60) return { type: 'rain', count: 200, speed: 10, size: 1, len: 15, thunder: false };
-            if (code >= 51 && code <= 55) return { type: 'rain', count: 80, speed: 6, size: 1, len: 10, thunder: false };
-            if (code === 45 || code === 48) return { type: 'fog', count: 25, speed: 0.15, size: 60, len: 0, thunder: false };
-            return { type: 'none', count: 0, speed: 0, size: 0, len: 0, thunder: false };
-        }
-
-        function getWeatherCondition(code) {
-            const map = {
-                0: { l: "Clear", icon: "☀️", iconNight: "🌙" },
-                1: { l: "Mainly Clear", icon: "🌤️", iconNight: "🌙" },
-                2: { l: "Partly Cloudy", icon: "⛅", iconNight: "☁️" },
-                3: { l: "Overcast", icon: "☁️", iconNight: "☁️" },
-                45: { l: "Fog", icon: "🌫️", iconNight: "🌫️" },
-                48: { l: "Rime Fog", icon: "🌫️", iconNight: "🌫️" },
-                51: { l: "Light Drizzle", icon: "🌦️", iconNight: "🌧️" },
-                53: { l: "Drizzle", icon: "🌦️", iconNight: "🌧️" },
-                55: { l: "Heavy Drizzle", icon: "🌧️", iconNight: "🌧️" },
-                61: { l: "Light Rain", icon: "🌦️", iconNight: "🌧️" },
-                63: { l: "Rain", icon: "🌧️", iconNight: "🌧️" },
-                65: { l: "Heavy Rain", icon: "🌧️", iconNight: "🌧️" },
-                71: { l: "Light Snow", icon: "🌨️", iconNight: "🌨️" },
-                73: { l: "Snow", icon: "🌨️", iconNight: "🌨️" },
-                75: { l: "Heavy Snow", icon: "❄️", iconNight: "❄️" },
-                77: { l: "Snow Grains", icon: "🌨️", iconNight: "🌨️" },
-                80: { l: "Showers", icon: "🌦️", iconNight: "🌧️" },
-                81: { l: "Heavy Showers", icon: "🌧️", iconNight: "🌧️" },
-                82: { l: "Violent Showers", icon: "⛈️", iconNight: "⛈️" },
-                95: { l: "Thunderstorm", icon: "⛈️", iconNight: "⚡" },
-                96: { l: "Thunderstorm & Hail", icon: "⛈️", iconNight: "⚡" },
-                99: { l: "Heavy Hail", icon: "⛈️", iconNight: "⚡" }
-            };
-            return map[code] || { l: "Unknown", icon: "?", iconNight: "?" };
-        }
-
-        // Start
         init();
     </script>
 </body>
