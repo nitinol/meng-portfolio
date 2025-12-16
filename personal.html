@@ -8,6 +8,18 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Dynamic adaptive colors - automatically updated by JavaScript */
+            --adaptive-text: white;
+            --adaptive-text-secondary: rgba(255, 255, 255, 0.7);
+            --adaptive-border: rgba(255, 255, 255, 0.3);
+            --adaptive-shadow: rgba(0, 0, 0, 0.3);
+            --adaptive-bg: rgba(255, 255, 255, 0.1);
+            --adaptive-bg-hover: rgba(255, 255, 255, 0.2);
+            --adaptive-font-weight: 300;
+            --brightness-level: 50;
+        }
+
         body,
         html {
             margin: 0;
@@ -16,9 +28,17 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Montserrat', sans-serif;
-            color: white;
+            color: var(--adaptive-text);
             background: #000;
-            transition: color 1s ease;
+        }
+
+        /* Smooth transitions for all adaptive properties */
+        * {
+            transition: color 1.5s ease,
+                border-color 1.5s ease,
+                background-color 1.5s ease,
+                font-weight 1.5s ease,
+                box-shadow 1.5s ease;
         }
 
         #skyLayer,
@@ -77,9 +97,10 @@
             top: 40px;
             right: 50px;
             z-index: 20;
-            font-weight: 300;
+            font-weight: var(--adaptive-font-weight);
             cursor: pointer;
             user-select: none;
+            color: var(--adaptive-text);
         }
 
         .mini-stat {
@@ -95,7 +116,7 @@
         }
 
         .degree-text {
-            font-weight: 200;
+            font-weight: var(--adaptive-font-weight);
         }
 
         .center-message {
@@ -107,22 +128,22 @@
             text-align: center;
             opacity: 0;
             animation: fadeIn 2s forwards 0.5s;
+            color: var(--adaptive-text);
         }
 
         .title {
             font-size: 3rem;
-            font-weight: 100;
+            font-weight: var(--adaptive-font-weight);
             letter-spacing: 4px;
             margin-bottom: 10px;
             text-transform: uppercase;
-            transition: font-size 0.3s;
         }
 
         .subtitle {
             font-size: 0.9rem;
-            font-weight: 400;
+            font-weight: var(--adaptive-font-weight);
             letter-spacing: 2px;
-            opacity: 0.8;
+            color: var(--adaptive-text-secondary);
         }
 
         @keyframes fadeIn {
@@ -432,6 +453,76 @@
         }
 
         // ==========================================
+        //  ADAPTIVE COLOR SYSTEM
+        // ==========================================
+        function updateAdaptiveColors(brightness) {
+            const root = document.documentElement;
+
+            // Calculate adaptive values based on brightness (0-100)
+            let textColor, textSecondary, borderColor, shadowColor, bgColor, bgHover, fontWeight;
+
+            if (brightness >= 80) {
+                // Very Bright - Very dark text, heavy font
+                textColor = 'rgba(0, 0, 0, 0.9)';
+                textSecondary = 'rgba(0, 0, 0, 0.6)';
+                borderColor = 'rgba(0, 0, 0, 0.25)';
+                shadowColor = 'rgba(0, 0, 0, 0.15)';
+                bgColor = 'rgba(0, 0, 0, 0.08)';
+                bgHover = 'rgba(0, 0, 0, 0.15)';
+                fontWeight = 500;
+            } else if (brightness >= 60) {
+                // Bright - Dark text, medium-heavy font
+                textColor = 'rgba(0, 0, 0, 0.85)';
+                textSecondary = 'rgba(0, 0, 0, 0.55)';
+                borderColor = 'rgba(0, 0, 0, 0.2)';
+                shadowColor = 'rgba(0, 0, 0, 0.12)';
+                bgColor = 'rgba(0, 0, 0, 0.06)';
+                bgHover = 'rgba(0, 0, 0, 0.12)';
+                fontWeight = 400;
+            } else if (brightness >= 40) {
+                // Medium - Balanced
+                const t = (brightness - 40) / 20;
+                const darkAlpha = 0.7 + t * 0.15;
+                textColor = `rgba(0, 0, 0, ${darkAlpha})`;
+                textSecondary = `rgba(0, 0, 0, ${darkAlpha * 0.65})`;
+                borderColor = `rgba(0, 0, 0, ${0.15 + t * 0.05})`;
+                shadowColor = 'rgba(0, 0, 0, 0.1)';
+                bgColor = 'rgba(255, 255, 255, 0.08)';
+                bgHover = 'rgba(255, 255, 255, 0.15)';
+                fontWeight = 350;
+            } else if (brightness >= 20) {
+                // Dim - Light text, lighter font
+                const t = (brightness - 20) / 20;
+                textColor = `rgba(255, 255, 255, ${0.85 + t * 0.1})`;
+                textSecondary = `rgba(255, 255, 255, ${0.55 + t * 0.1})`;
+                borderColor = `rgba(255, 255, 255, ${0.25 + t * 0.05})`;
+                shadowColor = `rgba(0, 0, 0, ${0.2 + t * 0.1})`;
+                bgColor = 'rgba(255, 255, 255, 0.1)';
+                bgHover = 'rgba(255, 255, 255, 0.18)';
+                fontWeight = 300;
+            } else {
+                // Very Dark - Very light text, thin font
+                textColor = 'rgba(255, 255, 255, 0.95)';
+                textSecondary = 'rgba(255, 255, 255, 0.65)';
+                borderColor = 'rgba(255, 255, 255, 0.3)';
+                shadowColor = 'rgba(0, 0, 0, 0.4)';
+                bgColor = 'rgba(255, 255, 255, 0.12)';
+                bgHover = 'rgba(255, 255, 255, 0.2)';
+                fontWeight = 200;
+            }
+
+            // Apply to CSS custom properties
+            root.style.setProperty('--adaptive-text', textColor);
+            root.style.setProperty('--adaptive-text-secondary', textSecondary);
+            root.style.setProperty('--adaptive-border', borderColor);
+            root.style.setProperty('--adaptive-shadow', shadowColor);
+            root.style.setProperty('--adaptive-bg', bgColor);
+            root.style.setProperty('--adaptive-bg-hover', bgHover);
+            root.style.setProperty('--adaptive-font-weight', fontWeight);
+            root.style.setProperty('--brightness-level', brightness);
+        }
+
+        // ==========================================
         //  SKY & TIME RENDERING
         // ==========================================
         function tickClock() {
@@ -494,8 +585,23 @@
             ELS.overlay.style.background = wMod.overlay;
             ELS.tempOverlay.style.background = tMod.tint;
 
-            // Text contrast
-            document.body.style.color = topL > 50 ? 'rgba(0,0,0,0.75)' : 'white';
+            // Calculate brightness for adaptive system
+            // Average the top and bottom lightness, factor in weather overlay darkness
+            const botL = bot[2] * wMod.light;
+            let baseBrightness = (topL + botL) / 2;
+
+            // Weather overlay reduces brightness
+            let weatherDarkness = 0;
+            if (code >= 95) weatherDarkness = 40;  // Thunderstorm
+            else if (code >= 80) weatherDarkness = 25;  // Heavy rain
+            else if (code >= 60) weatherDarkness = 20;  // Rain
+            else if (code >= 45) weatherDarkness = 15;  // Fog
+            else if (code === 3) weatherDarkness = 10;  // Overcast
+
+            const finalBrightness = Math.max(0, Math.min(100, baseBrightness - weatherDarkness));
+
+            // Update adaptive color system
+            updateAdaptiveColors(finalBrightness);
 
             // Stars
             let starOp = 0;

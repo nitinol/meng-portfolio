@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive UI Demo - Living Atmosphere</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Dynamic adaptive colors - automatically updated by JavaScript */
+            --adaptive-text: white;
+            --adaptive-text-secondary: rgba(255, 255, 255, 0.7);
+            --adaptive-border: rgba(255, 255, 255, 0.3);
+            --adaptive-shadow: rgba(0, 0, 0, 0.3);
+            --adaptive-bg: rgba(255, 255, 255, 0.1);
+            --adaptive-bg-hover: rgba(255, 255, 255, 0.2);
+            --adaptive-font-weight: 300;
+            --brightness-level: 50;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--adaptive-text);
+            background: #000;
+        }
+
+        /* Smooth transitions for all adaptive properties */
+        * {
+            transition: color 1.5s ease,
+                border-color 1.5s ease,
+                background-color 1.5s ease,
+                font-weight 1.5s ease,
+                box-shadow 1.5s ease;
+        }
+
+        #skyLayer,
+        #starCanvas,
+        #tempOverlay,
+        #weatherOverlay,
+        #hazeLayer,
+        #flashOverlay,
+        #weatherCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        #skyLayer {
+            z-index: 0;
+            transition: background 2s ease;
+        }
+
+        #starCanvas {
+            z-index: 1;
+            transition: opacity 2s ease;
+        }
+
+        #tempOverlay {
+            z-index: 2;
+            transition: background 3s ease;
+            opacity: 0.3;
+        }
+
+        #weatherOverlay {
+            z-index: 3;
+            transition: background 1s ease;
+        }
+
+        #hazeLayer {
+            z-index: 4;
+            transition: opacity 2s ease;
+        }
+
+        #flashOverlay {
+            z-index: 5;
+            background: white;
+            opacity: 0;
+        }
+
+        #weatherCanvas {
+            z-index: 6;
+        }
+
+        /* Demo Controls */
+        .demo-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: var(--adaptive-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--adaptive-border);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 300px;
+            box-shadow: 0 4px 20px var(--adaptive-shadow);
+            pointer-events: auto;
+        }
+
+        .demo-panel h3 {
+            margin: 0 0 15px 0;
+            font-weight: var(--adaptive-font-weight);
+            font-size: 1.2rem;
+            color: var(--adaptive-text);
+        }
+
+        .slider-control {
+            margin-bottom: 20px;
+        }
+
+        .slider-control label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: var(--adaptive-font-weight);
+            color: var(--adaptive-text-secondary);
+        }
+
+        .slider-control input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--adaptive-border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--adaptive-text);
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--adaptive-shadow);
+        }
+
+        .slider-control input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--adaptive-text);
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--adaptive-shadow);
+            border: none;
+        }
+
+        .time-display {
+            font-size: 1.5rem;
+            font-weight: var(--adaptive-font-weight);
+            color: var(--adaptive-text);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .brightness-display {
+            font-size: 0.85rem;
+            color: var(--adaptive-text-secondary);
+            text-align: center;
+            margin-top: 10px;
+            font-weight: var(--adaptive-font-weight);
+        }
+
+        /* Sample UI Elements */
+        .ui-samples {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            pointer-events: auto;
+        }
+
+        .sample-card {
+            background: var(--adaptive-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--adaptive-border);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 250px;
+            box-shadow: 0 4px 20px var(--adaptive-shadow);
+        }
+
+        .sample-card h4 {
+            margin: 0 0 10px 0;
+            font-weight: var(--adaptive-font-weight);
+            color: var(--adaptive-text);
+            font-size: 1.1rem;
+        }
+
+        .sample-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: var(--adaptive-font-weight);
+            color: var(--adaptive-text-secondary);
+            line-height: 1.6;
+        }
+
+        .sample-button {
+            background: var(--adaptive-bg);
+            border: 2px solid var(--adaptive-border);
+            color: var(--adaptive-text);
+            font-weight: var(--adaptive-font-weight);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 2px 10px var(--adaptive-shadow);
+        }
+
+        .sample-button:hover {
+            background: var(--adaptive-bg-hover);
+        }
+
+        .center-showcase {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .showcase-title {
+            font-size: 4rem;
+            font-weight: var(--adaptive-font-weight);
+            color: var(--adaptive-text);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .showcase-subtitle {
+            font-size: 1.2rem;
+            font-weight: var(--adaptive-font-weight);
+            color: var(--adaptive-text-secondary);
+            letter-spacing: 4px;
+        }
+
+        .info-badge {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: var(--adaptive-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--adaptive-border);
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: var(--adaptive-text);
+            font-weight: var(--adaptive-font-weight);
+            font-size: 0.9rem;
+            box-shadow: 0 2px 10px var(--adaptive-shadow);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Weather Background Layers -->
+    <div id="skyLayer"></div>
+    <canvas id="starCanvas"></canvas>
+    <div id="tempOverlay"></div>
+    <div id="weatherOverlay"></div>
+    <canvas id="hazeLayer"></canvas>
+    <div id="flashOverlay"></div>
+    <canvas id="weatherCanvas"></canvas>
+
+    <!-- Demo Controls -->
+    <div class="demo-panel">
+        <h3>🎨 Adaptive UI Demo</h3>
+
+        <div class="time-display" id="timeDisplay">12:00</div>
+
+        <div class="slider-control">
+            <label for="timeSlider">Time of Day</label>
+            <input type="range" id="timeSlider" min="0" max="24" step="0.1" value="12">
+        </div>
+
+        <div class="brightness-display" id="brightnessDisplay">
+            Brightness: 50% | Font Weight: 300
+        </div>
+    </div>
+
+    <!-- Center Showcase -->
+    <div class="center-showcase">
+        <div class="showcase-title">ADAPTIVE UI</div>
+        <div class="showcase-subtitle">AUTO-ADJUSTING</div>
+    </div>
+
+    <!-- Sample UI Elements -->
+    <div class="ui-samples">
+        <div class="sample-card">
+            <h4>Sample Card</h4>
+            <p>Text automatically adapts to background brightness, ensuring perfect readability at any time.</p>
+        </div>
+
+        <button class="sample-button">Sample Button</button>
+
+        <div class="sample-card">
+            <h4>Dynamic Contrast</h4>
+            <p>Colors and font weights smoothly transition throughout the day.</p>
+        </div>
+    </div>
+
+    <!-- Info Badge -->
+    <div class="info-badge">
+        ⚡ All elements use CSS custom properties
+    </div>
+
+    <script>
+        // ==========================================
+        //  LIVING ATMOSPHERE ENGINE - DEMO VERSION
+        // ==========================================
+
+        const STATE = {
+            loaded: true,
+            temp: 20,
+            weatherCode: 0,
+            windSpeed: 5,
+            humidity: 50,
+            isDay: 1,
+            sunrise: 6.5,
+            sunset: 18.5,
+            timezone: "UTC",
+            demoTime: 12  // Controlled by slider
+        };
+
+        const ELS = {
+            sky: document.getElementById('skyLayer'),
+            stars: document.getElementById('starCanvas'),
+            tempOverlay: document.getElementById('tempOverlay'),
+            overlay: document.getElementById('weatherOverlay'),
+            haze: document.getElementById('hazeLayer'),
+            flash: document.getElementById('flashOverlay'),
+            canvas: document.getElementById('weatherCanvas'),
+            timeSlider: document.getElementById('timeSlider'),
+            timeDisplay: document.getElementById('timeDisplay'),
+            brightnessDisplay: document.getElementById('brightnessDisplay')
+        };
+
+        const CTX = ELS.canvas.getContext('2d');
+        const STAR_CTX = ELS.stars.getContext('2d');
+        const HAZE_CTX = ELS.haze.getContext('2d');
+
+        let starsData = [];
+
+        // ==========================================
+        //  INITIALIZATION
+        // ==========================================
+        function init() {
+            setupCanvas();
+            window.addEventListener('resize', setupCanvas);
+            initStars();
+
+            // Time slider control
+            ELS.timeSlider.addEventListener('input', (e) => {
+                STATE.demoTime = parseFloat(e.target.value);
+                tickClock();
+            });
+
+            requestAnimationFrame(renderLoop);
+            tickClock();
+        }
+
+        function setupCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
+            [ELS.canvas, ELS.stars, ELS.haze].forEach(c => {
+                c.width = w * dpr;
+                c.height = h * dpr;
+                c.style.width = w + 'px';
+                c.style.height = h + 'px';
+            });
+            CTX.scale(dpr, dpr);
+            STAR_CTX.scale(dpr, dpr);
+            HAZE_CTX.scale(dpr, dpr);
+            initStars();
+        }
+
+        function initStars() {
+            const w = window.innerWidth, h = window.innerHeight;
+            starsData = [];
+            for (let i = 0; i < 400; i++) {
+                starsData.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h * 0.8,
+                    size: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.8 + 0.2,
+                    tSpeed: Math.random() * 0.03 + 0.005,
+                    tPhase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        // ==========================================
+        //  ADAPTIVE COLOR SYSTEM
+        // ==========================================
+        function updateAdaptiveColors(brightness, weatherMod) {
+            const root = document.documentElement;
+
+            // Calculate adaptive values based on brightness (0-100)
+            let textColor, textSecondary, borderColor, shadowColor, bgColor, bgHover, fontWeight;
+
+            if (brightness >= 80) {
+                // Very Bright - Very dark text, heavy font
+                textColor = 'rgba(0, 0, 0, 0.9)';
+                textSecondary = 'rgba(0, 0, 0, 0.6)';
+                borderColor = 'rgba(0, 0, 0, 0.25)';
+                shadowColor = 'rgba(0, 0, 0, 0.15)';
+                bgColor = 'rgba(0, 0, 0, 0.08)';
+                bgHover = 'rgba(0, 0, 0, 0.15)';
+                fontWeight = 500;
+            } else if (brightness >= 60) {
+                // Bright - Dark text, medium-heavy font
+                textColor = 'rgba(0, 0, 0, 0.85)';
+                textSecondary = 'rgba(0, 0, 0, 0.55)';
+                borderColor = 'rgba(0, 0, 0, 0.2)';
+                shadowColor = 'rgba(0, 0, 0, 0.12)';
+                bgColor = 'rgba(0, 0, 0, 0.06)';
+                bgHover = 'rgba(0, 0, 0, 0.12)';
+                fontWeight = 400;
+            } else if (brightness >= 40) {
+                // Medium - Balanced
+                const t = (brightness - 40) / 20;
+                const darkAlpha = 0.7 + t * 0.15;
+                textColor = `rgba(0, 0, 0, ${darkAlpha})`;
+                textSecondary = `rgba(0, 0, 0, ${darkAlpha * 0.65})`;
+                borderColor = `rgba(0, 0, 0, ${0.15 + t * 0.05})`;
+                shadowColor = 'rgba(0, 0, 0, 0.1)';
+                bgColor = 'rgba(255, 255, 255, 0.08)';
+                bgHover = 'rgba(255, 255, 255, 0.15)';
+                fontWeight = 350;
+            } else if (brightness >= 20) {
+                // Dim - Light text, lighter font
+                const t = (brightness - 20) / 20;
+                textColor = `rgba(255, 255, 255, ${0.85 + t * 0.1})`;
+                textSecondary = `rgba(255, 255, 255, ${0.55 + t * 0.1})`;
+                borderColor = `rgba(255, 255, 255, ${0.25 + t * 0.05})`;
+                shadowColor = `rgba(0, 0, 0, ${0.2 + t * 0.1})`;
+                bgColor = 'rgba(255, 255, 255, 0.1)';
+                bgHover = 'rgba(255, 255, 255, 0.18)';
+                fontWeight = 300;
+            } else {
+                // Very Dark - Very light text, thin font with glow
+                textColor = 'rgba(255, 255, 255, 0.95)';
+                textSecondary = 'rgba(255, 255, 255, 0.65)';
+                borderColor = 'rgba(255, 255, 255, 0.3)';
+                shadowColor = 'rgba(0, 0, 0, 0.4)';
+                bgColor = 'rgba(255, 255, 255, 0.12)';
+                bgHover = 'rgba(255, 255, 255, 0.2)';
+                fontWeight = 200;
+            }
+
+            // Apply to CSS custom properties
+            root.style.setProperty('--adaptive-text', textColor);
+            root.style.setProperty('--adaptive-text-secondary', textSecondary);
+            root.style.setProperty('--adaptive-border', borderColor);
+            root.style.setProperty('--adaptive-shadow', shadowColor);
+            root.style.setProperty('--adaptive-bg', bgColor);
+            root.style.setProperty('--adaptive-bg-hover', bgHover);
+            root.style.setProperty('--adaptive-font-weight', fontWeight);
+            root.style.setProperty('--brightness-level', brightness);
+
+            // Update display
+            ELS.brightnessDisplay.textContent = `Brightness: ${Math.round(brightness)}% | Font Weight: ${fontWeight}`;
+        }
+
+        // ==========================================
+        //  SKY & TIME RENDERING
+        // ==========================================
+        function tickClock() {
+            const time = STATE.demoTime;
+
+            // Update time display
+            const hours = Math.floor(time);
+            const minutes = Math.floor((time - hours) * 60);
+            ELS.timeDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+            const sunR = STATE.sunrise, sunS = STATE.sunset;
+
+            // Sky gradient colors
+            const C_NIGHT = [[222, 50, 8], [222, 50, 12]];
+            const C_PREDAWN = [[222, 45, 15], [222, 45, 20]];
+            const C_DAWN = [[210, 75, 45], [30, 85, 55]];
+            const C_DAY = [[200, 90, 55], [195, 88, 80]];
+            const C_SUNSET = [[265, 55, 30], [345, 70, 55]];
+            const C_TWILIGHT = [[245, 50, 18], [245, 50, 12]];
+
+            const keys = [
+                { t: 0, c: C_NIGHT },
+                { t: sunR - 1.5, c: C_PREDAWN },
+                { t: sunR, c: C_DAWN },
+                { t: sunR + 1.5, c: C_DAY },
+                { t: sunS - 1.5, c: C_DAY },
+                { t: sunS, c: C_SUNSET },
+                { t: sunS + 1, c: C_TWILIGHT },
+                { t: 24, c: C_NIGHT }
+            ];
+
+            let start = keys[0], end = keys[keys.length - 1];
+            for (let i = 0; i < keys.length - 1; i++) {
+                if (time >= keys[i].t && time < keys[i + 1].t) {
+                    start = keys[i]; end = keys[i + 1]; break;
+                }
+            }
+
+            let p = (end.t !== start.t) ? (time - start.t) / (end.t - start.t) : 0;
+            p = Math.max(0, Math.min(1, p));
+
+            const top = lerpHSL(start.c[0], end.c[0], p);
+            const bot = lerpHSL(start.c[1], end.c[1], p);
+
+            const code = STATE.weatherCode;
+            const wMod = getWeatherModifier(code);
+            const tMod = getTempModifier(STATE.temp);
+
+            const topH = top[0] + tMod.hue;
+            const botH = bot[0] + tMod.hue;
+            const topL = top[2] * wMod.light;
+            const botL = bot[2] * wMod.light;
+
+            ELS.sky.style.background = `linear-gradient(to bottom, hsl(${topH},${top[1] * wMod.sat}%,${topL}%), hsl(${botH},${bot[1] * wMod.sat}%,${botL}%))`;
+            ELS.overlay.style.background = wMod.overlay;
+            ELS.tempOverlay.style.background = tMod.tint;
+
+            // Calculate brightness for adaptive system
+            // Average the top and bottom lightness, factor in weather overlay darkness
+            let baseBrightness = (topL + botL) / 2;
+
+            // Weather overlay reduces brightness
+            let weatherDarkness = 0;
+            if (code >= 95) weatherDarkness = 40;  // Thunderstorm
+            else if (code >= 80) weatherDarkness = 25;  // Heavy rain
+            else if (code >= 60) weatherDarkness = 20;  // Rain
+            else if (code >= 45) weatherDarkness = 15;  // Fog
+            else if (code === 3) weatherDarkness = 10;  // Overcast
+
+            const finalBrightness = Math.max(0, Math.min(100, baseBrightness - weatherDarkness));
+
+            // Update adaptive color system
+            updateAdaptiveColors(finalBrightness, wMod);
+
+            // Stars
+            let starOp = 0;
+            if ((time > sunS + 0.5) || (time < sunR - 1)) starOp = 1;
+            if (time >= sunS && time < sunS + 0.5) starOp = (time - sunS) / 0.5;
+            if (time >= sunR - 1 && time < sunR) starOp = 1 - (time - (sunR - 1));
+            if (code > 2) starOp = 0;
+            ELS.stars.style.opacity = starOp;
+        }
+
+        function getTempModifier(temp) {
+            if (temp >= 35) return { label: 'Very Hot', tint: 'rgba(255,100,50,0.15)', hue: 15 };
+            if (temp >= 28) return { label: 'Hot', tint: 'rgba(255,150,80,0.08)', hue: 25 };
+            if (temp >= 20) return { label: 'Warm', tint: 'transparent', hue: 0 };
+            if (temp >= 12) return { label: 'Mild', tint: 'transparent', hue: 0 };
+            if (temp >= 5) return { label: 'Cool', tint: 'rgba(100,150,255,0.05)', hue: -5 };
+            if (temp >= -5) return { label: 'Cold', tint: 'rgba(80,120,255,0.1)', hue: -10 };
+            return { label: 'Freezing', tint: 'rgba(150,200,255,0.18)', hue: -15 };
+        }
+
+        function getWeatherModifier(code) {
+            if (code >= 95) return { sat: 0.2, light: 0.18, overlay: 'rgba(10,0,30,0.5)' };
+            if (code >= 80) return { sat: 0.4, light: 0.5, overlay: 'rgba(0,5,20,0.35)' };
+            if (code >= 70) return { sat: 0.3, light: 1.0, overlay: 'rgba(240,248,255,0.15)' };
+            if (code >= 60) return { sat: 0.45, light: 0.55, overlay: 'rgba(0,10,25,0.3)' };
+            if (code >= 50) return { sat: 0.5, light: 0.65, overlay: 'rgba(0,5,15,0.2)' };
+            if (code >= 45) return { sat: 0.12, light: 0.7, overlay: 'rgba(150,160,175,0.45)' };
+            if (code === 3) return { sat: 0.4, light: 0.75, overlay: 'rgba(0,0,0,0.15)' };
+            if (code === 2) return { sat: 0.7, light: 0.9, overlay: 'rgba(0,0,0,0.05)' };
+            if (code === 1) return { sat: 0.9, light: 0.98, overlay: 'transparent' };
+            return { sat: 1, light: 1, overlay: 'transparent' };
+        }
+
+        // ==========================================
+        //  RENDER LOOP
+        // ==========================================
+        function renderLoop() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
+            STAR_CTX.clearRect(0, 0, w, h);
+
+            const starOp = parseFloat(ELS.stars.style.opacity || 0);
+            if (starOp > 0) {
+                STAR_CTX.fillStyle = "white";
+                starsData.forEach(s => {
+                    s.tPhase += s.tSpeed;
+                    let a = s.alpha + Math.sin(s.tPhase) * 0.25;
+                    a = Math.max(0.1, Math.min(1, a));
+                    s.x -= 0.015;
+                    if (s.x < 0) s.x = w;
+                    STAR_CTX.globalAlpha = a * starOp;
+                    STAR_CTX.beginPath();
+                    STAR_CTX.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                    STAR_CTX.fill();
+                });
+            }
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        function lerpHSL(a, b, p) {
+            return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p];
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
