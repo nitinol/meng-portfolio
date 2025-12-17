@@ -89,11 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailInput = document.getElementById('email');
         const messageInput = document.getElementById('message');
 
-        // Define global callback for ReCaptcha
-        window.recaptchaCallback = function () {
-            checkValidity();
-        };
-
         function validateName(name) {
             return name.trim().split(/\s+/).length >= 2;
         }
@@ -102,23 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
-        function validateReCaptcha() {
-            // Using reCAPTCHA Enterprise API
-            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.enterprise !== 'undefined') {
-                try {
-                    return grecaptcha.enterprise.getResponse().length !== 0;
-                } catch (e) { return false; }
-            }
-            return false;
-        }
-
         function checkValidity() {
             const isNameValid = validateName(nameInput.value);
             const isEmailValid = validateEmail(emailInput.value);
             const isMessageValid = messageInput.value.trim().length >= 35;
-            const isReCaptchaValid = validateReCaptcha();
 
-            if (isNameValid && isEmailValid && isMessageValid && isReCaptchaValid) {
+            if (isNameValid && isEmailValid && isMessageValid) {
                 submitBtn.classList.remove('disabled');
                 return true;
             } else {
@@ -146,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!validateName(nameInput.value)) errorMsg = "Name must include First and Last name.";
                 else if (!validateEmail(emailInput.value)) errorMsg = "Please enter a valid email address.";
                 else if (messageInput.value.trim().length < 35) errorMsg = "Reason for connecting must be at least 35 chars.";
-                else if (!validateReCaptcha()) errorMsg = "Please complete the ReCaptcha verification.";
 
                 tooltip.textContent = errorMsg;
                 tooltip.classList.add('visible');
@@ -157,9 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 3000);
             }
         });
-
-        // Check validity periodically to catch ReCaptcha expiry or load
-        setInterval(checkValidity, 1000);
     }
 
     console.log("Menguhan's Portfolio Loaded and Ready");

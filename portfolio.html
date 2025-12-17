@@ -304,7 +304,6 @@
                     <!-- Helper fields for FormSubmit -->
                     <input type="hidden" name="_subject" value="New Portfolio Message!">
                     <input type="hidden" name="_next" value="https://menguhan.com/success.html">
-                    <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
 
                     <div class="form-group">
@@ -327,13 +326,6 @@
                         <label for="message">Reason for Connecting</label>
                         <textarea id="message" name="message" rows="4" required
                             placeholder="Tell me about your product vision..."></textarea>
-                    </div>
-
-                    <!-- Google ReCaptcha v2 -->
-                    <div class="form-group recaptcha-wrapper">
-                        <div class="g-recaptcha g-recaptcha-response"
-                            data-sitekey="6LcMWi4sAAAAAI1Uj5iCwtNOavoDElbC5LkPrtlK" data-callback="recaptchaCallback">
-                        </div>
                     </div>
                     <div class="submit-wrapper" style="position: relative;">
                         <button type="submit" id="submitBtn" class="btn primary-btn full-width disabled">Send
@@ -402,7 +394,6 @@
         </div>
     </footer>
 
-    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
     <script src="script.js"></script>
 </body>
 
