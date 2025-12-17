@@ -84,19 +84,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         const submitBtn = document.getElementById('submitBtn');
         const tooltip = document.getElementById('formTooltip');
-        const inputs = contactForm.querySelectorAll('input, textarea');
+
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
         const messageInput = document.getElementById('message');
 
+        // Define global callback for ReCaptcha
+        window.recaptchaCallback = function () {
+            checkValidity();
+        };
+
+        function validateName(name) {
+            return name.trim().split(/\s+/).length >= 2;
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function validateReCaptcha() {
+            if (typeof grecaptcha !== 'undefined') {
+                try {
+                    return grecaptcha.getResponse().length !== 0;
+                } catch (e) { return false; }
+            }
+            return false;
+        }
+
         function checkValidity() {
-            let allFilled = true;
-            inputs.forEach(input => {
-                if (!input.value.trim()) allFilled = false;
-            });
+            const isNameValid = validateName(nameInput.value);
+            const isEmailValid = validateEmail(emailInput.value);
+            const isMessageValid = messageInput.value.trim().length >= 35;
+            const isReCaptchaValid = validateReCaptcha();
 
-            const messageLength = messageInput.value.length;
-            const isMsgValid = messageLength >= 41;
-
-            if (allFilled && isMsgValid) {
+            if (isNameValid && isEmailValid && isMessageValid && isReCaptchaValid) {
                 submitBtn.classList.remove('disabled');
                 return true;
             } else {
@@ -106,18 +127,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Real-time validation
-        inputs.forEach(input => {
+        [nameInput, emailInput, messageInput].forEach(input => {
+            if (!input) return;
             input.addEventListener('input', () => {
                 checkValidity();
-                // Hide tooltip if user is typing
                 tooltip.classList.remove('visible');
             });
         });
 
-        // Click handler for passive button
+        // Click handler for passive button with specific feedback
         submitBtn.addEventListener('click', (e) => {
             if (submitBtn.classList.contains('disabled')) {
                 e.preventDefault();
+
+                // Determine specific error message
+                let errorMsg = "Please fill all required fields.";
+                if (!validateName(nameInput.value)) errorMsg = "Name must include First and Last name.";
+                else if (!validateEmail(emailInput.value)) errorMsg = "Please enter a valid email address.";
+                else if (messageInput.value.trim().length < 35) errorMsg = "Reason for connecting must be at least 35 chars.";
+                else if (!validateReCaptcha()) errorMsg = "Please complete the ReCaptcha verification.";
+
+                tooltip.textContent = errorMsg;
                 tooltip.classList.add('visible');
 
                 // Auto hide after 3 seconds
@@ -126,6 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 3000);
             }
         });
+
+        // Check validity periodically to catch ReCaptcha expiry or load
+        setInterval(checkValidity, 1000);
     }
 
     console.log("Menguhan's Portfolio Loaded and Ready");
