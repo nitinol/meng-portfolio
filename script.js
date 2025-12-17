@@ -103,9 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function validateReCaptcha() {
-            if (typeof grecaptcha !== 'undefined') {
+            // Using reCAPTCHA Enterprise API
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.enterprise !== 'undefined') {
                 try {
-                    return grecaptcha.getResponse().length !== 0;
+                    return grecaptcha.enterprise.getResponse().length !== 0;
                 } catch (e) { return false; }
             }
             return false;
