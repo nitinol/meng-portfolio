@@ -146,19 +146,66 @@
             height: auto;
             z-index: 5;
             pointer-events: none;
-            /* Subtle breathing animation for life-like feel */
-            animation: breathe 8s ease-in-out infinite;
+            /* Container for pivot rotation */
+            transform-origin: 60% 70%;
+            /* Pivot near feet */
+            animation: sway 12s ease-in-out infinite alternate;
+        }
+
+        #birdInner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            /* Breathing animation on the body itself */
+            animation: breathe 4s ease-in-out infinite;
+            transform-origin: 50% 50%;
+        }
+
+        /* Procedural Eyelid */
+        #birdEyelid {
+            position: absolute;
+            /* Position guessed based on standard vector bird layout - adjusting for scale */
+            /* 
+               The bird image is displayed at full width (100% of 120vw).
+               These % coordinates are relative to the *image dimensions*.
+               We need to "guess" where the eye is. 
+               Bird is usually center-right.
+            */
+            top: 48%;
+            left: 56.5%;
+            width: 3.5%;
+            height: 4%;
+            background-color: #6da34d;
+            /* Matches bird green body */
+            border-radius: 50%;
+            opacity: 0;
+            /* Open by default */
+            z-index: 10;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.05s linear;
         }
 
         @keyframes breathe {
 
             0%,
             100% {
-                transform: translateY(0) scale(1);
+                transform: scale(1);
             }
 
             50% {
-                transform: translateY(-5px) scale(1.005);
+                transform: scale(1.02);
+            }
+
+            /* Subtle expansion */
+        }
+
+        @keyframes sway {
+            0% {
+                transform: rotate(-1deg);
+            }
+
+            100% {
+                transform: rotate(1.5deg);
             }
         }
 
@@ -231,7 +278,10 @@
     <div id="tempOverlay"></div>
     <div id="weatherOverlay"></div>
     <div id="birdLayer">
-        <img src="bird.png" alt="Bird on Branch" style="width: 100%; height: auto; display: block;">
+        <div id="birdInner">
+            <img src="bird.png" alt="Bird on Branch" style="width: 100%; height: auto; display: block;">
+            <div id="birdEyelid"></div>
+        </div>
     </div>
     <canvas id="hazeLayer"></canvas>
     <div id="flashOverlay"></div>
@@ -949,6 +999,44 @@
         function lerpHSL(a, b, p) {
             return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p];
         }
+
+        // ==========================================
+        //  BIRD BEHAVIOR ENGINE
+        // ==========================================
+        function initBirdBehavior() {
+            const eyelid = document.getElementById('birdEyelid');
+            if (!eyelid) return;
+
+            function blink() {
+                // Close eyes (show eyelid)
+                eyelid.style.opacity = 1;
+
+                // Open after short delay
+                setTimeout(() => {
+                    eyelid.style.opacity = 0;
+
+                    // Sometimes double blink
+                    if (Math.random() < 0.2) {
+                        setTimeout(() => {
+                            eyelid.style.opacity = 1;
+                            setTimeout(() => eyelid.style.opacity = 0, 150);
+                        }, 100 + Math.random() * 100);
+                    }
+                }, 150 + Math.random() * 50);
+
+                // Schedule next blink
+                scheduleNextBlink();
+            }
+
+            function scheduleNextBlink() {
+                const delay = 1000 + Math.random() * 5000; // 1-6 seconds
+                setTimeout(blink, delay);
+            }
+
+            scheduleNextBlink();
+        }
+
+        initBirdBehavior();
 
         init();
     </script>
