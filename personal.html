@@ -138,6 +138,30 @@
             z-index: 6;
         }
 
+        #birdLayer {
+            position: fixed;
+            bottom: 20%;
+            left: -10%;
+            width: 120%;
+            height: auto;
+            z-index: 5;
+            pointer-events: none;
+            /* Subtle breathing animation for life-like feel */
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-5px) scale(1.005);
+            }
+        }
+
         .top-bar {
             position: fixed;
             top: 40px;
@@ -206,6 +230,9 @@
     <canvas id="starCanvas"></canvas>
     <div id="tempOverlay"></div>
     <div id="weatherOverlay"></div>
+    <div id="birdLayer">
+        <img src="bird.png" alt="Bird on Branch" style="width: 100%; height: auto; display: block;">
+    </div>
     <canvas id="hazeLayer"></canvas>
     <div id="flashOverlay"></div>
     <canvas id="weatherCanvas"></canvas>
