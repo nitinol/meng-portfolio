@@ -167,14 +167,22 @@
 
             0%,
             100% {
-                transform: scale(1);
+                transform: scale(1) translateY(0);
+            }
+
+            25% {
+                transform: scale(1.003) translateY(-0.5px);
             }
 
             50% {
-                transform: scale(1.02);
+                transform: scale(1.006) translateY(-1px);
             }
 
-            /* Subtle expansion */
+            75% {
+                transform: scale(1.003) translateY(-0.5px);
+            }
+
+            /* Ultra-subtle breathing - bird chest rises slightly */
         }
 
         @keyframes sway {
