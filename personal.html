@@ -149,7 +149,7 @@
             /* Container for pivot rotation */
             transform-origin: 60% 70%;
             /* Pivot near feet */
-            animation: sway 12s ease-in-out infinite alternate;
+            /* animation: sway 12s ease-in-out infinite alternate; */
         }
 
         #birdInner {
@@ -161,29 +161,7 @@
             transform-origin: 50% 50%;
         }
 
-        /* Procedural Eyelid */
-        #birdEyelid {
-            position: absolute;
-            /* Position guessed based on standard vector bird layout - adjusting for scale */
-            /* 
-               The bird image is displayed at full width (100% of 120vw).
-               These % coordinates are relative to the *image dimensions*.
-               We need to "guess" where the eye is. 
-               Bird is usually center-right.
-            */
-            top: 48%;
-            left: 56.5%;
-            width: 3.5%;
-            height: 4%;
-            background-color: #6da34d;
-            /* Matches bird green body */
-            border-radius: 50%;
-            opacity: 0;
-            /* Open by default */
-            z-index: 10;
-            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.05s linear;
-        }
+        /* Eyelid removed */
 
         @keyframes breathe {
 
@@ -280,7 +258,6 @@
     <div id="birdLayer">
         <div id="birdInner">
             <img src="bird.png" alt="Bird on Branch" style="width: 100%; height: auto; display: block;">
-            <div id="birdEyelid"></div>
         </div>
     </div>
     <canvas id="hazeLayer"></canvas>
@@ -1000,43 +977,8 @@
             return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p];
         }
 
-        // ==========================================
-        //  BIRD BEHAVIOR ENGINE
-        // ==========================================
-        function initBirdBehavior() {
-            const eyelid = document.getElementById('birdEyelid');
-            if (!eyelid) return;
-
-            function blink() {
-                // Close eyes (show eyelid)
-                eyelid.style.opacity = 1;
-
-                // Open after short delay
-                setTimeout(() => {
-                    eyelid.style.opacity = 0;
-
-                    // Sometimes double blink
-                    if (Math.random() < 0.2) {
-                        setTimeout(() => {
-                            eyelid.style.opacity = 1;
-                            setTimeout(() => eyelid.style.opacity = 0, 150);
-                        }, 100 + Math.random() * 100);
-                    }
-                }, 150 + Math.random() * 50);
-
-                // Schedule next blink
-                scheduleNextBlink();
-            }
-
-            function scheduleNextBlink() {
-                const delay = 1000 + Math.random() * 5000; // 1-6 seconds
-                setTimeout(blink, delay);
-            }
-
-            scheduleNextBlink();
-        }
-
-        initBirdBehavior();
+        // Bird Blink behavior removed.
+        // initBirdBehavior();
 
         init();
     </script>
