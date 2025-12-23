@@ -138,63 +138,6 @@
             z-index: 6;
         }
 
-        #birdLayer {
-            position: fixed;
-            bottom: 20%;
-            left: -10%;
-            width: 120%;
-            height: auto;
-            z-index: 5;
-            pointer-events: none;
-            /* Container for pivot rotation */
-            transform-origin: 60% 70%;
-            /* Pivot near feet */
-            /* animation: sway 12s ease-in-out infinite alternate; */
-        }
-
-        #birdInner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            /* Breathing animation on the body itself */
-            animation: breathe 4s ease-in-out infinite;
-            transform-origin: 50% 50%;
-        }
-
-        /* Eyelid removed */
-
-        @keyframes breathe {
-
-            0%,
-            100% {
-                transform: scale(1) translateY(0);
-            }
-
-            25% {
-                transform: scale(1.003) translateY(-0.5px);
-            }
-
-            50% {
-                transform: scale(1.006) translateY(-1px);
-            }
-
-            75% {
-                transform: scale(1.003) translateY(-0.5px);
-            }
-
-            /* Ultra-subtle breathing - bird chest rises slightly */
-        }
-
-        @keyframes sway {
-            0% {
-                transform: rotate(-1deg);
-            }
-
-            100% {
-                transform: rotate(1.5deg);
-            }
-        }
-
         .top-bar {
             position: fixed;
             top: 40px;
@@ -263,11 +206,6 @@
     <canvas id="starCanvas"></canvas>
     <div id="tempOverlay"></div>
     <div id="weatherOverlay"></div>
-    <div id="birdLayer">
-        <div id="birdInner">
-            <img src="bird.png" alt="Bird on Branch" style="width: 100%; height: auto; display: block;">
-        </div>
-    </div>
     <canvas id="hazeLayer"></canvas>
     <div id="flashOverlay"></div>
     <canvas id="weatherCanvas"></canvas>
