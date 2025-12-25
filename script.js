@@ -79,7 +79,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // 5. Contact Form Validation
+    // 5. Principle Cards Toggle
+    window.togglePrinciple = function (card) {
+        // Close other expanded cards (optional: remove if you want multiple open)
+        const allCards = document.querySelectorAll('.principle-card');
+        allCards.forEach(c => {
+            if (c !== card && c.classList.contains('expanded')) {
+                c.classList.remove('expanded');
+            }
+        });
+
+        // Toggle the clicked card
+        card.classList.toggle('expanded');
+
+        // Smooth scroll to keep card in view when expanding
+        if (card.classList.contains('expanded')) {
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+    };
+
+    // 6. Mobile Menu Toggle
+    window.toggleMobileMenu = function () {
+        const nav = document.getElementById('mainNav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+
+        if (nav && menuBtn) {
+            nav.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+    };
+
+    // Close mobile menu when clicking a nav link
+    document.querySelectorAll('#mainNav a').forEach(link => {
+        link.addEventListener('click', () => {
+            const nav = document.getElementById('mainNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (nav && menuBtn) {
+                nav.classList.remove('active');
+                menuBtn.classList.remove('active');
+            }
+        });
+    });
+
+    // 7. Contact Form Validation
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         const submitBtn = document.getElementById('submitBtn');
