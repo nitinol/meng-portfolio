@@ -92,7 +92,6 @@
         <nav>
             <a href="#about">About</a>
             <a href="#skills">Stack</a>
-            <a href="#projects">Work</a>
             <a href="#contact" class="nav-cta">Contact Me</a>
         </nav>
     </header>
@@ -110,10 +109,7 @@
                     improver, I focus on progress through smart adaptation and clear strategy. I think first, act
                     decisively, and design unique solutions that move systems forward with impact and precision.</p>
 
-                <div class="hero-actions">
-                    <a href="#contact" class="btn primary-btn">Let's Talk Product</a>
-                    <a href="#projects" class="btn secondary-btn">View Case Studies</a>
-                </div>
+
 
                 <div class="stats-container">
                     <div class="stat-item">
@@ -132,28 +128,158 @@
             </div>
         </section>
 
-        <!-- About Section -->
+        <!-- About Section - How I Build Products -->
         <section id="about" class="section-container hidden">
             <div class="section-header">
-                <h2>The Product Mindset</h2>
+                <h2>How I Build Products: My Core Principles</h2>
                 <div class="line"></div>
             </div>
-            <div class="about-grid">
-                <div class="about-card glass">
-                    <h3>🚀 Strategic Leadership</h3>
-                    <p>Led high-performing squads at <strong>Global E-Commerce Leaders</strong> and
-                        <strong>Postmates</strong>, translating complex business needs into clear, actionable roadmaps.
-                    </p>
+            <div class="principles-grid">
+                <!-- Principle 1 -->
+                <div class="principle-card glass" onclick="togglePrinciple(this)">
+                    <div class="principle-header">
+                        <span class="principle-icon">🚀</span>
+                        <h3>From Concept to Launch</h3>
+                        <span class="principle-subtitle">The Art of the Strong Inception</span>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="principle-content">
+                        <p class="principle-intro">Every project begins with the same critical question: <strong>What
+                                does the company need, and what can the team realistically deliver?</strong> I lead
+                            projects from conception through launch, owning the entire journey—not because I have all
+                            the answers, but because I know how to find them together.</p>
+                        <p class="principle-subhead">During inception, I do three things obsessively:</p>
+                        <ul class="principle-list">
+                            <li><strong>Find the best method for this specific situation.</strong> No two projects are
+                                identical. I always search for and apply the approaches that fit this team, this
+                                company, this market moment—giving leadership realistic estimations they can actually
+                                trust.</li>
+                            <li><strong>Identify the true MVP.</strong> Not the smallest thing we can ship, but the
+                                smallest thing that matters—the one feature or workflow that proves our hypothesis and
+                                lets us learn faster than anyone else.</li>
+                            <li><strong>Keep everyone aligned around it.</strong> Because a company is not a list of
+                                features—it's a team moving in the same direction. Scope chaos kills products faster
+                                than bad code.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="about-card glass">
-                    <h3>🤝 Master Communicator</h3>
-                    <p>Turning ambiguity into clarity. I align stakeholders, engineering, and design teams through
-                        transparent, data-backed communication.</p>
+
+                <!-- Principle 2 -->
+                <div class="principle-card glass" onclick="togglePrinciple(this)">
+                    <div class="principle-header">
+                        <span class="principle-icon">👂</span>
+                        <h3>Radical Listening</h3>
+                        <span class="principle-subtitle">Understanding What Stakeholders Really Need</span>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="principle-content">
+                        <p class="principle-intro"><strong>The importance of listening is directly proportional to
+                                product success.</strong> It's that simple.</p>
+                        <p>If you want to give the right answers to stakeholders, you must first understand them
+                            100%—not just what they say, but what they're really worried about, what constraints they're
+                            under, what keeps them awake at night. Most miscommunication happens because we stopped
+                            listening too early.</p>
+                        <p>This is where I introduce the <strong>trade-off slider</strong>: every company has finite
+                            resources, limited time, and competing priorities. My job is to make those trade-offs
+                            visible and explicit. Should we prioritize speed or polish? User acquisition or retention?
+                            New features or stability?</p>
+                        <p class="principle-conclusion">Once we clarify the company's slider—not what each stakeholder
+                            wishes it was—the product roadmap almost writes itself. Everyone sees the same picture.
+                            Everyone says "yes, that makes sense." 🎯</p>
+                    </div>
                 </div>
-                <div class="about-card glass">
-                    <h3>📊 Data-Obsessed</h3>
-                    <p>I don't guess; I measure. Expert in using <strong>BigQuery</strong>, <strong>Google
-                            Analytics</strong>, and <strong>Kibana</strong> to inform every decision.</p>
+
+                <!-- Principle 3 -->
+                <div class="principle-card glass" onclick="togglePrinciple(this)">
+                    <div class="principle-header">
+                        <span class="principle-icon">💬</span>
+                        <h3>Transparent Communication</h3>
+                        <span class="principle-subtitle">The Foundation of Everything</span>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="principle-content">
+                        <p class="principle-intro">Here's the brutal truth: <strong>no clean communication = problems
+                                multiplied.</strong></p>
+                        <p>Poor communication doesn't just slow things down—it corrupts decisions. It creates duplicate
+                            work. It makes talented people feel unheard. It kills momentum.</p>
+                        <p>That's why I treat communication like code quality: <strong>it's non-negotiable.</strong>
+                            Every decision, every trade-off, every constraint gets communicated clearly to engineering,
+                            design, and stakeholders. Not in a thousand-word email. Not in jargon. In clear, structured,
+                            data-backed statements that leave no room for misinterpretation.</p>
+                        <p class="principle-conclusion">When communication is clean, everything moves faster. The team
+                            trusts the direction. Disagreements get resolved quickly because everyone's working from the
+                            same facts. Magic happens. ✨</p>
+                    </div>
+                </div>
+
+                <!-- Principle 4 -->
+                <div class="principle-card glass" onclick="togglePrinciple(this)">
+                    <div class="principle-header">
+                        <span class="principle-icon">🎯</span>
+                        <h3>Data-Driven Prioritization</h3>
+                        <span class="principle-subtitle">Turning Chaos into Clarity</span>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="principle-content">
+                        <p class="principle-intro">Prioritization looks painful if you're guessing. It's painful if
+                            you're just listening to whoever spoke loudest. <strong>But if you see the whole picture? It
+                                becomes a math problem.</strong></p>
+                        <p class="principle-subhead">Here's my framework:</p>
+                        <ul class="principle-list">
+                            <li><strong>Step 1: Gather the data.</strong> What's breaking? What's your bottleneck? What
+                                do users actually do vs. what we think they do?</li>
+                            <li><strong>Step 2: Match it against the company's trade-off slider</strong> (the one we
+                                clarified in listening). Speed matters more than perfection? That changes what "high
+                                priority" means. User growth? Different story.</li>
+                            <li><strong>Step 3: Prioritization becomes automatic.</strong> Not because I'm smart—because
+                                the data is clear and the criteria are set.</li>
+                        </ul>
+                        <p class="principle-conclusion">Then? I get to do the fun part: show your team and stakeholders
+                            a beautiful, data-backed presentation that makes everyone say "oh, that's why we're doing
+                            this." No debates. No politics. Just clarity. 📊</p>
+                    </div>
+                </div>
+
+                <!-- Principle 5 -->
+                <div class="principle-card glass" onclick="togglePrinciple(this)">
+                    <div class="principle-header">
+                        <span class="principle-icon">📈</span>
+                        <h3>Numbers Don't Lie</h3>
+                        <span class="principle-subtitle">Building with Metrics, Not Guesses</span>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="principle-content">
+                        <p class="principle-intro">You can improve a product by instinct. You can improve it faster by
+                            listening. <strong>But you only know if you're actually moving in the right direction when
+                                you measure it.</strong></p>
+                        <p>This isn't about vanity metrics or dashboard theater. It's about knowing, from day one of
+                            inception, which data matters. What KPIs will prove success? What signals will show us
+                            problems early? Which dashboards need to exist so we can catch errors before users feel
+                            them?</p>
+                        <p>I learned this at scale: when we built a massive search infrastructure with Elasticsearch, we
+                            didn't just connect it and hope. We wired it directly into Kibana and Grafana from the
+                            start. Every error, every latency spike, every query pattern—all visible in real time.</p>
+                        <p class="principle-conclusion">Result? We caught issues that would have silently degraded user
+                            experience. We iterated faster. We shipped with confidence. Building product without metrics
+                            is building blind. Building product with metrics from inception is how you move fast without
+                            breaking things. 📈</p>
+                    </div>
+                </div>
+
+                <!-- Principle 6 -->
+                <div class="principle-card glass" onclick="togglePrinciple(this)">
+                    <div class="principle-header">
+                        <span class="principle-icon">🔥</span>
+                        <h3>When Things Break</h3>
+                        <span class="principle-subtitle">Crisis is a Conversation</span>
+                        <span class="expand-indicator">+</span>
+                    </div>
+                    <div class="principle-content">
+                        <p class="principle-intro"><strong>I'll tell you face to face. :]</strong></p>
+                        <p class="principle-conclusion">Because crises aren't solved with Slack messages, emails, or
+                            async updates. They're solved with real humans in a room, thinking together, making fast
+                            decisions, and moving as one.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -200,63 +326,7 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="section-container hidden">
-            <div class="section-header">
-                <h2>Selected Case Studies</h2>
-                <div class="line"></div>
-            </div>
 
-            <div class="projects-grid">
-                <!-- Project 1: Anonymous E-Commerce -->
-                <article class="project-card glass" onclick="openModal('modal-modanisa')">
-                    <div class="project-content">
-                        <div class="project-badge">E-Commerce Data</div>
-                        <h3>Intelligent Recommendation Engine</h3>
-                        <p class="role">Product Lead @ Top Fashion E-Com</p>
-                        <p>Led the integration of data capabilities to enhance core e-commerce functionality.
-                            Successfully launched the "Similar Products" engine.</p>
-                        <ul class="project-metrics">
-                            <li><strong>Impact:</strong> Significant lift in conversion & engagement.</li>
-                            <li><strong>Focus:</strong> Data-Driven Personalization.</li>
-                        </ul>
-                        <div class="click-hint">Click to see Data Impact</div>
-                    </div>
-                </article>
-
-                <!-- Project 2: Mobile Ecosystem -->
-                <article class="project-card glass" onclick="openModal('modal-mobile')">
-                    <div class="project-content">
-                        <div class="project-badge">Mobile Ops</div>
-                        <h3>Global App Release Ecosystem</h3>
-                        <p class="role">Product Ops Lead</p>
-                        <p>Managed end-to-end production support and app releases across Play Console, App Store, and
-                            Huawei App Gallery.</p>
-                        <ul class="project-metrics">
-                            <li><strong>Scale:</strong> Millions of downloads managed.</li>
-                            <li><strong>Tools:</strong> Firebase, CI/CD, Release Trains.</li>
-                        </ul>
-                        <div class="click-hint">Click to see Release Workflow</div>
-                    </div>
-                </article>
-
-                <!-- Project 3: Dashboarding -->
-                <article class="project-card glass" onclick="openModal('modal-viz')">
-                    <div class="project-content">
-                        <div class="project-badge">Analytics</div>
-                        <h3>Real-Time Performance Dashboards</h3>
-                        <p class="role">Internal Tooling Project</p>
-                        <p>Designed and implemented comprehensive monitoring dashboards for engineering and product
-                            teams to track real-time KPIs.</p>
-                        <ul class="project-metrics">
-                            <li><strong>Outcome:</strong> 40% faster incident response time.</li>
-                            <li><strong>Stack:</strong> Grafana, Kibana, Google Analytics.</li>
-                        </ul>
-                        <div class="click-hint">Click to see Dashboard UI</div>
-                    </div>
-                </article>
-            </div>
-        </section>
 
         <!-- New Perspective / Nature Section -->
         <section id="perspective" class="section-container hidden">
