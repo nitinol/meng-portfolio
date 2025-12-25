@@ -100,7 +100,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // 5. Contact Form Validation
+    // 6. Mobile Menu Toggle
+    window.toggleMobileMenu = function () {
+        const nav = document.getElementById('mainNav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+
+        if (nav && menuBtn) {
+            nav.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+    };
+
+    // Close mobile menu when clicking a nav link
+    document.querySelectorAll('#mainNav a').forEach(link => {
+        link.addEventListener('click', () => {
+            const nav = document.getElementById('mainNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (nav && menuBtn) {
+                nav.classList.remove('active');
+                menuBtn.classList.remove('active');
+            }
+        });
+    });
+
+    // 7. Contact Form Validation
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         const submitBtn = document.getElementById('submitBtn');
