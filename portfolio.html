@@ -95,10 +95,35 @@
             <span></span>
         </button>
         <nav id="mainNav">
-            <a href="#about">About</a>
-            <a href="#skills">Stack</a>
-            <a href="#contact" class="nav-cta">Contact Me</a>
+            <a href="#about" data-i18n="nav.about">About</a>
+            <a href="#skills" data-i18n="nav.stack">Stack</a>
+            <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact Me</a>
         </nav>
+        <!-- Language Selector -->
+        <div class="language-selector" id="langSelector">
+            <button class="language-toggle" onclick="toggleLanguageDropdown()">
+                <span class="globe-icon">🌐</span>
+                <span class="current-lang" id="currentLang">EN</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="language-dropdown">
+                <div class="lang-option active" data-lang="en" onclick="setLanguage('en')">
+                    <span class="flag">🇺🇸</span>
+                    <span class="lang-name">English</span>
+                    <span class="lang-code">EN</span>
+                </div>
+                <div class="lang-option" data-lang="ru" onclick="setLanguage('ru')">
+                    <span class="flag">🇷🇺</span>
+                    <span class="lang-name">Русский</span>
+                    <span class="lang-code">RU</span>
+                </div>
+                <div class="lang-option" data-lang="ja" onclick="setLanguage('ja')">
+                    <span class="flag">🇯🇵</span>
+                    <span class="lang-name">日本語</span>
+                    <span class="lang-code">JA</span>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -106,10 +131,11 @@
         <section id="hero" class="hero-section">
             <div class="hero-content">
                 <h1>
-                    Mastering Communication.
-                    <span>Powered by Data.</span>
+                    <span data-i18n="hero.title">Mastering Communication.</span>
+                    <span data-i18n="hero.titleSpan">Powered by Data.</span>
                 </h1>
-                <p class="subtitle">Hi, I'm <strong>Menguhan Bulut</strong>.<br>I’m a communicator and hidden problem
+                <p class="subtitle" data-i18n="hero.subtitle">Hi, I'm <strong>Menguhan Bulut</strong>.<br>I'm a
+                    communicator and hidden problem
                     finder who spots bottlenecks before they slow things down. As an edge-case seeker and iterative
                     improver, I focus on progress through smart adaptation and clear strategy. I think first, act
                     decisively, and design unique solutions that move systems forward with impact and precision.</p>
@@ -118,57 +144,63 @@
 
                 <div class="stats-container">
                     <div class="stat-item">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Years Experience</span>
+                        <span class="stat-number" data-i18n="hero.stat1Number">10+</span>
+                        <span class="stat-label" data-i18n="hero.stat1Label">Years Experience</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">Data</span>
-                        <span class="stat-label">Driven Strategy</span>
+                        <span class="stat-number" data-i18n="hero.stat2Number">Data</span>
+                        <span class="stat-label" data-i18n="hero.stat2Label">Driven Strategy</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">Millions</span>
-                        <span class="stat-label">Users Impacted</span>
+                        <span class="stat-number" data-i18n="hero.stat3Number">Millions</span>
+                        <span class="stat-label" data-i18n="hero.stat3Label">Users Impacted</span>
                     </div>
                 </div>
             </div>
         </section>
 
+
         <!-- About Section - How I Build Products -->
         <section id="about" class="section-container hidden">
             <div class="section-header">
-                <h2>How I Build Products: My Core Principles</h2>
+                <h2 data-i18n="about.title">How I Build Products: My Core Principles</h2>
                 <div class="line"></div>
             </div>
             <div class="principles-list">
                 <button class="principle-btn" onclick="openModal('modal-principle-1')">
                     <span class="principle-btn-icon">🚀</span>
-                    <span class="principle-btn-text">From Concept to Launch: The Art of the Strong Inception</span>
+                    <span class="principle-btn-text" data-i18n="about.principle1">From Concept to Launch: The Art of the
+                        Strong Inception</span>
                     <span class="principle-btn-arrow">→</span>
                 </button>
                 <button class="principle-btn" onclick="openModal('modal-principle-2')">
                     <span class="principle-btn-icon">👂</span>
-                    <span class="principle-btn-text">Radical Listening: Understanding What Stakeholders Really
-                        Need</span>
+                    <span class="principle-btn-text" data-i18n="about.principle2">Radical Listening: Understanding What
+                        Stakeholders Really Need</span>
                     <span class="principle-btn-arrow">→</span>
                 </button>
                 <button class="principle-btn" onclick="openModal('modal-principle-3')">
                     <span class="principle-btn-icon">💬</span>
-                    <span class="principle-btn-text">Transparent Communication: The Foundation of Everything</span>
+                    <span class="principle-btn-text" data-i18n="about.principle3">Transparent Communication: The
+                        Foundation of Everything</span>
                     <span class="principle-btn-arrow">→</span>
                 </button>
                 <button class="principle-btn" onclick="openModal('modal-principle-4')">
                     <span class="principle-btn-icon">🎯</span>
-                    <span class="principle-btn-text">Data-Driven Prioritization: Turning Chaos into Clarity</span>
+                    <span class="principle-btn-text" data-i18n="about.principle4">Data-Driven Prioritization: Turning
+                        Chaos into Clarity</span>
                     <span class="principle-btn-arrow">→</span>
                 </button>
                 <button class="principle-btn" onclick="openModal('modal-principle-5')">
                     <span class="principle-btn-icon">📈</span>
-                    <span class="principle-btn-text">Numbers Don't Lie: Building with Metrics, Not Guesses</span>
+                    <span class="principle-btn-text" data-i18n="about.principle5">Numbers Don't Lie: Building with
+                        Metrics, Not Guesses</span>
                     <span class="principle-btn-arrow">→</span>
                 </button>
                 <button class="principle-btn" onclick="openModal('modal-principle-6')">
                     <span class="principle-btn-icon">🔥</span>
-                    <span class="principle-btn-text">When Things Break: Crisis is a Conversation</span>
+                    <span class="principle-btn-text" data-i18n="about.principle6">When Things Break: Crisis is a
+                        Conversation</span>
                     <span class="principle-btn-arrow">→</span>
                 </button>
             </div>
@@ -177,40 +209,44 @@
         <!-- Skill Stack Section -->
         <section id="skills" class="section-container hidden">
             <div class="section-header">
-                <h2>Technical Arsenal</h2>
+                <h2 data-i18n="skills.title">Technical Arsenal</h2>
                 <div class="line"></div>
             </div>
 
             <div class="skills-wrapper">
                 <div class="skill-category">
-                    <h4>Core Product</h4>
+                    <h4 data-i18n="skills.coreProduct">Core Product</h4>
                     <div class="tags">
-                        <span>Agile (Scrum/Kanban)</span>
-                        <span>Roadmap Strategy</span>
-                        <span>JIRA & Confluence</span>
-                        <span>Cross-functional Leadership</span>
+                        <span data-i18n="skills.skills.agile">Agile (Scrum/Kanban)</span>
+                        <span data-i18n="skills.skills.roadmap">Roadmap Strategy</span>
+                        <span data-i18n="skills.skills.jira">JIRA & Confluence</span>
+                        <span data-i18n="skills.skills.crossFunc">Cross-functional Leadership</span>
                     </div>
                 </div>
 
                 <div class="skill-category">
-                    <h4>Analytics & Data</h4>
+                    <h4 data-i18n="skills.analyticsData">Analytics & Data</h4>
                     <div class="tags">
-                        <span class="highlight interactive-tag" onclick="openModal('modal-viz')">Google Analytics</span>
-                        <span class="highlight interactive-tag" onclick="openModal('modal-grafana')">Grafana</span>
-                        <span class="highlight interactive-tag" onclick="openModal('modal-kibana')">Kibana</span>
-                        <span>SQL (BigQuery)</span>
-                        <span>Tableau</span>
+                        <span class="highlight interactive-tag" onclick="openModal('modal-viz')"
+                            data-i18n="skills.skills.ga">Google Analytics</span>
+                        <span class="highlight interactive-tag" onclick="openModal('modal-grafana')"
+                            data-i18n="skills.skills.grafana">Grafana</span>
+                        <span class="highlight interactive-tag" onclick="openModal('modal-kibana')"
+                            data-i18n="skills.skills.kibana">Kibana</span>
+                        <span data-i18n="skills.skills.sql">SQL (BigQuery)</span>
+                        <span data-i18n="skills.skills.tableau">Tableau</span>
                     </div>
                 </div>
 
                 <div class="skill-category">
-                    <h4>Tech & DevOps</h4>
+                    <h4 data-i18n="skills.techDevops">Tech & DevOps</h4>
                     <div class="tags">
-                        <span class="highlight interactive-tag" onclick="openModal('modal-mobile')">Firebase</span>
-                        <span>App Release Mgmt</span>
-                        <span>GitLab CI/CD</span>
-                        <span>AI/ML Integration</span>
-                        <span>Figma</span>
+                        <span class="highlight interactive-tag" onclick="openModal('modal-mobile')"
+                            data-i18n="skills.skills.firebase">Firebase</span>
+                        <span data-i18n="skills.skills.appRelease">App Release Mgmt</span>
+                        <span data-i18n="skills.skills.gitlab">GitLab CI/CD</span>
+                        <span data-i18n="skills.skills.aiml">AI/ML Integration</span>
+                        <span data-i18n="skills.skills.figma">Figma</span>
                     </div>
                 </div>
             </div>
@@ -221,16 +257,17 @@
         <!-- New Perspective / Nature Section -->
         <section id="perspective" class="section-container hidden">
             <div class="section-header">
-                <h2>Beyond the Screen</h2>
+                <h2 data-i18n="perspective.title">Beyond the Screen</h2>
                 <div class="line"></div>
             </div>
             <div class="perspective-content glass">
                 <div class="perspective-text">
-                    <h3>Nature & Technology: A Balance</h3>
-                    <p>I believe that the best digital products feel as natural as the world around us. In my free
+                    <h3 data-i18n="perspective.subtitle">Nature & Technology: A Balance</h3>
+                    <p data-i18n="perspective.description">I believe that the best digital products feel as natural as
+                        the world around us. In my free
                         time, I disconnect to reconnect, finding inspiration in nature's complexity to solve digital
                         problems.</p>
-                    <p class="quote">"Simplicity is the ultimate sophistication."</p>
+                    <p class="quote" data-i18n="perspective.quote">"Simplicity is the ultimate sophistication."</p>
                 </div>
                 <div class="perspective-image">
                     <img src="personal.jpg" alt="Menguhan Bulut">
@@ -243,8 +280,9 @@
         <section id="contact" class="section-container hidden">
             <div class="contact-wrapper glass">
                 <div class="contact-info">
-                    <h2>Ready to Build the Future?</h2>
-                    <p>I am currently open to Product Manager/Owner roles where I can leverage Data to solve real user
+                    <h2 data-i18n="contact.title">Ready to Build the Future?</h2>
+                    <p data-i18n="contact.description">I am currently open to Product Manager/Owner roles where I can
+                        leverage Data to solve real user
                         problems.</p>
                     <div class="contact-details">
                         <div class="detail-item">
@@ -257,7 +295,7 @@
                         </div>
                         <div class="detail-item">
                             <span>📍</span>
-                            <span>Bursa, TURKIYE</span>
+                            <span data-i18n="contact.location">Bursa, TURKIYE</span>
                         </div>
                     </div>
                 </div>
@@ -270,30 +308,38 @@
                     <input type="hidden" name="redirect" value="https://menguhan.com/success.html">
 
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Name Lastname">
+                        <label for="name" data-i18n="contact.formName">Name</label>
+                        <input type="text" id="name" name="name" required
+                            data-i18n-placeholder="contact.formNamePlaceholder" placeholder="Name Lastname">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="jane@company.com">
+                        <label for="email" data-i18n="contact.formEmail">Email</label>
+                        <input type="email" id="email" name="email" required
+                            data-i18n-placeholder="contact.formEmailPlaceholder" placeholder="jane@company.com">
                     </div>
                     <div class="form-group">
-                        <label for="company">Company Name (Optional)</label>
-                        <input type="text" id="company" name="company" placeholder="Tech Corp">
+                        <label for="company" data-i18n="contact.formCompany">Company Name (Optional)</label>
+                        <input type="text" id="company" name="company"
+                            data-i18n-placeholder="contact.formCompanyPlaceholder" placeholder="Tech Corp">
                     </div>
                     <div class="form-group">
-                        <label for="linkedin">LinkedIn Account (Optional)</label>
-                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/jane-doe">
+                        <label for="linkedin" data-i18n="contact.formLinkedin">LinkedIn Account (Optional)</label>
+                        <input type="url" id="linkedin" name="linkedin"
+                            data-i18n-placeholder="contact.formLinkedinPlaceholder"
+                            placeholder="https://linkedin.com/in/jane-doe">
                     </div>
                     <div class="form-group">
-                        <label for="message">Reason for Connecting</label>
+                        <label for="message" data-i18n="contact.formMessage">Reason for Connecting</label>
                         <textarea id="message" name="message" rows="4" required
+                            data-i18n-placeholder="contact.formMessagePlaceholder"
                             placeholder="Tell me about your product vision..."></textarea>
                     </div>
                     <div class="submit-wrapper" style="position: relative;">
-                        <button type="submit" id="submitBtn" class="btn primary-btn full-width disabled">Send
+                        <button type="submit" id="submitBtn" class="btn primary-btn full-width disabled"
+                            data-i18n="contact.formSubmit">Send
                             Message</button>
-                        <div id="formTooltip" class="validation-tooltip">Please fill all fields. Project details must be
+                        <div id="formTooltip" class="validation-tooltip" data-i18n="contact.formValidation">Please fill
+                            all fields. Project details must be
                             min 41 chars.</div>
                     </div>
                 </form>
@@ -305,45 +351,50 @@
     <div id="modal-modanisa" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeModal('modal-modanisa')">&times;</span>
-            <h2>Data-Driven Enhancements</h2>
+            <h2 data-i18n="modals.dataEnhancements.title">Data-Driven Enhancements</h2>
             <img src="dashboard.png" alt="Analytics Dashboard">
-            <p>Visualizing the impact of Recommendation engines on user engagement metrics.</p>
+            <p data-i18n="modals.dataEnhancements.desc">Visualizing the impact of Recommendation engines on user
+                engagement metrics.</p>
         </div>
     </div>
 
     <div id="modal-mobile" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeModal('modal-mobile')">&times;</span>
-            <h2>Release Cycle Management</h2>
+            <h2 data-i18n="modals.releaseCycle.title">Release Cycle Management</h2>
             <img src="firebase_real.png" alt="Release Cycle Diagram">
-            <p>Streamlining the flow from code commit to app store release across multiple platforms.</p>
+            <p data-i18n="modals.releaseCycle.desc">Streamlining the flow from code commit to app store release across
+                multiple platforms.</p>
         </div>
     </div>
 
     <div id="modal-viz" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeModal('modal-viz')">&times;</span>
-            <h2>Operational Visibility</h2>
+            <h2 data-i18n="modals.operationalVisibility.title">Operational Visibility</h2>
             <img src="grafana_real.png" alt="Monitoring Dashboard">
-            <p>Real-time Grafana/Kibana dashboards for monitoring system health and business KPIs.</p>
+            <p data-i18n="modals.operationalVisibility.desc">Real-time Grafana/Kibana dashboards for monitoring system
+                health and business KPIs.</p>
         </div>
     </div>
 
     <div id="modal-grafana" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeModal('modal-grafana')">&times;</span>
-            <h2>Grafana Visualization</h2>
+            <h2 data-i18n="modals.grafana.title">Grafana Visualization</h2>
             <img src="grafana_real.png" alt="Grafana Dashboard">
-            <p>Expertise in building complex, multi-source dashboards for real-time observability.</p>
+            <p data-i18n="modals.grafana.desc">Expertise in building complex, multi-source dashboards for real-time
+                observability.</p>
         </div>
     </div>
 
     <div id="modal-kibana" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeModal('modal-kibana')">&times;</span>
-            <h2>Kibana Analytics</h2>
+            <h2 data-i18n="modals.kibana.title">Kibana Analytics</h2>
             <img src="kibana_real.png" alt="Kibana Dashboard">
-            <p>Deep diving into log analytics and user behavior patterns using Elasticsearch and Kibana.</p>
+            <p data-i18n="modals.kibana.desc">Deep diving into log analytics and user behavior patterns using
+                Elasticsearch and Kibana.</p>
         </div>
     </div>
 
@@ -353,22 +404,26 @@
             <span class="close-modal" onclick="closeModal('modal-principle-1')">&times;</span>
             <div class="principle-modal-header">
                 <span class="principle-modal-icon">🚀</span>
-                <h2>From Concept to Launch: The Art of the Strong Inception</h2>
+                <h2 data-i18n="modals.principle1.title">From Concept to Launch: The Art of the Strong Inception</h2>
             </div>
             <div class="principle-modal-body">
-                <p class="principle-intro">Every project begins with the same critical question: <strong>What does the
+                <p class="principle-intro" data-i18n="modals.principle1.intro">Every project begins with the same
+                    critical question: <strong>What does the
                         company need, and what can the team realistically deliver?</strong> I lead projects from
                     conception through launch, owning the entire journey—not because I have all the answers, but because
                     I know how to find them together.</p>
-                <h3>During inception, I do three things obsessively:</h3>
+                <h3 data-i18n="modals.principle1.listTitle">During inception, I do three things obsessively:</h3>
                 <ul class="principle-modal-list">
-                    <li><strong>Find the best method for this specific situation.</strong> No two projects are
+                    <li data-i18n="modals.principle1.item1"><strong>Find the best method for this specific
+                            situation.</strong> No two projects are
                         identical. I always search for and apply the approaches that fit this team, this company, this
                         market moment—giving leadership realistic estimations they can actually trust.</li>
-                    <li><strong>Identify the true MVP.</strong> Not the smallest thing we can ship, but the smallest
+                    <li data-i18n="modals.principle1.item2"><strong>Identify the true MVP.</strong> Not the smallest
+                        thing we can ship, but the smallest
                         thing that matters—the one feature or workflow that proves our hypothesis and lets us learn
                         faster than anyone else.</li>
-                    <li><strong>Keep everyone aligned around it.</strong> Because a company is not a list of
+                    <li data-i18n="modals.principle1.item3"><strong>Keep everyone aligned around it.</strong> Because a
+                        company is not a list of
                         features—it's a team moving in the same direction. Scope chaos kills products faster than bad
                         code.</li>
                 </ul>
@@ -381,18 +436,23 @@
             <span class="close-modal" onclick="closeModal('modal-principle-2')">&times;</span>
             <div class="principle-modal-header">
                 <span class="principle-modal-icon">👂</span>
-                <h2>Radical Listening: Understanding What Stakeholders Really Need</h2>
+                <h2 data-i18n="modals.principle2.title">Radical Listening: Understanding What Stakeholders Really Need
+                </h2>
             </div>
             <div class="principle-modal-body">
-                <p class="principle-intro"><strong>The importance of listening is directly proportional to product
+                <p class="principle-intro" data-i18n="modals.principle2.intro"><strong>The importance of listening is
+                        directly proportional to product
                         success.</strong> It's that simple.</p>
-                <p>If you want to give the right answers to stakeholders, you must first understand them 100%—not just
+                <p data-i18n="modals.principle2.para1">If you want to give the right answers to stakeholders, you must
+                    first understand them 100%—not just
                     what they say, but what they're really worried about, what constraints they're under, what keeps
                     them awake at night. Most miscommunication happens because we stopped listening too early.</p>
-                <p>This is where I introduce the <strong>trade-off slider</strong>: every company has finite resources,
+                <p data-i18n="modals.principle2.para2">This is where I introduce the <strong>trade-off slider</strong>:
+                    every company has finite resources,
                     limited time, and competing priorities. My job is to make those trade-offs visible and explicit.
                     Should we prioritize speed or polish? User acquisition or retention? New features or stability?</p>
-                <p class="principle-conclusion">Once we clarify the company's slider—not what each stakeholder wishes it
+                <p class="principle-conclusion" data-i18n="modals.principle2.conclusion">Once we clarify the company's
+                    slider—not what each stakeholder wishes it
                     was—the product roadmap almost writes itself. Everyone sees the same picture. Everyone says "yes,
                     that makes sense." 🎯</p>
             </div>
@@ -404,18 +464,22 @@
             <span class="close-modal" onclick="closeModal('modal-principle-3')">&times;</span>
             <div class="principle-modal-header">
                 <span class="principle-modal-icon">💬</span>
-                <h2>Transparent Communication: The Foundation of Everything</h2>
+                <h2 data-i18n="modals.principle3.title">Transparent Communication: The Foundation of Everything</h2>
             </div>
             <div class="principle-modal-body">
-                <p class="principle-intro">Here's the brutal truth: <strong>no clean communication = problems
+                <p class="principle-intro" data-i18n="modals.principle3.intro">Here's the brutal truth: <strong>no clean
+                        communication = problems
                         multiplied.</strong></p>
-                <p>Poor communication doesn't just slow things down—it corrupts decisions. It creates duplicate work. It
+                <p data-i18n="modals.principle3.para1">Poor communication doesn't just slow things down—it corrupts
+                    decisions. It creates duplicate work. It
                     makes talented people feel unheard. It kills momentum.</p>
-                <p>That's why I treat communication like code quality: <strong>it's non-negotiable.</strong> Every
+                <p data-i18n="modals.principle3.para2">That's why I treat communication like code quality: <strong>it's
+                        non-negotiable.</strong> Every
                     decision, every trade-off, every constraint gets communicated clearly to engineering, design, and
                     stakeholders. Not in a thousand-word email. Not in jargon. In clear, structured, data-backed
                     statements that leave no room for misinterpretation.</p>
-                <p class="principle-conclusion">When communication is clean, everything moves faster. The team trusts
+                <p class="principle-conclusion" data-i18n="modals.principle3.conclusion">When communication is clean,
+                    everything moves faster. The team trusts
                     the direction. Disagreements get resolved quickly because everyone's working from the same facts.
                     Magic happens. ✨</p>
             </div>
@@ -427,23 +491,28 @@
             <span class="close-modal" onclick="closeModal('modal-principle-4')">&times;</span>
             <div class="principle-modal-header">
                 <span class="principle-modal-icon">🎯</span>
-                <h2>Data-Driven Prioritization: Turning Chaos into Clarity</h2>
+                <h2 data-i18n="modals.principle4.title">Data-Driven Prioritization: Turning Chaos into Clarity</h2>
             </div>
             <div class="principle-modal-body">
-                <p class="principle-intro">Prioritization looks painful if you're guessing. It's painful if you're just
+                <p class="principle-intro" data-i18n="modals.principle4.intro">Prioritization looks painful if you're
+                    guessing. It's painful if you're just
                     listening to whoever spoke loudest. <strong>But if you see the whole picture? It becomes a math
                         problem.</strong></p>
-                <h3>Here's my framework:</h3>
+                <h3 data-i18n="modals.principle4.listTitle">Here's my framework:</h3>
                 <ul class="principle-modal-list">
-                    <li><strong>Step 1: Gather the data.</strong> What's breaking? What's your bottleneck? What do users
+                    <li data-i18n="modals.principle4.item1"><strong>Step 1: Gather the data.</strong> What's breaking?
+                        What's your bottleneck? What do users
                         actually do vs. what we think they do?</li>
-                    <li><strong>Step 2: Match it against the company's trade-off slider</strong> (the one we clarified
+                    <li data-i18n="modals.principle4.item2"><strong>Step 2: Match it against the company's trade-off
+                            slider</strong> (the one we clarified
                         in listening). Speed matters more than perfection? That changes what "high priority" means. User
                         growth? Different story.</li>
-                    <li><strong>Step 3: Prioritization becomes automatic.</strong> Not because I'm smart—because the
+                    <li data-i18n="modals.principle4.item3"><strong>Step 3: Prioritization becomes automatic.</strong>
+                        Not because I'm smart—because the
                         data is clear and the criteria are set.</li>
                 </ul>
-                <p class="principle-conclusion">Then? I get to do the fun part: show your team and stakeholders a
+                <p class="principle-conclusion" data-i18n="modals.principle4.conclusion">Then? I get to do the fun part:
+                    show your team and stakeholders a
                     beautiful, data-backed presentation that makes everyone say "oh, that's why we're doing this." No
                     debates. No politics. Just clarity. 📊</p>
             </div>
@@ -455,19 +524,23 @@
             <span class="close-modal" onclick="closeModal('modal-principle-5')">&times;</span>
             <div class="principle-modal-header">
                 <span class="principle-modal-icon">📈</span>
-                <h2>Numbers Don't Lie: Building with Metrics, Not Guesses</h2>
+                <h2 data-i18n="modals.principle5.title">Numbers Don't Lie: Building with Metrics, Not Guesses</h2>
             </div>
             <div class="principle-modal-body">
-                <p class="principle-intro">You can improve a product by instinct. You can improve it faster by
+                <p class="principle-intro" data-i18n="modals.principle5.intro">You can improve a product by instinct.
+                    You can improve it faster by
                     listening. <strong>But you only know if you're actually moving in the right direction when you
                         measure it.</strong></p>
-                <p>This isn't about vanity metrics or dashboard theater. It's about knowing, from day one of inception,
+                <p data-i18n="modals.principle5.para1">This isn't about vanity metrics or dashboard theater. It's about
+                    knowing, from day one of inception,
                     which data matters. What KPIs will prove success? What signals will show us problems early? Which
                     dashboards need to exist so we can catch errors before users feel them?</p>
-                <p>I learned this at scale: when we built a massive search infrastructure with Elasticsearch, we didn't
+                <p data-i18n="modals.principle5.para2">I learned this at scale: when we built a massive search
+                    infrastructure with Elasticsearch, we didn't
                     just connect it and hope. We wired it directly into Kibana and Grafana from the start. Every error,
                     every latency spike, every query pattern—all visible in real time.</p>
-                <p class="principle-conclusion">Result? We caught issues that would have silently degraded user
+                <p class="principle-conclusion" data-i18n="modals.principle5.conclusion">Result? We caught issues that
+                    would have silently degraded user
                     experience. We iterated faster. We shipped with confidence. Building product without metrics is
                     building blind. Building product with metrics from inception is how you move fast without breaking
                     things. 📈</p>
@@ -480,11 +553,13 @@
             <span class="close-modal" onclick="closeModal('modal-principle-6')">&times;</span>
             <div class="principle-modal-header">
                 <span class="principle-modal-icon">🔥</span>
-                <h2>When Things Break: Crisis is a Conversation</h2>
+                <h2 data-i18n="modals.principle6.title">When Things Break: Crisis is a Conversation</h2>
             </div>
             <div class="principle-modal-body">
-                <p class="principle-intro"><strong>I'll tell you face to face. :]</strong></p>
-                <p class="principle-conclusion">Because crises aren't solved with Slack messages, emails, or async
+                <p class="principle-intro" data-i18n="modals.principle6.intro"><strong>I'll tell you face to face.
+                        :]</strong></p>
+                <p class="principle-conclusion" data-i18n="modals.principle6.conclusion">Because crises aren't solved
+                    with Slack messages, emails, or async
                     updates. They're solved with real humans in a room, thinking together, making fast decisions, and
                     moving as one.</p>
             </div>
@@ -492,8 +567,9 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Menguhan Bulut. Built with <span style="color:var(--accent-color)">♥</span> and Code.</p>
-        <div class="seo-footer">
+        <p><span data-i18n="footer.copyright">&copy; 2025 Menguhan Bulut. Built with</span> <span
+                style="color:var(--accent-color)">♥</span> <span data-i18n="footer.copyrightEnd">and Code.</span></p>
+        <div class="seo-footer" data-i18n="footer.seoText">
             Menguhan Bulut is a Senior Product Manager and Product Owner based in Bursa, Turkey. Specializing in
             Data-Driven Product Management, Agile Methodologies, and Strategic Leadership. Expert in Technical Product
             Management, SaaS products, and E-commerce platforms. Best Product Manager in Turkey offering product
@@ -502,6 +578,7 @@
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 

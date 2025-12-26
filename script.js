@@ -1,4 +1,172 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // =============================================
+    // LANGUAGE SELECTOR FUNCTIONALITY
+    // =============================================
+
+    // Current language (default: English)
+    let currentLanguage = localStorage.getItem('portfolioLanguage') || 'en';
+
+    // Initialize language on page load
+    function initLanguage() {
+        // Set initial language
+        setLanguage(currentLanguage, false);
+
+        // Update current language display
+        const currentLangSpan = document.getElementById('currentLang');
+        if (currentLangSpan) {
+            currentLangSpan.textContent = currentLanguage.toUpperCase();
+        }
+
+        // Mark active language option
+        updateActiveLanguageOption();
+    }
+
+    // Toggle language dropdown
+    function toggleLanguageDropdown() {
+        const selector = document.getElementById('langSelector');
+        if (selector) {
+            selector.classList.toggle('open');
+        }
+    }
+    // Attach to window for onclick/accessibility
+    window.toggleLanguageDropdown = toggleLanguageDropdown;
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        const selector = document.getElementById('langSelector');
+        if (selector && !selector.contains(e.target)) {
+            selector.classList.remove('open');
+        }
+    });
+
+    // Set language function
+    function setLanguage(lang, save = true) {
+        currentLanguage = lang;
+
+        // Save to localStorage
+        if (save) {
+            localStorage.setItem('portfolioLanguage', lang);
+        }
+
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
+
+        // Update current language display
+        const currentLangSpan = document.getElementById('currentLang');
+        if (currentLangSpan) {
+            currentLangSpan.textContent = lang.toUpperCase();
+        }
+
+        // Apply translations
+        applyTranslations(lang);
+
+        // Update active option
+        updateActiveLanguageOption();
+
+        // Close dropdown
+        const selector = document.getElementById('langSelector');
+        if (selector) {
+            selector.classList.remove('open');
+        }
+    }
+    // Attach to window for onclick
+    window.setLanguage = setLanguage;
+
+    function updateActiveLanguageOption() {
+        const options = document.querySelectorAll('.lang-option');
+        options.forEach(opt => {
+            if (opt.dataset.lang === currentLanguage) {
+                opt.classList.add('active');
+            } else {
+                opt.classList.remove('active');
+            }
+        });
+    }
+
+    function applyTranslations(lang) {
+        // If English, restore original content
+        if (lang === 'en') {
+            // For English, we restore the original text stored in data attributes
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const originalText = el.dataset.originalText;
+                if (originalText) {
+                    el.innerHTML = originalText;
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const originalPlaceholder = el.dataset.originalPlaceholder;
+                if (originalPlaceholder) {
+                    el.placeholder = originalPlaceholder;
+                }
+            });
+            return;
+        }
+
+        // For other languages, apply translations
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+
+            // Store original text if not already stored
+            if (!el.dataset.originalText) {
+                el.dataset.originalText = el.innerHTML;
+            }
+
+            const translation = getTranslation(key, lang);
+            if (translation) {
+                el.innerHTML = translation;
+            }
+        });
+
+        // Handle placeholders
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.dataset.i18nPlaceholder;
+
+            // Store original placeholder if not already stored
+            if (!el.dataset.originalPlaceholder) {
+                el.dataset.originalPlaceholder = el.placeholder;
+            }
+
+            const translation = getTranslation(key, lang);
+            if (translation) {
+                el.placeholder = translation;
+            }
+        });
+    }
+
+    function getTranslation(key, lang) {
+        // Check if translations object exists
+        if (typeof translations === 'undefined') {
+            console.warn('Translations object not found');
+            return null;
+        }
+
+        // Parse nested keys like "hero.title" or "skills.skills.agile"
+        const keys = key.split('.');
+        let result = translations;
+
+        for (const k of keys) {
+            if (result && result[k] !== undefined) {
+                result = result[k];
+            } else {
+                return null;
+            }
+        }
+
+        // Return the translation for the specified language
+        if (result && result[lang] !== undefined) {
+            return result[lang];
+        }
+
+        return null;
+    }
+
+    // Call init after all definitions
+    initLanguage();
+
+    // =============================================
+    // END LANGUAGE SELECTOR
+    // =============================================
+
     // 1. Dynamic Cursor Glow
     const cursorGlow = document.querySelector('.cursor-glow');
     document.addEventListener('mousemove', (e) => {
