@@ -166,8 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // =============================================
     // END LANGUAGE SELECTOR
     // =============================================
-
-    // 1. Dynamic Cursor Glow
     const cursorGlow = document.querySelector('.cursor-glow');
     document.addEventListener('mousemove', (e) => {
         const x = e.clientX;
