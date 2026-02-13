@@ -95,10 +95,35 @@
             <span></span>
         </button>
         <nav id="mainNav">
-            <a href="#about">About</a>
-            <a href="#skills">Stack</a>
-            <a href="#contact" class="nav-cta">Contact Me</a>
+            <a href="#about" data-i18n="nav.about">About</a>
+            <a href="#skills" data-i18n="nav.stack">Stack</a>
+            <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact Me</a>
         </nav>
+        <!-- Language Selector -->
+        <div class="language-selector" id="langSelector">
+            <button class="language-toggle" onclick="toggleLanguageDropdown()">
+                <span class="globe-icon">🌐</span>
+                <span class="current-lang" id="currentLang">EN</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="language-dropdown">
+                <div class="lang-option active" data-lang="en" onclick="setLanguage('en')">
+                    <span class="flag">🇺🇸</span>
+                    <span class="lang-name">English</span>
+                    <span class="lang-code">EN</span>
+                </div>
+                <div class="lang-option" data-lang="ru" onclick="setLanguage('ru')">
+                    <span class="flag">🇷🇺</span>
+                    <span class="lang-name">Русский</span>
+                    <span class="lang-code">RU</span>
+                </div>
+                <div class="lang-option" data-lang="ja" onclick="setLanguage('ja')">
+                    <span class="flag">🇯🇵</span>
+                    <span class="lang-name">日本語</span>
+                    <span class="lang-code">JA</span>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -106,8 +131,8 @@
         <section id="hero" class="hero-section">
             <div class="hero-content">
                 <h1>
-                    Mastering Communication.
-                    <span>Powered by Data.</span>
+                    <span data-i18n="hero.title">Unchecked digitalization generates</span>
+                    <span data-i18n="hero.titleSpan">more issues than it resolves.</span>
                 </h1>
                 <p class="subtitle">Hi, I'm <strong>Menguhan Bulut</strong>.<br>I’m a communicator and hidden problem
                     finder who spots bottlenecks before they slow things down. As an edge-case seeker and iterative
@@ -502,6 +527,7 @@
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 
