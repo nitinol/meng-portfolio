@@ -4,12 +4,12 @@
 
 **Production (Live Site)**:
 - Branch: `main`
-- URL: menguhan.com (after migration) or meng-portfolio.vercel.app
+- URL: `https://www.menguhan.com` (primary), `https://menguhan.com` (redirects to `www`)
 - What: The real website everyone sees
 
 **Testing**:
 - Branch: `dev`  
-- URL: Auto-generated preview URL
+- URL: `https://meng-portfolio-dev.vercel.app` (branch domain) or per-commit preview URL
 - What: Your personal testing environment
 
 ---
@@ -46,7 +46,47 @@ git push origin dev
 - Verify weather effects work
 - Make sure nothing broke
 
-### 6. Deploy to Production (When Ready)
+## QA Checklist (Run on Every `dev` Deployment)
+
+Copy this into your PR/notes and mark each item before merge:
+
+- [ ] Correct branch/environment: testing on `dev` deployment URL, not production
+- [ ] Business page loads without console errors
+- [ ] Main navigation works (Home, Business, Portfolio, Personal, contact/actions)
+- [ ] Hero/primary section content is correct (headline, CTA, key visuals)
+- [ ] Images and icons load (no broken assets)
+- [ ] Animations/effects behave correctly and do not freeze the page
+- [ ] Responsive check: mobile (`~390px`), tablet (`~768px`), desktop (`>=1280px`)
+- [ ] Cross-browser smoke check: Chrome + Safari (or Edge)
+- [ ] Performance sanity: page feels responsive; no obvious layout shifts
+- [ ] SEO basics: title/description present, `sitemap.xml` and `robots.txt` reachable
+- [ ] Security headers present (from `vercel.json`)
+- [ ] No regression on other pages (`index.html`, `portfolio.html`, `personal.html`)
+
+### Quick QA Commands
+
+```bash
+# Serve locally for fast checks
+python -m http.server 8000
+
+# Verify SEO/static files
+curl -I http://localhost:8000/robots.txt
+curl -I http://localhost:8000/sitemap.xml
+```
+
+## Release Gate (`dev` -> `main`)
+
+Merge to `main` only when all conditions are true:
+
+1. Latest commit is pushed to `dev` and Vercel deployment is green.
+2. QA checklist above is fully passed.
+3. No P0/P1 bugs remain open.
+4. You verified the exact feature scope matches what you intended to ship.
+5. Rollback plan confirmed (previous production deployment identified in Vercel).
+
+If any item fails, do not merge to `main`; fix on `dev`, redeploy, and retest.
+
+### 6. Deploy to Production (Only After Release Gate Passes)
 ```bash
 # Switch to main branch
 git checkout main
@@ -60,7 +100,7 @@ git push origin main
 
 ### 7. Verify Live Site
 - Wait 1-2 minutes for Vercel to deploy
-- Check menguhan.com (or your production URL)
+- Check `https://www.menguhan.com` and `https://menguhan.com` redirect behavior
 - Verify changes appear correctly
 
 ---
