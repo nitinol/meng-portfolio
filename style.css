@@ -378,6 +378,34 @@ p.subtitle {
     box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.25) inset;
 }
 
+.arsenal-card.salesforce-card {
+    border-color: rgba(0, 161, 224, 0.7);
+    box-shadow: 0 0 0 1px rgba(0, 161, 224, 0.35) inset;
+}
+
+.crm-cloud-icon {
+    width: 28px;
+    height: 22px;
+    flex: 0 0 28px;
+}
+
+.crm-cloud-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.crm-cloud-icon path {
+    fill: #00a1e0;
+}
+
+.crm-cloud-icon text {
+    fill: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+}
+
 .arsenal-brand {
     width: 20px;
     height: 20px;
