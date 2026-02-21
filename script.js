@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hiddenElements = document.querySelectorAll('.hidden');
     hiddenElements.forEach((el) => observer.observe(el));
 
-    // 3. Smooth Scroll for Nav Links (Optional, standard CSS works but this is robust)
+    // 3. Smooth Scroll for Nav Links + Active Section Tracking
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -213,12 +213,45 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId === '#') return;
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
+                const header = document.querySelector('header');
+                const headerOffset = header ? header.offsetHeight + 18 : 90;
+                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
                     behavior: 'smooth'
                 });
             }
         });
     });
+
+    const sectionLinks = document.querySelectorAll('#mainNav a[href^="#"]');
+    const sectionMap = [...sectionLinks]
+        .map(link => {
+            const target = document.querySelector(link.getAttribute('href'));
+            return target ? { link, target } : null;
+        })
+        .filter(Boolean);
+
+    const setActiveNavLink = (id) => {
+        sectionLinks.forEach(link => {
+            const match = link.getAttribute('href') === `#${id}`;
+            link.classList.toggle('active', match);
+        });
+    };
+
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setActiveNavLink(entry.target.id);
+            }
+        });
+    }, {
+        threshold: 0.45,
+        rootMargin: "-20% 0px -35% 0px"
+    });
+
+    sectionMap.forEach(({ target }) => navObserver.observe(target));
 
     // 4. Modal Logic
     window.openModal = function (modalId) {
