@@ -99,6 +99,11 @@ nav a:hover {
     color: var(--accent-color);
 }
 
+nav a.active {
+    color: #fff;
+    text-shadow: 0 0 16px rgba(74, 222, 128, 0.55);
+}
+
 .nav-cta {
     padding: 0.5rem 1.2rem;
     background: rgba(255, 255, 255, 0.05);
@@ -160,6 +165,14 @@ p.subtitle {
     color: var(--text-muted);
     margin-bottom: 2.5rem;
     max-width: 600px;
+}
+
+.hero-seo-line {
+    font-size: 0.95rem;
+    color: rgba(236, 253, 245, 0.7);
+    margin-top: -1.2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.01em;
 }
 
 .hero-actions {
@@ -317,6 +330,97 @@ p.subtitle {
     color: #fff;
 }
 
+.arsenal-panel {
+    padding: 1.1rem;
+    background: linear-gradient(150deg, rgba(6, 78, 59, 0.6), rgba(2, 44, 34, 0.75));
+}
+
+.arsenal-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0.7rem;
+}
+
+.arsenal-card {
+    grid-column: span 2;
+    min-height: 66px;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    color: #ecfdf5;
+    background: linear-gradient(135deg, rgba(2, 6, 23, 0.5), rgba(15, 23, 42, 0.65));
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.85rem;
+    padding: 0.7rem 0.8rem;
+    font-weight: 650;
+    font-size: 0.84rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.arsenal-card span {
+    line-height: 1.2;
+}
+
+.arsenal-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(190, 242, 100, 0.75);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.82));
+    box-shadow: 0 14px 24px rgba(74, 222, 128, 0.22);
+}
+
+.arsenal-card.span-3 {
+    grid-column: span 3;
+}
+
+.arsenal-card.hot {
+    border-color: rgba(74, 222, 128, 0.55);
+    box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.25) inset;
+}
+
+.arsenal-card.salesforce-card {
+    border-color: rgba(0, 161, 224, 0.7);
+    box-shadow: 0 0 0 1px rgba(0, 161, 224, 0.35) inset;
+}
+
+.crm-cloud-icon {
+    width: 28px;
+    height: 22px;
+    flex: 0 0 28px;
+}
+
+.crm-cloud-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.crm-cloud-icon path {
+    fill: #00a1e0;
+}
+
+.crm-cloud-icon text {
+    fill: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+}
+
+.arsenal-brand {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
+
+.arsenal-help {
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+}
+
 /* Projects */
 .projects-grid {
     display: grid;
@@ -327,8 +431,8 @@ p.subtitle {
 .project-card {
     position: relative;
     overflow: hidden;
-    cursor: pointer;
-    /* Clickable */
+    min-height: 220px;
+    cursor: default;
 }
 
 .project-badge {
@@ -346,6 +450,12 @@ p.subtitle {
 .project-content h3 {
     margin-bottom: 0.5rem;
     margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.project-content p {
+    color: var(--text-muted);
+    font-size: 0.97rem;
 }
 
 .role {
@@ -415,6 +525,7 @@ p.subtitle {
     color: var(--accent-color);
     border-left: 3px solid var(--accent-color);
     padding-left: 1rem;
+    margin-top: 2rem;
 }
 
 .perspective-image {
@@ -679,6 +790,38 @@ footer {
         padding: 0.5rem 0;
         width: 100%;
         border-bottom: 1px solid var(--glass-border);
+    }
+
+    .hero-seo-line {
+        font-size: 0.85rem;
+        margin-top: -0.5rem;
+    }
+
+    .arsenal-panel {
+        padding: 0.75rem;
+    }
+
+    .arsenal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.45rem;
+    }
+
+    .arsenal-card,
+    .arsenal-card.span-3 {
+        grid-column: span 1;
+        min-height: 58px;
+        padding: 0.55rem 0.6rem;
+        font-size: 0.73rem;
+    }
+
+    .arsenal-brand {
+        width: 16px;
+        height: 16px;
+        flex-basis: 16px;
+    }
+
+    .project-card {
+        min-height: unset;
     }
 
     nav .nav-cta {
