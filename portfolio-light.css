@@ -91,3 +91,13 @@ body.pl .pl-btn { color: var(--pl-text); }
   .pl-header nav.active { display: block; }
   .pl-header nav a { display: block; margin: 10px 0; }
 }
+
+/* Compact page head (projects / contact pages) */
+.pl-pagehead { text-align: center; padding: 64px 24px 8px; }
+.pl-pagehead h1 { font-family: var(--pl-display); font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; margin: 0 0 12px; }
+.pl-pagehead p { color: var(--pl-muted); margin: 0; }
+
+/* Stacked project list (reference structure) */
+.pl-cards.stack { grid-template-columns: 1fr; max-width: 720px; margin: 0 auto; gap: 56px; }
+.pl-cards.stack .pl-card img { aspect-ratio: 3/2; }
+.pl-cards.stack .pl-card h3 { font-size: 1.3rem; }

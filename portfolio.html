@@ -86,16 +86,16 @@
 <body class="pl">
     <div class="pl-topbar">
     <header class="pl-wrap pl-header">
-        <a href="index.html" class="logo-link">MENGUHAN</a>
+        <a href="portfolio.html" class="logo-link">MENGUHAN</a>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
         <nav id="mainNav">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a>
+            <a href="portfolio.html#about">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
         </nav>
     </header>
     </div>
@@ -121,7 +121,6 @@
             <p data-i18n="hero.titleSpan">I translate executive strategy into actionable roadmaps and ship
                 measurable outcomes: <strong>+12% add-to-cart conversion</strong> and
                 <strong>+15% revenue lift</strong> from AI-driven e-commerce initiatives at Modanisa.</p>
-            <p><a class="pl-btn" href="https://www.linkedin.com/in/menguhan-bulut/">View resume</a></p>
             <div class="pl-stats">
                 <div><b>8+</b><span>Years Experience</span></div>
                 <div><b>+12%</b><span>Add-to-Cart Rate</span></div>
@@ -138,37 +137,6 @@
                 <li><b>Product Owner — Postmates, Philadelphia, PA</b> <span class="pl-dates">Jun 2019 – May 2020</span><br>Driver pickup routing with physical constraints; owned delivery-experience backlog.</li>
                 <li><b>Product Owner — MDC Modern Design Center, Cherry Hill, NJ</b> <span class="pl-dates">Apr 2017 – Feb 2019</span><br>Agile/Lean stakeholder frameworks aligning client requirements with delivery.</li>
             </ul>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="pl-section pl-rv">
-            <h2>Projects</h2>
-            <div class="pl-cards">
-                <article class="pl-card" onclick="openModal('modal-modanisa')">
-                    <img src="dashboard.png" alt="Dynamic pricing analytics">
-                    <h3>Dynamic Pricing Engine</h3>
-                    <p>Modanisa — cart-aware real-time pricing and badges on listing pages.</p>
-                    <span class="pl-case">View case study</span>
-                </article>
-                <article class="pl-card" onclick="openModal('modal-mobile')">
-                    <img src="firebase_real.png" alt="Mobile release pipeline">
-                    <h3>Similar Products Recommendations</h3>
-                    <p>Modanisa — +12% add-to-cart, +15% revenue via AI recommendations.</p>
-                    <span class="pl-case">View case study</span>
-                </article>
-                <article class="pl-card" onclick="openModal('modal-viz')">
-                    <img src="grafana_real.png" alt="Operational dashboards">
-                    <h3>AI Search + Operational Visibility</h3>
-                    <p>Modanisa — enhanced AI search backed by Grafana/Kibana monitoring.</p>
-                    <span class="pl-case">View case study</span>
-                </article>
-                <article class="pl-card" onclick="openModal('modal-grafana')">
-                    <img src="kibana_real.png" alt="Analytics dashboards">
-                    <h3>Mobile Release Lifecycle</h3>
-                    <p>Modanisa — Play / App Store / Huawei releases refined with BigQuery analytics.</p>
-                    <span class="pl-case">View case study</span>
-                </article>
-            </div>
         </section>
 
         <!-- Skills Section -->
@@ -207,87 +175,7 @@
             </ul>
             <p>Languages: Turkish (Native) · English (Native) · Russian (Very Basic) · Italian (Beginner) · German (Beginner)</p>
         </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="pl-section pl-contact pl-rv">
-            <h2>Contact</h2>
-            <p>Based in Bursa, Turkey. Feel free to reach out about Product Manager / Product Owner roles.</p>
-            <p><a href="mailto:menguhan@gmail.com">menguhan@gmail.com</a> · +90 555 258 65 68 · <a href="https://www.linkedin.com/in/menguhan-bulut/">LinkedIn</a></p>
-
-            <!-- Contact Form - Web3Forms -->
-            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-                <!-- Web3Forms Access Key -->
-                <input type="hidden" name="access_key" value="1860d79d-c004-425f-a8c9-3005bbc478bc">
-                <input type="hidden" name="subject" value="New Portfolio Contact!">
-                <input type="hidden" name="redirect" value="https://www.menguhan.com/success.html">
-
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Name Lastname">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="jane@company.com">
-                </div>
-                <div class="form-group">
-                    <label for="company">Company Name (Optional)</label>
-                    <input type="text" id="company" name="company" placeholder="Tech Corp">
-                </div>
-                <div class="form-group">
-                    <label for="linkedin">LinkedIn Account (Optional)</label>
-                    <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/jane-doe">
-                </div>
-                <div class="form-group">
-                    <label for="message">Reason for Connecting</label>
-                    <textarea id="message" name="message" rows="4" required
-                        placeholder="Tell me about your product vision..."></textarea>
-                </div>
-                <div class="submit-wrapper" style="position: relative;">
-                    <button type="submit" id="submitBtn" class="btn primary-btn full-width disabled">Send
-                        Message</button>
-                    <div id="formTooltip" class="validation-tooltip">Please fill all fields. Project details must be
-                        min 41 chars.</div>
-                </div>
-            </form>
-        </section>
     </main>
-
-    <!-- Modals -->
-    <div id="modal-modanisa" class="pl-modal">
-        <div class="pl-modal-box">
-            <span class="close-modal" onclick="closeModal('modal-modanisa')">&times;</span>
-            <h2>Dynamic Pricing &amp; Recommendations</h2>
-            <img src="dashboard.png" alt="Analytics Dashboard">
-            <p>Visualizing the impact of the cart-aware pricing engine and recommendation modules on revenue and engagement.</p>
-        </div>
-    </div>
-
-    <div id="modal-mobile" class="pl-modal">
-        <div class="pl-modal-box">
-            <span class="close-modal" onclick="closeModal('modal-mobile')">&times;</span>
-            <h2>Release Cycle Management</h2>
-            <img src="firebase_real.png" alt="Release Cycle Diagram">
-            <p>Streamlining the flow from code commit to app store release across multiple platforms.</p>
-        </div>
-    </div>
-
-    <div id="modal-viz" class="pl-modal">
-        <div class="pl-modal-box">
-            <span class="close-modal" onclick="closeModal('modal-viz')">&times;</span>
-            <h2>Operational Visibility</h2>
-            <img src="grafana_real.png" alt="Monitoring Dashboard">
-            <p>Real-time Grafana/Kibana dashboards for monitoring system health and business KPIs.</p>
-        </div>
-    </div>
-
-    <div id="modal-grafana" class="pl-modal">
-        <div class="pl-modal-box">
-            <span class="close-modal" onclick="closeModal('modal-grafana')">&times;</span>
-            <h2>Grafana Visualization</h2>
-            <img src="grafana_real.png" alt="Grafana Dashboard">
-            <p>Expertise in building complex, multi-source dashboards for real-time observability.</p>
-        </div>
-    </div>
 
     <footer class="pl-wrap pl-footer">
         <p>&copy; 2026 Menguhan Bulut. <a href="https://www.linkedin.com/in/menguhan-bulut/">LinkedIn</a></p>
