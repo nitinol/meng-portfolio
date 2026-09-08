@@ -29,6 +29,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
+    <!-- Display type (free geometric-sans match for reference headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.menguhan.com/portfolio.html">
@@ -107,7 +112,7 @@
 
     <main class="pl-wrap">
         <!-- About Section -->
-        <section id="about" class="pl-section">
+        <section id="about" class="pl-section pl-rv">
             <h2>About</h2>
             <p class="pl-lead" data-i18n="hero.title">I'm a <strong>Lead Product Owner</strong> with 8+ years
                 leading cross-functional teams across e-commerce, logistics, and enterprise
@@ -125,7 +130,7 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="pl-section">
+        <section id="experience" class="pl-section pl-rv">
             <h2>Experience</h2>
             <ul class="pl-timeline">
                 <li><b>Product Owner / Product Manager — Modanisa, Istanbul</b> <span class="pl-dates">Mar 2021 – Aug 2025</span><br>Real-time cart-aware dynamic pricing engine; Similar Products recommendations + AI Search (+12% add-to-cart, +15% revenue); LLM-assisted delivery; mobile releases (Play / App Store / Huawei) with BigQuery analytics.</li>
@@ -136,7 +141,7 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="pl-section">
+        <section id="projects" class="pl-section pl-rv">
             <h2>Projects</h2>
             <div class="pl-cards">
                 <article class="pl-card" onclick="openModal('modal-modanisa')">
@@ -167,7 +172,7 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="pl-section">
+        <section id="skills" class="pl-section pl-rv">
             <h2>Skills</h2>
             <h3>Product &amp; Leadership</h3>
             <ul class="pl-chips">
@@ -204,7 +209,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="pl-section pl-contact">
+        <section id="contact" class="pl-section pl-contact pl-rv">
             <h2>Contact</h2>
             <p>Based in Bursa, Turkey. Feel free to reach out about Product Manager / Product Owner roles.</p>
             <p><a href="mailto:menguhan@gmail.com">menguhan@gmail.com</a> · +90 555 258 65 68 · <a href="https://www.linkedin.com/in/menguhan-bulut/">LinkedIn</a></p>
@@ -290,6 +295,26 @@
 
     <script src="translations.js?v=20260221-map6"></script>
     <script src="script.js?v=20260221-map6"></script>
+    <script>
+    // Portfolio light-theme motion: hero parallax + section reveal (isolated, no shared symbols touched)
+    (function () {
+        var bg = document.querySelector('.pl-hero-bg');
+        var ticking = false;
+        function parallax() {
+            if (bg) bg.style.transform = 'translateY(' + (window.pageYOffset * 0.25) + 'px)';
+            ticking = false;
+        }
+        window.addEventListener('scroll', function () {
+            if (!ticking) { window.requestAnimationFrame(parallax); ticking = true; }
+        }, { passive: true });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.pl-rv').forEach(function (el) { io.observe(el); });
+    })();
+    </script>
 </body>
 
 </html>
