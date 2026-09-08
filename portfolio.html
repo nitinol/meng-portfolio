@@ -20,7 +20,7 @@
     <meta name="author" content="Menguhan Bulut">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://www.menguhan.com/portfolio.html">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -64,7 +64,7 @@
         ],
         "jobTitle": ["Product Manager", "Product Owner", "Technical Product Manager", "Senior Product Manager", "Product Lead"],
         "description": "Senior Technical Product Manager and Product Owner focused on data-driven strategy, agile delivery, and measurable product outcomes.",
-        "knowsAbout": ["Product Management", "Product Ownership", "Agile Methodologies", "Data Analytics", "BigQuery", "Google Analytics", "Kibana", "Grafana", "OKRs", "KPIs", "Roadmap Strategy", "Cross-functional Leadership", "SaaS", "E-commerce"],
+        "knowsAbout": ["Product Management", "AI Search", "Recommendation Engines", "Dynamic Personalization", "Data Analytics", "BigQuery", "Agile Delivery", "E-commerce"],
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Bursa",
@@ -75,307 +75,171 @@
     }
     </script>
 
-    <link rel="stylesheet" href="style.css?v=20260221-map6">
+    <link rel="stylesheet" href="portfolio-light.css">
 </head>
 
-<body>
-    <div class="background-glow"></div>
-    <div class="cursor-glow"></div>
-
-    <header>
-        <a href="index.html" class="logo-link">
-            <img src="logo.png" alt="Menguhan Logo" class="logo-img">
-            <div class="logo">MENGUHAN</div>
-        </a>
+<body class="pl">
+    <header class="pl-wrap pl-header">
+        <a href="index.html" class="logo-link">MENGUHAN</a>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
         <nav id="mainNav">
-            <a href="#hero">Command Deck</a>
+            <a href="#about">About</a>
             <a href="#projects">Projects</a>
-            <a href="#skills">Arsenal</a>
-            <a href="#perspective">Beyond</a>
-            <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact Me</a>
+            <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <div class="hero-content">
-                <h1>
-                    <span data-i18n="hero.title">Unchecked digitalization generates</span>
-                    <span data-i18n="hero.titleSpan">more issues than it resolves.</span>
-                </h1>
-                <p class="subtitle">Hi, I'm <strong>Menguhan Bulut</strong>, a <strong>Product Manager and Product Owner</strong>.<br>I’m a communicator and hidden problem
-                    finder who spots bottlenecks before they slow things down. As an edge-case seeker and iterative
-                    improver, I focus on progress through smart adaptation and clear strategy. I think first, act
-                    decisively, and design unique solutions that move systems forward with impact and precision.</p>
-                <p class="hero-seo-line">Senior Technical Product Manager focused on measurable outcomes and scalable, data-driven execution.</p>
-
-
-
-                <div class="stats-container">
-                    <div class="stat-item">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">Data</span>
-                        <span class="stat-label">Driven Strategy</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">Millions</span>
-                        <span class="stat-label">Users Impacted</span>
-                    </div>
+    <main class="pl-wrap">
+        <!-- Hero / About Section -->
+        <section id="about" class="pl-hero">
+            <img class="pl-photo" src="hero-photo.jpg" onerror="this.onerror=null;this.src='personal.jpg'" alt="Menguhan Bulut">
+            <div>
+                <h1>Menguhan Bulut</h1>
+                <p class="pl-role" data-i18n="hero.titleSpan">Lead Product Owner — AI &amp; E-Commerce Innovation</p>
+                <p data-i18n="hero.title">Results-driven Lead Product Owner with 8+ years leading
+                    cross-functional teams across e-commerce, logistics, and enterprise platforms —
+                    turning AI/ML recommendations, personalization, and analytics into revenue,
+                    conversion, and engagement growth.</p>
+                <p><a href="https://www.linkedin.com/in/menguhan-bulut/">View resume (LinkedIn)</a></p>
+                <div class="pl-stats">
+                    <div><b>8+</b><span>Years Experience</span></div>
+                    <div><b>+12%</b><span>Add-to-Cart Rate</span></div>
+                    <div><b>+15%</b><span>Revenue Lift</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Playbook Section -->
-        <section id="playbook" class="section-container hidden">
-            <div class="section-header">
-                <h2>Product Playbook</h2>
-                <div class="line"></div>
-            </div>
-            <div class="principles-list">
-                <button class="principle-btn" onclick="openModal('modal-principle-1')">
-                    <span class="principle-btn-icon">🚀</span>
-                    <span class="principle-btn-text">From Concept to Launch: The Art of the Strong Inception</span>
-                    <span class="principle-btn-arrow">→</span>
-                </button>
-                <button class="principle-btn" onclick="openModal('modal-principle-2')">
-                    <span class="principle-btn-icon">👂</span>
-                    <span class="principle-btn-text">Radical Listening: Understanding What Stakeholders Really
-                        Need</span>
-                    <span class="principle-btn-arrow">→</span>
-                </button>
-                <button class="principle-btn" onclick="openModal('modal-principle-3')">
-                    <span class="principle-btn-icon">💬</span>
-                    <span class="principle-btn-text">Transparent Communication: The Foundation of Everything</span>
-                    <span class="principle-btn-arrow">→</span>
-                </button>
-                <button class="principle-btn" onclick="openModal('modal-principle-4')">
-                    <span class="principle-btn-icon">🎯</span>
-                    <span class="principle-btn-text">Data-Driven Prioritization: Turning Chaos into Clarity</span>
-                    <span class="principle-btn-arrow">→</span>
-                </button>
-                <button class="principle-btn" onclick="openModal('modal-principle-5')">
-                    <span class="principle-btn-icon">📈</span>
-                    <span class="principle-btn-text">Numbers Don't Lie: Building with Metrics, Not Guesses</span>
-                    <span class="principle-btn-arrow">→</span>
-                </button>
-                <button class="principle-btn" onclick="openModal('modal-principle-6')">
-                    <span class="principle-btn-icon">🔥</span>
-                    <span class="principle-btn-text">When Things Break: Crisis is a Conversation</span>
-                    <span class="principle-btn-arrow">→</span>
-                </button>
-            </div>
+        <!-- Experience Section -->
+        <section id="experience" class="pl-section">
+            <h2>Experience</h2>
+            <ul class="pl-timeline">
+                <li><b>Product Owner / Product Manager — Modanisa, Istanbul</b> <span class="pl-dates">Mar 2021 – Aug 2025</span><br>Real-time cart-aware dynamic pricing engine; Similar Products recommendations + AI Search (+12% add-to-cart, +15% revenue); LLM-assisted delivery; mobile releases (Play / App Store / Huawei) with BigQuery analytics.</li>
+                <li><b>Product Owner — kartelam.com, Istanbul</b> <span class="pl-dates">Nov 2020 – Mar 2021</span><br>B2B e-commerce platform delivery with streamlined stakeholder communication.</li>
+                <li><b>Product Owner — Postmates, Philadelphia, PA</b> <span class="pl-dates">Jun 2019 – May 2020</span><br>Driver pickup routing with physical constraints; owned delivery-experience backlog.</li>
+                <li><b>Product Owner — MDC Modern Design Center, Cherry Hill, NJ</b> <span class="pl-dates">Apr 2017 – Feb 2019</span><br>Agile/Lean stakeholder frameworks aligning client requirements with delivery.</li>
+            </ul>
         </section>
 
-        <!-- Skill Stack Section -->
-        <section id="skills" class="section-container hidden">
-            <div class="section-header">
-                <h2>Technical Arsenal</h2>
-                <div class="line"></div>
-            </div>
-            <div class="arsenal-panel glass" aria-label="Technical tools">
-                <div class="arsenal-grid">
-                    <a class="arsenal-card span-3 hot" href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Google Analytics logo"><span>Google Analytics</span></a>
-                    <a class="arsenal-card span-2" href="https://grafana.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana logo"><span>Grafana</span></a>
-                    <a class="arsenal-card span-2" href="https://www.elastic.co/kibana" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/kibana/005571" alt="Kibana logo"><span>Kibana</span></a>
-                    <a class="arsenal-card span-2" href="https://www.elastic.co/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/elastic/005571" alt="Elastic logo"><span>Elastic</span></a>
-                    <a class="arsenal-card span-2" href="https://cloud.google.com/bigquery" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/googlebigquery/4285F4" alt="BigQuery logo"><span>BigQuery</span></a>
-                    <a class="arsenal-card span-2" href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL logo"><span>MySQL</span></a>
-
-                    <a class="arsenal-card span-2" href="https://flutter.dev/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter logo"><span>Flutter</span></a>
-                    <a class="arsenal-card span-2" href="https://firebase.google.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase logo"><span>Firebase</span></a>
-                    <a class="arsenal-card span-2" href="https://firebase.google.com/docs/ab-testing" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="A/B Tests logo"><span>A/B Tests</span></a>
-                    <a class="arsenal-card span-2" href="https://www.mongodb.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB logo"><span>MongoDB</span></a>
-                    <a class="arsenal-card span-2" href="https://www.couchbase.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/couchbase/EA2328" alt="Couchbase logo"><span>Couchbase</span></a>
-                    <a class="arsenal-card span-2" href="https://cloud.google.com/sql" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/postgresql/4169E1" alt="SQL logo"><span>SQL</span></a>
-                    <a class="arsenal-card span-2" href="https://cloud.google.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud logo"><span>Google Cloud</span></a>
-
-                    <a class="arsenal-card span-2" href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira logo"><span>Jira</span></a>
-                    <a class="arsenal-card span-2" href="https://trello.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg" alt="Trello logo"><span>Trello</span></a>
-                    <a class="arsenal-card span-2" href="https://www.atlassian.com/software/jira/features/backlog" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Backlog logo"><span>Backlog</span></a>
-                    <a class="arsenal-card span-3" href="https://www.scrum.org/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/scrumalliance/009FDA" alt="Agile logo"><span>Agile / Scrum</span></a>
-                    <a class="arsenal-card span-3" href="https://www.productplan.com/glossary/roadmap-strategy/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/producthunt/DA552F" alt="Roadmap logo"><span>Roadmap Strategy</span></a>
-                    <a class="arsenal-card span-3" href="https://www.atlassian.com/blog/teamwork/cross-functional-team" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/atlassian/0052CC" alt="Leadership logo"><span>Cross-Functional Leadership</span></a>
-
-                    <a class="arsenal-card span-2" href="https://www.figma.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma logo"><span>Figma</span></a>
-                    <a class="arsenal-card span-2" href="https://www.figma.com/figjam/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/figma/A259FF" alt="FigJam logo"><span>FigJam</span></a>
-                    <a class="arsenal-card span-2" href="https://miro.com/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/miro/050038" alt="Miro logo"><span>Miro</span></a>
-                    <a class="arsenal-card span-2" href="https://www.qlik.com/us/products/qlik-sense" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/qlik/009845" alt="Qlik Sense logo"><span>Qlik Sense</span></a>
-                    <a class="arsenal-card span-2" href="https://developer.apple.com/app-store-connect/" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/appstore/0D96F6" alt="App Store logo"><span>App Store</span></a>
-                    <a class="arsenal-card span-2" href="https://play.google.com/console" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/googleplay/34A853" alt="Play Console logo"><span>Play Console</span></a>
-                    <a class="arsenal-card span-2" href="https://developer.huawei.com/consumer/en/service/josp/agc/index.html" target="_blank" rel="noopener noreferrer"><img class="arsenal-brand" src="https://cdn.simpleicons.org/huawei/FF0000" alt="Huawei logo"><span>Huawei Store</span></a>
-                    <a class="arsenal-card span-3 hot salesforce-card" href="https://www.salesforce.com/crm/" target="_blank" rel="noopener noreferrer">
-                        <span class="crm-cloud-icon" aria-hidden="true">
-                            <svg viewBox="0 0 64 48" role="img">
-                                <path d="M20 40c-8 0-14-5.6-14-12.5C6 21.2 10.4 16 17 15c2-6.5 8.4-11 15.6-11 8.8 0 16 6.5 17 14.8 4.9 1 8.4 5.1 8.4 9.9C58 35 52.3 40 45.3 40H20z" />
-                                <text x="32" y="30" text-anchor="middle">SF</text>
-                            </svg>
-                        </span>
-                        <span>CRM Tools (Salesforce)</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="section-container hidden">
-            <div class="section-header">
-                <h2>Featured Projects</h2>
-                <div class="line"></div>
-            </div>
-            <div class="projects-grid">
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Custom Kitchen Designing Team Platform</h3>
-                        <p>Built the product structure for a custom kitchen design operation, aligning designer workflows, client decision checkpoints, and delivery tracking in one process.</p>
-                    </div>
+        <!-- Projects Section -->
+        <section id="projects" class="pl-section">
+            <h2>Projects</h2>
+            <div class="pl-cards">
+                <article class="pl-card" onclick="openModal('modal-modanisa')">
+                    <h3>Dynamic Pricing Engine</h3>
+                    <p>Cart-aware real-time pricing and badges on listing pages.</p>
                 </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Food Delivery Driver App: UX Integration</h3>
-                        <p>Led a new UX integration for drivers with clearer task states and faster action paths, reducing friction in live delivery flows.</p>
-                    </div>
+                <article class="pl-card" onclick="openModal('modal-mobile')">
+                    <h3>Similar Products Recommendations</h3>
+                    <p>+12% add-to-cart, +15% revenue via AI recommendations.</p>
                 </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Driver Pickup Logic and Dead-Time Reduction</h3>
-                        <p>Designed pickup logic and technical workflow updates to minimize idle time and improve dispatch-to-pickup efficiency.</p>
-                    </div>
+                <article class="pl-card" onclick="openModal('modal-viz')">
+                    <h3>AI Search + Operational Visibility</h3>
+                    <p>Enhanced AI search backed by Grafana/Kibana monitoring.</p>
                 </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Digital Fabric Cartela Platform (B2B)</h3>
-                        <p>Created a digital fabric cartela concept for multiple companies so they can share curated fabric catalogs with their customers.</p>
-                    </div>
-                </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Product Listing Page: New Filtering and Sorting</h3>
-                        <p>Restructured filtering and sorting behavior on product listing pages to improve discoverability and speed up decision making.</p>
-                    </div>
-                </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Dynamic Pricing on Product Listing Page</h3>
-                        <p>Introduced dynamic pricing visibility patterns on PLP to better communicate real-time value and campaign effects.</p>
-                    </div>
-                </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Product Detail Page + Similar Products</h3>
-                        <p>Improved product detail architecture and connected it with relevant similar-product modules for stronger continuation paths.</p>
-                    </div>
-                </article>
-                <article class="project-card glass">
-                    <div class="project-content">
-                        <h3>Multifunctional Search</h3>
-                        <p>Shaped a multifunctional search experience combining intent capture, faceted controls, and relevance tuning.</p>
-                    </div>
+                <article class="pl-card" onclick="openModal('modal-grafana')">
+                    <h3>Mobile Release Lifecycle</h3>
+                    <p>Play / App Store / Huawei releases refined with BigQuery analytics.</p>
                 </article>
             </div>
         </section>
 
-        <!-- New Perspective / Nature Section -->
-        <section id="perspective" class="section-container hidden">
-            <div class="section-header">
-                <h2>Beyond the Screen</h2>
-                <div class="line"></div>
-            </div>
-            <div class="perspective-content glass">
-                <div class="perspective-text">
-                    <h3>How Offline Clarity Shapes Better Product Decisions</h3>
-                    <p>I use outdoor time as a deliberate thinking system. Stepping away from constant digital noise helps me return with cleaner prioritization, sharper trade-off decisions, and calmer leadership in high-pressure moments.</p>
-                    <p>I bring that same approach into product work: simplify complexity, remove noise, and focus teams on what actually moves user value.</p>
-                    <p class="quote">"Simplicity is the ultimate sophistication."</p>
-                </div>
-                <div class="perspective-image">
-                    <img src="personal.jpg" alt="Menguhan Bulut">
-                    <div class="gradient-overlay"></div>
-                </div>
-            </div>
+        <!-- Skills Section -->
+        <section id="skills" class="pl-section">
+            <h2>Skills</h2>
+            <h3>Product &amp; Leadership</h3>
+            <ul class="pl-chips">
+                <li>Product Strategy</li>
+                <li>Roadmaps</li>
+                <li>Agile (Scrum, Kanban)</li>
+                <li>Backlog Prioritization</li>
+                <li>User Stories</li>
+                <li>Stakeholder Management</li>
+            </ul>
+            <h3>AI &amp; Data</h3>
+            <ul class="pl-chips">
+                <li>AI Search</li>
+                <li>Recommendation Engines</li>
+                <li>Personalization</li>
+                <li>BigQuery</li>
+                <li>Google Analytics</li>
+                <li>Qlik Sense</li>
+                <li>Grafana</li>
+                <li>Kibana</li>
+            </ul>
+            <h3>Tools &amp; Technical</h3>
+            <ul class="pl-chips">
+                <li>JIRA</li>
+                <li>Confluence</li>
+                <li>Figma</li>
+                <li>GitLab CI/CD</li>
+                <li>Firebase</li>
+                <li>MySQL</li>
+                <li>MongoDB</li>
+                <li>Couchbase</li>
+            </ul>
+            <p>Languages: Turkish (Native) · English (Native) · Russian (Very Basic) · Italian (Beginner) · German (Beginner)</p>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section-container hidden">
-            <div class="contact-wrapper glass">
-                <div class="contact-info">
-                    <h2>Ready to Build the Future?</h2>
-                    <p>I am currently open to Product Manager/Owner roles where I can leverage Data to solve real user
-                        problems.</p>
-                    <div class="contact-details">
-                        <div class="detail-item">
-                            <span>📧</span>
-                            <a href="mailto:menguhan@gmail.com">menguhan@gmail.com</a>
-                        </div>
-                        <div class="detail-item">
-                            <span>📱</span>
-                            <span>+90 555 258 65 68</span>
-                        </div>
-                        <div class="detail-item">
-                            <span>📍</span>
-                            <span>Bursa, TURKIYE</span>
-                        </div>
-                    </div>
+        <section id="contact" class="pl-section pl-contact">
+            <h2>Contact</h2>
+            <p>Based in Bursa, Turkey. Feel free to reach out about Product Manager / Product Owner roles.</p>
+            <p><a href="mailto:menguhan@gmail.com">menguhan@gmail.com</a> · +90 555 258 65 68 · <a href="https://www.linkedin.com/in/menguhan-bulut/">LinkedIn</a></p>
+
+            <!-- Contact Form - Web3Forms -->
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                <!-- Web3Forms Access Key -->
+                <input type="hidden" name="access_key" value="1860d79d-c004-425f-a8c9-3005bbc478bc">
+                <input type="hidden" name="subject" value="New Portfolio Contact!">
+                <input type="hidden" name="redirect" value="https://www.menguhan.com/success.html">
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Name Lastname">
                 </div>
-
-                <!-- Contact Form - Web3Forms -->
-                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-                    <!-- Web3Forms Access Key -->
-                    <input type="hidden" name="access_key" value="1860d79d-c004-425f-a8c9-3005bbc478bc">
-                    <input type="hidden" name="subject" value="New Portfolio Contact!">
-                    <input type="hidden" name="redirect" value="https://www.menguhan.com/success.html">
-
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Name Lastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="jane@company.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company Name (Optional)</label>
-                        <input type="text" id="company" name="company" placeholder="Tech Corp">
-                    </div>
-                    <div class="form-group">
-                        <label for="linkedin">LinkedIn Account (Optional)</label>
-                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/jane-doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Reason for Connecting</label>
-                        <textarea id="message" name="message" rows="4" required
-                            placeholder="Tell me about your product vision..."></textarea>
-                    </div>
-                    <div class="submit-wrapper" style="position: relative;">
-                        <button type="submit" id="submitBtn" class="btn primary-btn full-width disabled">Send
-                            Message</button>
-                        <div id="formTooltip" class="validation-tooltip">Please fill all fields. Project details must be
-                            min 41 chars.</div>
-                    </div>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="jane@company.com">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company Name (Optional)</label>
+                    <input type="text" id="company" name="company" placeholder="Tech Corp">
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn Account (Optional)</label>
+                    <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/jane-doe">
+                </div>
+                <div class="form-group">
+                    <label for="message">Reason for Connecting</label>
+                    <textarea id="message" name="message" rows="4" required
+                        placeholder="Tell me about your product vision..."></textarea>
+                </div>
+                <div class="submit-wrapper" style="position: relative;">
+                    <button type="submit" id="submitBtn" class="btn primary-btn full-width disabled">Send
+                        Message</button>
+                    <div id="formTooltip" class="validation-tooltip">Please fill all fields. Project details must be
+                        min 41 chars.</div>
+                </div>
+            </form>
         </section>
     </main>
 
     <!-- Modals -->
-    <div id="modal-modanisa" class="modal">
-        <div class="modal-content glass">
+    <div id="modal-modanisa" class="pl-modal">
+        <div class="pl-modal-box">
             <span class="close-modal" onclick="closeModal('modal-modanisa')">&times;</span>
-            <h2>Data-Driven Enhancements</h2>
+            <h2>Dynamic Pricing &amp; Recommendations</h2>
             <img src="dashboard.png" alt="Analytics Dashboard">
-            <p>Visualizing the impact of Recommendation engines on user engagement metrics.</p>
+            <p>Visualizing the impact of the cart-aware pricing engine and recommendation modules on revenue and engagement.</p>
         </div>
     </div>
 
-    <div id="modal-mobile" class="modal">
-        <div class="modal-content glass">
+    <div id="modal-mobile" class="pl-modal">
+        <div class="pl-modal-box">
             <span class="close-modal" onclick="closeModal('modal-mobile')">&times;</span>
             <h2>Release Cycle Management</h2>
             <img src="firebase_real.png" alt="Release Cycle Diagram">
@@ -383,8 +247,8 @@
         </div>
     </div>
 
-    <div id="modal-viz" class="modal">
-        <div class="modal-content glass">
+    <div id="modal-viz" class="pl-modal">
+        <div class="pl-modal-box">
             <span class="close-modal" onclick="closeModal('modal-viz')">&times;</span>
             <h2>Operational Visibility</h2>
             <img src="grafana_real.png" alt="Monitoring Dashboard">
@@ -392,8 +256,8 @@
         </div>
     </div>
 
-    <div id="modal-grafana" class="modal">
-        <div class="modal-content glass">
+    <div id="modal-grafana" class="pl-modal">
+        <div class="pl-modal-box">
             <span class="close-modal" onclick="closeModal('modal-grafana')">&times;</span>
             <h2>Grafana Visualization</h2>
             <img src="grafana_real.png" alt="Grafana Dashboard">
@@ -401,168 +265,8 @@
         </div>
     </div>
 
-    <div id="modal-kibana" class="modal">
-        <div class="modal-content glass">
-            <span class="close-modal" onclick="closeModal('modal-kibana')">&times;</span>
-            <h2>Kibana Analytics</h2>
-            <img src="kibana_real.png" alt="Kibana Dashboard">
-            <p>Deep diving into log analytics and user behavior patterns using Elasticsearch and Kibana.</p>
-        </div>
-    </div>
-
-    <!-- Principle Modals -->
-    <div id="modal-principle-1" class="modal">
-        <div class="modal-content glass principle-modal">
-            <span class="close-modal" onclick="closeModal('modal-principle-1')">&times;</span>
-            <div class="principle-modal-header">
-                <span class="principle-modal-icon">🚀</span>
-                <h2>From Concept to Launch: The Art of the Strong Inception</h2>
-            </div>
-            <div class="principle-modal-body">
-                <p class="principle-intro">Every project begins with the same critical question: <strong>What does the
-                        company need, and what can the team realistically deliver?</strong> I lead projects from
-                    conception through launch, owning the entire journey—not because I have all the answers, but because
-                    I know how to find them together.</p>
-                <h3>During inception, I do three things obsessively:</h3>
-                <ul class="principle-modal-list">
-                    <li><strong>Find the best method for this specific situation.</strong> No two projects are
-                        identical. I always search for and apply the approaches that fit this team, this company, this
-                        market moment—giving leadership realistic estimations they can actually trust.</li>
-                    <li><strong>Identify the true MVP.</strong> Not the smallest thing we can ship, but the smallest
-                        thing that matters—the one feature or workflow that proves our hypothesis and lets us learn
-                        faster than anyone else.</li>
-                    <li><strong>Keep everyone aligned around it.</strong> Because a company is not a list of
-                        features—it's a team moving in the same direction. Scope chaos kills products faster than bad
-                        code.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-principle-2" class="modal">
-        <div class="modal-content glass principle-modal">
-            <span class="close-modal" onclick="closeModal('modal-principle-2')">&times;</span>
-            <div class="principle-modal-header">
-                <span class="principle-modal-icon">👂</span>
-                <h2>Radical Listening: Understanding What Stakeholders Really Need</h2>
-            </div>
-            <div class="principle-modal-body">
-                <p class="principle-intro"><strong>The importance of listening is directly proportional to product
-                        success.</strong> It's that simple.</p>
-                <p>If you want to give the right answers to stakeholders, you must first understand them 100%—not just
-                    what they say, but what they're really worried about, what constraints they're under, what keeps
-                    them awake at night. Most miscommunication happens because we stopped listening too early.</p>
-                <p>This is where I introduce the <strong>trade-off slider</strong>: every company has finite resources,
-                    limited time, and competing priorities. My job is to make those trade-offs visible and explicit.
-                    Should we prioritize speed or polish? User acquisition or retention? New features or stability?</p>
-                <p class="principle-conclusion">Once we clarify the company's slider—not what each stakeholder wishes it
-                    was—the product roadmap almost writes itself. Everyone sees the same picture. Everyone says "yes,
-                    that makes sense." 🎯</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-principle-3" class="modal">
-        <div class="modal-content glass principle-modal">
-            <span class="close-modal" onclick="closeModal('modal-principle-3')">&times;</span>
-            <div class="principle-modal-header">
-                <span class="principle-modal-icon">💬</span>
-                <h2>Transparent Communication: The Foundation of Everything</h2>
-            </div>
-            <div class="principle-modal-body">
-                <p class="principle-intro">Here's the brutal truth: <strong>no clean communication = problems
-                        multiplied.</strong></p>
-                <p>Poor communication doesn't just slow things down—it corrupts decisions. It creates duplicate work. It
-                    makes talented people feel unheard. It kills momentum.</p>
-                <p>That's why I treat communication like code quality: <strong>it's non-negotiable.</strong> Every
-                    decision, every trade-off, every constraint gets communicated clearly to engineering, design, and
-                    stakeholders. Not in a thousand-word email. Not in jargon. In clear, structured, data-backed
-                    statements that leave no room for misinterpretation.</p>
-                <p class="principle-conclusion">When communication is clean, everything moves faster. The team trusts
-                    the direction. Disagreements get resolved quickly because everyone's working from the same facts.
-                    Magic happens. ✨</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-principle-4" class="modal">
-        <div class="modal-content glass principle-modal">
-            <span class="close-modal" onclick="closeModal('modal-principle-4')">&times;</span>
-            <div class="principle-modal-header">
-                <span class="principle-modal-icon">🎯</span>
-                <h2>Data-Driven Prioritization: Turning Chaos into Clarity</h2>
-            </div>
-            <div class="principle-modal-body">
-                <p class="principle-intro">Prioritization looks painful if you're guessing. It's painful if you're just
-                    listening to whoever spoke loudest. <strong>But if you see the whole picture? It becomes a math
-                        problem.</strong></p>
-                <h3>Here's my framework:</h3>
-                <ul class="principle-modal-list">
-                    <li><strong>Step 1: Gather the data.</strong> What's breaking? What's your bottleneck? What do users
-                        actually do vs. what we think they do?</li>
-                    <li><strong>Step 2: Match it against the company's trade-off slider</strong> (the one we clarified
-                        in listening). Speed matters more than perfection? That changes what "high priority" means. User
-                        growth? Different story.</li>
-                    <li><strong>Step 3: Prioritization becomes automatic.</strong> Not because I'm smart—because the
-                        data is clear and the criteria are set.</li>
-                </ul>
-                <p class="principle-conclusion">Then? I get to do the fun part: show your team and stakeholders a
-                    beautiful, data-backed presentation that makes everyone say "oh, that's why we're doing this." No
-                    debates. No politics. Just clarity. 📊</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-principle-5" class="modal">
-        <div class="modal-content glass principle-modal">
-            <span class="close-modal" onclick="closeModal('modal-principle-5')">&times;</span>
-            <div class="principle-modal-header">
-                <span class="principle-modal-icon">📈</span>
-                <h2>Numbers Don't Lie: Building with Metrics, Not Guesses</h2>
-            </div>
-            <div class="principle-modal-body">
-                <p class="principle-intro">You can improve a product by instinct. You can improve it faster by
-                    listening. <strong>But you only know if you're actually moving in the right direction when you
-                        measure it.</strong></p>
-                <p>This isn't about vanity metrics or dashboard theater. It's about knowing, from day one of inception,
-                    which data matters. What KPIs will prove success? What signals will show us problems early? Which
-                    dashboards need to exist so we can catch errors before users feel them?</p>
-                <p>I learned this at scale: when we built a massive search infrastructure with Elasticsearch, we didn't
-                    just connect it and hope. We wired it directly into Kibana and Grafana from the start. Every error,
-                    every latency spike, every query pattern—all visible in real time.</p>
-                <p class="principle-conclusion">Result? We caught issues that would have silently degraded user
-                    experience. We iterated faster. We shipped with confidence. Building product without metrics is
-                    building blind. Building product with metrics from inception is how you move fast without breaking
-                    things. 📈</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-principle-6" class="modal">
-        <div class="modal-content glass principle-modal">
-            <span class="close-modal" onclick="closeModal('modal-principle-6')">&times;</span>
-            <div class="principle-modal-header">
-                <span class="principle-modal-icon">🔥</span>
-                <h2>When Things Break: Crisis is a Conversation</h2>
-            </div>
-            <div class="principle-modal-body">
-                <p class="principle-intro"><strong>I'll tell you face to face. :]</strong></p>
-                <p class="principle-conclusion">Because crises aren't solved with Slack messages, emails, or async
-                    updates. They're solved with real humans in a room, thinking together, making fast decisions, and
-                    moving as one.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Menguhan Bulut. Built with <span style="color:var(--accent-color)">♥</span> and Code.</p>
-        <div class="seo-footer">
-            Menguhan Bulut is a Senior Product Manager and Product Owner based in Bursa, Turkey. Specializing in
-            Data-Driven Product Management, Agile Methodologies, and Strategic Leadership. Expert in Technical Product
-            Management, SaaS products, and E-commerce platforms. Best Product Manager in Turkey offering product
-            management consulting and full-time opportunities. Contact for Product Manager, Product Owner, and
-            Product Lead opportunities internationally.
-        </div>
+    <footer class="pl-wrap pl-footer">
+        <p>&copy; 2026 Menguhan Bulut. <a href="https://www.linkedin.com/in/menguhan-bulut/">LinkedIn</a></p>
     </footer>
 
     <script src="translations.js?v=20260221-map6"></script>
