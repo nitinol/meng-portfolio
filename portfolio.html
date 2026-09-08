@@ -75,10 +75,11 @@
     }
     </script>
 
-    <link rel="stylesheet" href="portfolio-light.css">
+    <link rel="stylesheet" href="portfolio-light.css?v=20260908-ref2">
 </head>
 
 <body class="pl">
+    <div class="pl-topbar">
     <header class="pl-wrap pl-header">
         <a href="index.html" class="logo-link">MENGUHAN</a>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
@@ -92,6 +93,7 @@
             <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a>
         </nav>
     </header>
+    </div>
 
     <!-- Full-screen photo hero -->
     <section id="hero" class="pl-hero">
@@ -100,7 +102,7 @@
             <h1>Menguhan Bulut</h1>
             <p class="pl-role">Product Owner — AI &amp; E-Commerce, based in Turkey</p>
         </div>
-        <a href="#about" class="pl-scroll">Scroll ↓</a>
+        <a href="#about" class="pl-scroll" aria-label="Scroll to about"></a>
     </section>
 
     <main class="pl-wrap">

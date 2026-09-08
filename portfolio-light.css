@@ -11,21 +11,22 @@ body.pl { background: var(--pl-bg); color: var(--pl-text); font-family: 'Outfit'
 body.pl a { color: var(--pl-accent); }
 .pl-wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
 
-/* Header: logo left, nav right */
-.pl-header { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
-.pl-header .logo-link { color: var(--pl-text); text-decoration: none; font-weight: 700; letter-spacing: 0.18em; font-size: 0.95rem; }
-.pl-header nav a { margin-left: 28px; text-decoration: none; color: var(--pl-text); font-size: 0.95rem; }
+/* Header: black bar, boxed logo above nav (reference style) */
+.pl-topbar { background: #000; }
+.pl-header { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 0 22px; position: relative; }
+.pl-header .logo-link { color: #fff; text-decoration: none; font-weight: 800; letter-spacing: 0.22em; font-size: 1rem; border: 2px solid #fff; border-radius: 4px; padding: 6px 14px 6px 16px; }
+.pl-header nav a { margin: 0 16px; text-decoration: none; color: #fff; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; }
 .pl-header nav a:hover { opacity: 0.6; }
 .mobile-menu-btn { display: none; background: none; border: 0; cursor: pointer; }
-.mobile-menu-btn span { display: block; width: 22px; height: 2px; background: var(--pl-text); margin: 5px 0; }
+.mobile-menu-btn span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; }
 
 /* Full-screen photo hero, centered type over image */
-.pl-hero { position: relative; min-height: calc(100vh - 70px); display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden; }
+.pl-hero { position: relative; min-height: calc(100vh - 130px); display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden; }
 .pl-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.55); }
-.pl-hero-inner { position: relative; padding: 40px 24px; max-width: 800px; }
-.pl-hero-inner h1 { font-size: 3.4rem; margin: 0 0 12px; font-weight: 600; letter-spacing: 0.02em; }
-.pl-role { font-size: 1.05rem; letter-spacing: 0.28em; text-transform: uppercase; margin: 0 0 24px; opacity: 0.9; }
-.pl-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); color: #fff; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.85; }
+.pl-hero-inner { position: relative; padding: 40px 24px; max-width: 1000px; }
+.pl-hero-inner h1 { font-size: clamp(3rem, 10vw, 6.5rem); margin: 0 0 16px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.02; }
+.pl-role { font-size: 1rem; letter-spacing: 0.3em; text-transform: uppercase; margin: 0; opacity: 0.92; }
+.pl-scroll { position: absolute; bottom: 30px; left: 50%; width: 22px; height: 22px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: translateX(-50%) rotate(45deg); opacity: 0.9; }
 
 /* Sections: centered titles, generous whitespace */
 .pl-section { padding: 72px 0; }
@@ -73,13 +74,12 @@ body.pl a { color: var(--pl-accent); }
 .close-modal { float: right; font-size: 1.6rem; cursor: pointer; line-height: 1; }
 
 @media (max-width: 640px) {
-  .pl-hero-inner h1 { font-size: 2.3rem; }
+  .pl-hero-inner h1 { font-size: 2.6rem; }
   .pl-role { letter-spacing: 0.16em; }
   .pl-cards { grid-template-columns: 1fr; }
   .pl-stats { gap: 24px; }
-  .mobile-menu-btn { display: block; }
-  .pl-header nav { display: none; position: absolute; top: 70px; right: 16px; background: #fff; border: 1px solid var(--pl-line); border-radius: 6px; padding: 12px 20px; z-index: 40; }
+  .mobile-menu-btn { display: block; position: absolute; top: 28px; right: 20px; }
+  .pl-header nav { display: none; position: absolute; top: 100%; right: 16px; background: #000; border: 1px solid #333; border-radius: 6px; padding: 12px 20px; z-index: 40; }
   .pl-header nav.active { display: block; }
   .pl-header nav a { display: block; margin: 10px 0; }
-  .pl-header { position: relative; }
 }
