@@ -186,6 +186,10 @@
             outline-offset: 3px;
         }
 
+        a.icon-btn {
+            text-decoration: none;
+        }
+
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(3, 5px);
@@ -381,6 +385,9 @@
     </h1>
 
     <div class="top-bar">
+        <a class="icon-btn" href="/" aria-label="Home">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h5v-6h4v6h5V10" /></svg>
+        </a>
         <div class="mini-stat" aria-live="off">
             <span id="wIcon" class="weather-icon"></span>
             <span id="wTemp" class="degree-text">--°</span>
@@ -399,7 +406,7 @@
     </nav>
 
     <div class="account-dialog" id="accountDialog" role="dialog" aria-modal="false" aria-labelledby="accountTitle" hidden>
-        <p id="accountTitle"><strong>Accounts are coming in step 2.</strong><br>Email and Google registration, login and password reset — under your control, on free infrastructure.</p>
+        <p id="accountTitle"><strong>Coming soon.</strong><br>Accounts, login and registration arrive in step 2.</p>
         <button id="accountClose">Close</button>
     </div>
 

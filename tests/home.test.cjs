@@ -32,12 +32,31 @@ test('top-right cluster exposes apps menu and account entry', () => {
     }
 });
 
-test('news shell previews step 4 without dead ends', () => {
+test('news page serves a live client-side tech feed', () => {
     const html = read('news.html');
     assert.match(html, /<title>Tech News \| Menguhan Bulut<\/title>/);
     assert.match(html, /rel="canonical" href="https:\/\/www\.menguhan\.com\/news\.html"/);
-    assert.match(html, /step 4/i);
+    assert.match(html, /hn\.algolia\.com\/api\/v1\/search/);
+    assert.match(html, /data-feed="top"/);
+    assert.match(html, /data-feed="android"/);
+    assert.match(html, /data-feed="ios"/);
+    assert.match(html, /data-feed="ai"/);
+    assert.match(html, /id="newsList"/);
     assert.match(html, /<a href="\/portfolio\.html"/);
     const sitemap = read('sitemap.xml');
     assert.ok(sitemap.includes('news.html'), 'sitemap missing news');
+});
+
+test('home button, sticky bars and coming-soon account note are consistent', () => {
+    for (const page of ['index.html', 'news.html', 'portfolio.html', 'product.html', 'app.html', 'projects.html', 'contact.html', 'blog/what-does-a-product-manager-do/index.html']) {
+        assert.match(read(page), /aria-label="Home"/, `${page} home button`);
+    }
+    const css = read('portfolio-light.css');
+    assert.match(css, /\.pl-topbar\s*\{[^}]*position:\s*sticky/s);
+    assert.match(css, /\.pl-topbar\.no-stick\s*\{[^}]*position:\s*static/s);
+    assert.match(css, /\.home-btn\s*\{[^}]*color:\s*#fff/s);
+    assert.match(read('portfolio.html'), /pl-topbar no-stick/);
+    for (const page of ['index.html', 'news.html']) {
+        assert.match(read(page), /Coming soon\./);
+    }
 });

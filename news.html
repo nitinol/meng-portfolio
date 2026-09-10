@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="news-scroll">
 
 <head>
     <!-- Google tag (gtag.js) -->
@@ -186,6 +186,10 @@
             outline-offset: 3px;
         }
 
+        a.icon-btn {
+            text-decoration: none;
+        }
+
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(3, 5px);
@@ -314,6 +318,117 @@
             }
         }
 
+        /* News page: scrollable feed over the living sky */
+        html.news-scroll,
+        html.news-scroll body {
+            overflow: auto;
+            height: auto;
+            min-height: 100%;
+        }
+
+        .news-wrap {
+            position: relative;
+            z-index: 10;
+            width: min(760px, 100%);
+            margin: 0 auto;
+            padding: 130px 24px 80px;
+            color: var(--adaptive-text);
+        }
+
+        .news-wrap h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: var(--adaptive-font-weight);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin: 0 0 6px;
+        }
+
+        .news-wrap .lede {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--adaptive-text-secondary);
+            margin: 0;
+        }
+
+        .news-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 22px 0 6px;
+        }
+
+        .news-tabs button {
+            min-height: 44px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--adaptive-border);
+            background: var(--adaptive-bg);
+            color: var(--adaptive-text);
+            font: inherit;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .news-tabs button:hover {
+            background: var(--adaptive-bg-hover);
+        }
+
+        .news-tabs button[aria-selected="true"] {
+            border-width: 2px;
+            font-weight: 700;
+        }
+
+        .news-list {
+            list-style: none;
+            margin: 12px 0 0;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .news-list a.news-title {
+            display: block;
+            padding: 14px 16px 10px;
+            border: 1px solid var(--adaptive-border);
+            border-bottom: 0;
+            border-radius: 12px 12px 0 0;
+            background: var(--adaptive-bg);
+            color: var(--adaptive-text);
+            text-decoration: none;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .news-list a.news-title:hover {
+            background: var(--adaptive-bg-hover);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .news-meta {
+            padding: 0 16px 12px;
+            border: 1px solid var(--adaptive-border);
+            border-top: 0;
+            border-radius: 0 0 12px 12px;
+            background: var(--adaptive-bg);
+            color: var(--adaptive-text-secondary);
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .news-meta a {
+            color: inherit;
+        }
+
+        .news-status {
+            margin: 16px 2px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--adaptive-text-secondary);
+        }
+
         .mini-stat {
             display: flex;
             align-items: center;
@@ -381,6 +496,9 @@
     </h1>
 
     <div class="top-bar">
+        <a class="icon-btn" href="/" aria-label="Home">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h5v-6h4v6h5V10" /></svg>
+        </a>
         <div class="mini-stat" aria-live="off">
             <span id="wIcon" class="weather-icon"></span>
             <span id="wTemp" class="degree-text">--°</span>
@@ -399,16 +517,23 @@
     </nav>
 
     <div class="account-dialog" id="accountDialog" role="dialog" aria-modal="false" aria-labelledby="accountTitle" hidden>
-        <p id="accountTitle"><strong>Accounts are coming in step 2.</strong><br>Email and Google registration, login and password reset — under your control, on free infrastructure.</p>
+        <p id="accountTitle"><strong>Coming soon.</strong><br>Accounts, login and registration arrive in step 2.</p>
         <button id="accountClose">Close</button>
     </div>
 
-    <div class="center-message">
-        <p class="title">News</p>
-        <p class="subtitle">Android · iOS · Tech — live feed lands in step 4</p>
-        <p class="condition"><span id="wCond">Reading the sky…</span></p>
-        <p class="condition"><a href="/portfolio.html" style="color: inherit;">Portfolio</a> · <a href="/" style="color: inherit;">Home</a></p>
-    </div>
+    <main class="news-wrap">
+        <h1>News</h1>
+        <p class="lede">Fresh tech from Hacker News — Android, iOS &amp; beyond, under your sky. <span id="wCond">Reading the sky…</span></p>
+        <div class="news-tabs" role="tablist" aria-label="News topics">
+            <button role="tab" aria-selected="true" data-feed="top">Top</button>
+            <button role="tab" aria-selected="false" data-feed="android">Android</button>
+            <button role="tab" aria-selected="false" data-feed="ios">iOS</button>
+            <button role="tab" aria-selected="false" data-feed="ai">AI</button>
+        </div>
+        <p class="news-status" id="newsStatus" role="status">Loading top stories…</p>
+        <ol class="news-list" id="newsList"></ol>
+        <noscript><p class="news-status">The news feed needs JavaScript. The sky above works without it.</p></noscript>
+    </main>
 
 
 
@@ -1193,6 +1318,78 @@
         // initBirdBehavior();
 
         init();
+    </script>
+    <script>
+        // Live tech-news feed (client-side, no backend, no API key).
+        // Source: Hacker News via the public Algolia API.
+        (function () {
+            var FEEDS = {
+                top: 'https://hn.algolia.com/api/v1/search?tags=front_page',
+                android: 'https://hn.algolia.com/api/v1/search?query=android&tags=story',
+                ios: 'https://hn.algolia.com/api/v1/search?query=iOS&tags=story',
+                ai: 'https://hn.algolia.com/api/v1/search?query=artificial%20intelligence&tags=story'
+            };
+            var list = document.getElementById('newsList');
+            var status = document.getElementById('newsStatus');
+            var tabs = Array.prototype.slice.call(document.querySelectorAll('.news-tabs button'));
+
+            function timeAgo(iso) {
+                var mins = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+                if (mins < 60) return mins + 'm ago';
+                var hours = Math.round(mins / 60);
+                if (hours < 24) return hours + 'h ago';
+                return Math.round(hours / 24) + 'd ago';
+            }
+
+            function render(items) {
+                list.textContent = '';
+                items.slice(0, 15).forEach(function (item) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.className = 'news-title';
+                    a.textContent = item.title || '(untitled)';
+                    a.href = item.url || ('https://news.ycombinator.com/item?id=' + item.objectID);
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    var meta = document.createElement('div');
+                    meta.className = 'news-meta';
+                    meta.textContent = (item.points || 0) + ' points · by ' + (item.author || 'unknown') + ' · ' + timeAgo(item.created_at) + ' · ';
+                    var comments = document.createElement('a');
+                    comments.href = 'https://news.ycombinator.com/item?id=' + item.objectID;
+                    comments.target = '_blank';
+                    comments.rel = 'noopener';
+                    comments.textContent = (item.num_comments || 0) + ' comments';
+                    meta.appendChild(comments);
+                    li.appendChild(a);
+                    li.appendChild(meta);
+                    list.appendChild(li);
+                });
+            }
+
+            function load(name) {
+                status.textContent = 'Loading stories…';
+                list.textContent = '';
+                fetch(FEEDS[name]).then(function (res) {
+                    if (!res.ok) throw new Error('feed unavailable');
+                    return res.json();
+                }).then(function (data) {
+                    render(data.hits || []);
+                    status.textContent = (data.hits || []).length ? '' : 'No stories right now — try another topic.';
+                }).catch(function () {
+                    status.textContent = 'Could not reach the news feed. Check your connection and try again.';
+                });
+            }
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+                    tab.setAttribute('aria-selected', 'true');
+                    load(tab.getAttribute('data-feed'));
+                });
+            });
+
+            load('top');
+        })();
     </script>
 </body>
 

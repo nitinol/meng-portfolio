@@ -21,7 +21,7 @@
 .ed-toc a:hover { background: #f0f4f9; }
 .ed-toc a[aria-current="true"] { background: #e8f1fb; color: var(--ed-blue); font-weight: 700; }
 .ed-toc details summary { cursor: pointer; font-weight: 700; min-height: 44px; }
-.ed-chapter { scroll-margin-top: 24px; padding: 40px 0; border-top: 1px solid var(--pl-line); }
+.ed-chapter { scroll-margin-top: 150px; padding: 40px 0; border-top: 1px solid var(--pl-line); }
 .ed-chapter:first-of-type { border-top: 0; }
 .ed-chapter h2 { font-size: clamp(1.7rem, 3.4vw, 2.6rem); letter-spacing: -0.04em; line-height: 1.1; margin: 12px 0 20px; }
 .ed-chapter h2 .ed-num { display: block; font-size: 0.75rem; letter-spacing: 0.16em; color: var(--ed-blue); margin-bottom: 10px; }

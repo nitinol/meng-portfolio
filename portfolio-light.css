@@ -13,7 +13,10 @@ body.pl a { color: var(--pl-accent); }
 .pl-wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
 
 /* Header: black bar, boxed logo above nav (reference style) */
-.pl-topbar { background: #000; }
+.pl-topbar { background: #000; position: sticky; top: 0; z-index: 40; }
+.pl-topbar.no-stick { position: static; }
+.home-btn { position: absolute; left: 20px; top: 24px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #fff; }
+.home-btn:hover { opacity: 0.65; }
 .pl-header { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 0 22px; position: relative; }
 .pl-header .logo-link { color: #fff; text-decoration: none; font-family: var(--pl-display); font-weight: 800; letter-spacing: 0.22em; font-size: 1rem; border: 2px solid #fff; border-radius: 4px; padding: 6px 14px 6px 16px; }
 .pl-header nav a { margin: 0 16px; text-decoration: none; color: #fff; font-family: var(--pl-display); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
@@ -30,7 +33,7 @@ body.pl a { color: var(--pl-accent); }
 .pl-scroll { position: absolute; bottom: 30px; left: 50%; width: 22px; height: 22px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: translateX(-50%) rotate(45deg); opacity: 0.9; }
 
 /* Sections: centered titles, generous whitespace */
-.pl-section { padding: 72px 0; }
+.pl-section { padding: 72px 0; scroll-margin-top: 150px; }
 .pl-section h2 { font-family: var(--pl-display); font-size: 1.9rem; margin: 0 0 24px; text-align: center; font-weight: 700; letter-spacing: 0.02em; }
 .pl-section h3 { font-size: 1.05rem; margin: 28px 0 12px; letter-spacing: 0.04em; }
 .pl-section p { line-height: 1.75; }

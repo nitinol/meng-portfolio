@@ -29,14 +29,14 @@ test('APP delivers the complete readable release journey and page contracts', ()
         assert.match(html, new RegExp(`href="#${id}"`));
         assert.match(html, new RegExp(`<section id="${id}"[^>]*data-release-stage[^>]*>[\\s\\S]+?<h3>${stage}<\\/h3>[\\s\\S]+?<ul>[\\s\\S]+?<\\/section>`));
     }
-    assert.doesNotMatch(html, /\bhidden\b|display:\s*none|\d+%|\d+\s*(?:downloads|users)|live dashboard/i);
+    assert.doesNotMatch(html, /(?:\s+hidden[\s>]|display:\s*none|\d+%|\d+\s*(?:downloads|users)|live dashboard)/i);
     for (const href of ['/portfolio.html#about', '/product.html', '/app.html', '/projects.html', '/contact.html']) {
         assert.ok(html.includes(`href="${href}"`));
     }
     assert.match(html, /data-menu-toggle aria-expanded="false" aria-controls="mainNav"/);
     assert.doesNotMatch(html, /src="\/?script\.js/);
-    assert.match(html, /href="\/portfolio-light\.css\?v=20260910-btn1"/);
-    assert.match(html, /href="\/release\.css\?v=20260910"/);
+    assert.match(html, /href="\/portfolio-light\.css\?v=20260910-btn2"/);
+    assert.match(html, /href="\/release\.css\?v=20260910-btn2"/);
     assert.match(html, /rel="canonical" href="https:\/\/www\.menguhan\.com\/app.html"/);
     assert.match(html, /property="og:image" content="https:\/\/www\.menguhan\.com\/assets\/editorial\/social.jpg"/);
     const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
