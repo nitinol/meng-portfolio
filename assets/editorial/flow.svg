@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">Work queues at a review bottleneck</title>
+  <desc id="desc">Many work parcels crowd into a narrowing passage. A person inspects one at the review gate, while a single parcel emerges as value. The constriction, not individual effort, limits flow. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M62 209 L267 208 Q311 209 349 259 L487 259 Q526 211 660 209 M62 356 L267 356 Q312 356 349 307 L487 307 Q526 355 660 354"/>
+    <path d="M62 199 L265 198 Q319 199 354 248 L482 248 Q529 198 660 199 M62 366 L267 367 Q318 367 354 318 L483 318 Q531 367 660 365" stroke-width="1" opacity=".4"/>
+    <path d="M81 231 L119 227 L123 262 L85 266 Z M133 240 L170 235 L174 271 L137 276 Z M192 228 L228 235 L222 270 L186 263 Z M239 256 L275 249 L281 284 L245 291 Z M85 294 L122 291 L125 328 L88 330 Z M142 290 L177 295 L172 332 L136 326 Z M198 291 L235 290 L235 327 L198 328 Z M272 299 L305 285 L318 312 L286 327 Z"/>
+    <path d="M99 230 L101 245 M151 238 L153 252 M210 232 L207 246 M257 253 L260 268 M103 293 L104 307 M159 293 L157 307 M217 291 L217 305 M289 292 L295 305" stroke-width="2"/>
+    <path d="M373 271 L403 270 L404 296 L374 298 Z M388 271 L389 282" stroke="#0a66c2"/>
+    <path d="M559 270 L590 263 L611 275 L579 283 Z M559 270 L559 303 L579 316 L611 307 L611 275 M579 283 L579 316"/>
+    <path d="M585 294 L590 299 L602 286 M623 289 L650 289 M642 282 L652 289 L642 296" stroke="#0a66c2"/>
+    <path d="M426 181 Q410 173 417 156 Q425 140 441 151 Q456 162 442 177 L437 190 M417 157 Q408 144 424 137 Q443 137 450 153 M431 160 L432 164"/>
+    <path d="M421 193 L409 229 L441 236 L457 207 M416 205 L395 227 L397 249 M446 206 L464 224 L445 233 M417 235 L418 250 M437 240 L444 251"/>
+    <path d="M395 248 L402 252 L410 242 M365 238 L357 228 M375 230 L373 217" stroke="#0a66c2" stroke-width="2"/>
+    <path d="M350 335 L350 389 L471 389 L471 335 M361 389 L361 400 M460 389 L460 400" stroke-width="2"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">Watch the bottleneck</text>
+    <text x="77" y="170" font-size="28">Work in</text><text x="364" y="118" font-size="28" fill="#0a66c2">Review</text>
+    <text x="535" y="170" font-size="28">Value out</text>
+    <text x="56" y="454" font-size="28">Busy is not the same as flowing.</text>
+  </g>
+</svg>

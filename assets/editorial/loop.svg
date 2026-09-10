@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">The product-management learning loop</title>
+  <desc id="desc">Discover, decide, build and learn form a continuous hand-drawn loop around a team table. Two people exchange a sketch at its centre. The work returns to discovery instead of ending at launch. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 130 Q485 96 550 210 M536 204 L551 213 L553 195 M575 273 Q576 362 447 390 M455 378 L443 391 L462 395 M327 397 Q163 399 149 295 M160 305 L148 291 L140 308 M148 230 Q166 158 265 137 M255 148 L269 136 L250 131" stroke="#0a66c2"/>
+    <path d="M208 312 Q344 300 482 314 M226 314 L218 358 M464 315 L472 358"/>
+    <path d="M257 235 Q239 227 247 209 Q254 194 273 205 Q286 217 272 231 L266 243 M247 211 Q238 196 257 190 Q276 191 281 208 M261 216 L262 219"/>
+    <path d="M250 246 Q234 260 239 302 L276 307 L286 264 M244 262 L269 282 L309 272 M276 260 L296 268 M249 307 L246 339 L267 351 M271 310 L283 342 L301 352"/>
+    <path d="M425 236 Q408 228 414 211 Q422 194 439 205 Q455 218 440 233 L434 246 M415 212 Q405 199 417 191 Q438 187 447 207 M426 216 L426 219"/>
+    <path d="M418 249 Q403 264 409 304 L444 308 L453 266 M411 264 L388 282 L368 272 M443 263 L423 285 L392 294 M417 309 L401 340 L386 350 M438 312 L443 342 L458 352"/>
+    <path d="M305 270 L354 254 L379 286 L329 302 Z M319 276 L339 269 M328 285 L357 276 M344 291 L365 283" stroke="#0a66c2" stroke-width="2"/>
+    <path d="M295 320 Q348 325 400 320 M287 329 L294 332 M414 330 L423 327" stroke-width="1" opacity=".5"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" fill="#282824">
+    <text x="56" y="69" font-size="32" font-weight="700">Product is a practice</text>
+    <text x="117" y="125" font-size="28">Discover</text><text x="550" y="251" font-size="28">Decide</text>
+    <text x="347" y="407" font-size="28">Build</text><text x="66" y="271" font-size="28">Learn</text>
+    <text x="56" y="454" font-size="28">And then, a better question.</text>
+  </g>
+</svg>

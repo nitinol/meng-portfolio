@@ -1,0 +1,71 @@
+/* Editorial + Product shared styles. Business foundation stays in portfolio-light.css. */
+.ed-page { --ed-paper: #f5f3ed; --ed-ink: #1a1a18; --ed-blue: #0a66c2; }
+.ed-page * { box-sizing: border-box; }
+.ed-page :focus-visible { outline: 3px solid var(--ed-blue); outline-offset: 4px; }
+.ed-page .pl-topbar :focus-visible { outline-color: #fff; }
+.ed-page .pl-header nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 8px; }
+.ed-wrap { width: min(1180px, 100%); margin-inline: auto; padding-inline: 24px; }
+.ed-read { width: min(720px, 100%); margin-inline: auto; }
+.ed-page h1, .ed-page h2, .ed-page h3 { font-family: var(--pl-display); text-wrap: balance; }
+.ed-eyebrow { font-family: var(--pl-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ed-blue); margin: 0 0 20px; }
+.ed-hero { padding: clamp(64px, 9vw, 120px) 0 32px; }
+.ed-hero h1 { font-size: clamp(2.6rem, 6.5vw, 5rem); letter-spacing: -0.05em; line-height: 1.02; margin: 0 0 20px; }
+.ed-lede { font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.65; color: #444; max-width: 640px; }
+.ed-progress { position: sticky; top: 0; z-index: 30; height: 3px; background: transparent; }
+.ed-progress span { display: block; height: 100%; width: 0; background: var(--ed-blue); }
+.ed-layout { display: grid; gap: 48px; align-items: start; padding-bottom: 72px; }
+.ed-toc { border: 1px solid var(--pl-line); border-radius: 6px; background: #fff; padding: 20px; }
+.ed-toc h2 { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 12px; }
+.ed-toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.ed-toc a { display: block; padding: 8px 10px; border-radius: 4px; text-decoration: none; color: #333; font-size: 0.88rem; }
+.ed-toc a:hover { background: #f0f4f9; }
+.ed-toc a[aria-current="true"] { background: #e8f1fb; color: var(--ed-blue); font-weight: 700; }
+.ed-toc details summary { cursor: pointer; font-weight: 700; min-height: 44px; }
+.ed-chapter { scroll-margin-top: 24px; padding: 40px 0; border-top: 1px solid var(--pl-line); }
+.ed-chapter:first-of-type { border-top: 0; }
+.ed-chapter h2 { font-size: clamp(1.7rem, 3.4vw, 2.6rem); letter-spacing: -0.04em; line-height: 1.1; margin: 12px 0 20px; }
+.ed-chapter h2 .ed-num { display: block; font-size: 0.75rem; letter-spacing: 0.16em; color: var(--ed-blue); margin-bottom: 10px; }
+.ed-chapter p { line-height: 1.8; color: #222; margin: 0 0 1.1em; }
+.ed-chapter ul { line-height: 1.75; color: #222; }
+.ed-pull { font-family: var(--pl-display); font-size: clamp(1.25rem, 2.6vw, 1.8rem); line-height: 1.45; letter-spacing: -0.02em; border-left: 3px solid var(--ed-blue); padding-left: 22px; margin: 32px 0; }
+.ed-figure { margin: 32px 0; border: 1px solid #e3e1db; border-radius: 8px; background: var(--ed-paper); padding: 20px; }
+.ed-figure img { width: 100%; height: auto; display: block; border-radius: 4px; }
+.ed-figure figcaption { font-size: 0.88rem; color: #555; margin-top: 12px; line-height: 1.6; }
+.ed-figure.wide { padding: 28px; }
+.ed-books { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.ed-book { border: 1px solid var(--pl-line); border-radius: 8px; padding: 0; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.ed-book-cover { background: var(--ed-ink); color: #f5f3ed; padding: 28px 20px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
+.ed-book-cover strong { font-family: var(--pl-display); font-size: 1.05rem; letter-spacing: -0.01em; }
+.ed-book-cover span { font-size: 0.8rem; opacity: 0.85; }
+.ed-book body, .ed-book div { padding: 0; }
+.ed-book-text { padding: 18px 18px 20px; display: grid; gap: 10px; }
+.ed-book-text p { font-size: 0.9rem; color: #444; line-height: 1.65; margin: 0; }
+.ed-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.ed-tags li { font-size: 0.72rem; border: 1px solid var(--pl-line); border-radius: 999px; padding: 3px 10px; color: #555; }
+.ed-book-text a { font-weight: 700; font-size: 0.88rem; }
+.ed-bookref { border: 1px solid var(--pl-line); border-radius: 6px; padding: 2px 10px; margin: 20px 0; background: #fff; }
+.ed-bookref summary { cursor: pointer; font-weight: 700; min-height: 44px; }
+.ed-bookref p { font-size: 0.92rem; color: #444; }
+.product-feature { display: grid; gap: 28px; border: 1px solid var(--pl-line); border-radius: 10px; overflow: hidden; background: #fff; margin: 40px 0; }
+.product-feature img { width: 100%; height: auto; display: block; background: var(--ed-paper); }
+.product-feature-text { padding: 8px 28px 32px; }
+.product-cards { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin: 32px 0 72px; }
+.product-cards a { border: 1px solid var(--pl-line); border-radius: 8px; padding: 24px; text-decoration: none; display: block; background: #fff; }
+.product-cards a:hover { border-color: var(--ed-blue); }
+.product-cards strong { font-family: var(--pl-display); display: block; margin-bottom: 8px; }
+.product-cards span { color: #555; font-size: 0.92rem; line-height: 1.6; }
+@media (min-width: 1000px) {
+    .ed-layout.has-toc { grid-template-columns: 280px minmax(0, 1fr); gap: 64px; }
+    .ed-toc { position: sticky; top: 20px; }
+    .product-feature { grid-template-columns: 1.1fr 1fr; align-items: center; }
+}
+@media (max-width: 640px) {
+    .ed-page .pl-header nav { display: flex; position: static; justify-content: center; flex-wrap: wrap; gap: 4px 14px; border: 0; padding: 0; }
+    .ed-page .pl-header nav a { display: inline-flex; align-items: center; min-height: 44px; margin: 0; font-size: 0.65rem; letter-spacing: 0.12em; }
+    .ed-page .mobile-menu-btn { display: none; }
+    .ed-page .pl-header.nav-enhanced nav:not(.active) { display: none; }
+    .ed-page .pl-header.nav-enhanced .mobile-menu-btn { display: block; min-width: 44px; min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ed-page *, .ed-page *::before, .ed-page *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

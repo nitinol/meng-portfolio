@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">The product bus and the late stakeholder</title>
+  <desc id="desc">A stakeholder runs after a departing product bus carrying an extra request. Passengers look back. Its destination is learning, not an endless list of features. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M288 193 Q475 188 628 196 Q650 218 655 256 L657 343 L286 344 Z"/>
+    <path d="M300 238 L582 237 L583 298 L300 298 Z M599 239 L630 240 L642 271 L599 271 Z M363 239 L363 296 M434 239 L434 296 M505 239 L505 297"/>
+    <path d="M600 285 L641 285 L641 331 L600 331 Z M609 307 L615 307 M287 315 Q425 311 583 317" stroke="#0a66c2"/>
+    <path d="M307 298 L311 283 Q326 274 340 284 L347 297 M320 278 Q306 269 316 256 Q331 248 337 262 Q341 272 329 278 M379 297 L384 281 L411 282 L416 297 M389 276 Q377 265 389 254 Q404 250 409 264 Q409 275 399 277"/>
+    <path d="M519 296 L523 283 L554 282 L563 296 M531 279 Q518 268 531 255 Q545 250 552 263 Q553 275 542 280"/>
+    <path d="M309 346 Q310 373 335 374 Q362 374 363 346 M568 345 Q571 373 595 373 Q620 372 622 345" fill="#f5f3ed"/>
+    <path d="M325 346 Q325 361 337 360 Q348 359 348 346 M583 346 Q583 359 595 359 Q607 358 607 346"/>
+    <path d="M137 237 Q119 229 127 211 Q136 192 153 205 Q166 218 150 233 L145 245 M127 214 L123 201 L138 195 L154 200 M143 214 L145 217 M153 217 L160 223 L154 226"/>
+    <path d="M133 245 L116 286 L149 300 L176 257 M127 254 L104 261 L89 250 M154 250 L189 242 L213 212 M126 295 L100 325 L69 317 L63 327 L102 341 L140 315 M147 305 L179 330 L163 362 L177 368 L195 329 L165 301"/>
+    <path d="M86 249 L75 236 L62 242 L73 256 Z M214 213 L229 200 L226 190 M226 201 L234 202 M76 287 L53 286 M67 302 L39 300"/>
+    <path d="M165 273 L203 265 L218 296 L182 308 Z M179 280 L200 275 M184 288 L201 283" stroke="#0a66c2"/>
+    <path d="M251 377 Q455 383 673 375 M90 382 L193 381 M302 356 L284 356 M273 356 L257 356" stroke-width="2"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">The product bus</text>
+    <text x="57" y="149" font-size="28" fill="#0a66c2" transform="rotate(-5 57 149)">One more thing!</text>
+    <text x="307" y="225" font-size="28">PRODUCT</text>
+    <text x="56" y="454" font-size="28">Next stop: learning</text>
+  </g>
+</svg>

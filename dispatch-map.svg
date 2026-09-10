@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Dispatch map matching drivers to pickups by age, terrain and weather">
+  <rect x="0" y="0" width="1200" height="800" fill="#f6f6f4"/>
+  <g stroke="#e4e4e1" stroke-width="2">
+    <line x1="100" y1="0" x2="100" y2="800"/><line x1="200" y1="0" x2="200" y2="800"/>
+    <line x1="300" y1="0" x2="300" y2="800"/><line x1="400" y1="0" x2="400" y2="800"/>
+    <line x1="500" y1="0" x2="500" y2="800"/><line x1="600" y1="0" x2="600" y2="800"/>
+    <line x1="700" y1="0" x2="700" y2="800"/><line x1="800" y1="0" x2="800" y2="800"/>
+    <line x1="900" y1="0" x2="900" y2="800"/><line x1="1000" y1="0" x2="1000" y2="800"/>
+    <line x1="1100" y1="0" x2="1100" y2="800"/>
+    <line x1="0" y1="100" x2="1200" y2="100"/><line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/><line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+  </g>
+  <line x1="0" y1="400" x2="1200" y2="400" stroke="#dcdcd9" stroke-width="26"/>
+  <line x1="0" y1="400" x2="1200" y2="400" stroke="#ffffff" stroke-width="20"/>
+  <line x1="600" y1="0" x2="600" y2="800" stroke="#dcdcd9" stroke-width="26"/>
+  <line x1="600" y1="0" x2="600" y2="800" stroke="#ffffff" stroke-width="20"/>
+  <line x1="0" y1="400" x2="1200" y2="400" stroke="#d2d2cf" stroke-width="2" stroke-dasharray="14 10"/>
+  <path d="M-20,640 C200,590 320,720 560,680 C800,640 980,760 1220,700 L1220,820 L-20,820 Z" fill="#d8e7f3"/>
+  <text x="120" y="712" font-family="Helvetica, Arial, sans-serif" font-size="22" font-style="italic" fill="#8ba6bd">River</text>
+  <rect x="870" y="70" width="250" height="190" rx="20" fill="#e4efe5"/>
+  <text x="995" y="172" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#82937f">Riverside Park</text>
+  <g fill="none" stroke="#ded2b8" stroke-width="3">
+    <ellipse cx="950" cy="600" rx="130" ry="78"/><ellipse cx="950" cy="600" rx="100" ry="60"/>
+    <ellipse cx="950" cy="600" rx="70" ry="42"/><ellipse cx="950" cy="600" rx="40" ry="24"/>
+  </g>
+  <text x="950" y="716" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#a39063">Steep grade</text>
+  <g fill="#cdd7e2">
+    <circle cx="170" cy="140" r="34"/><circle cx="210" cy="125" r="44"/><circle cx="250" cy="140" r="34"/>
+    <rect x="150" y="140" width="120" height="36" rx="18"/>
+  </g>
+  <g stroke="#9db4c9" stroke-width="5" stroke-linecap="round">
+    <line x1="180" y1="192" x2="180" y2="212"/><line x1="210" y1="192" x2="210" y2="212"/><line x1="240" y1="192" x2="240" y2="212"/>
+  </g>
+  <text x="210" y="248" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#7e94a9">Rain</text>
+  <rect x="30" y="28" width="250" height="44" rx="22" fill="#111111"/>
+  <circle cx="58" cy="50" r="8" fill="#22c55e"/>
+  <text x="76" y="59" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="2" fill="#ffffff">LIVE DISPATCH</text>
+  <text x="1170" y="59" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#999999">matched in 0.8 s</text>
+  <g stroke-width="5" stroke-dasharray="12 10" stroke-linecap="round" opacity="0.85" fill="none">
+    <path d="M360,655 L470,560" stroke="#b45309"/>
+    <path d="M960,430 L830,290" stroke="#0e7c7b"/>
+    <path d="M170,470 L300,300" stroke="#2563eb"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <circle cx="300" cy="300" r="24" fill="#111111"/>
+    <text x="300" y="309" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">B</text>
+    <text x="335" y="309" font-size="24" fill="#222222">Bakery · 2 kg</text>
+    <circle cx="830" cy="290" r="24" fill="#111111"/>
+    <text x="830" y="299" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">G</text>
+    <text x="795" y="299" text-anchor="end" font-size="24" fill="#222222">Grocery · 18 kg</text>
+    <circle cx="470" cy="560" r="24" fill="#111111"/>
+    <text x="470" y="569" text-anchor="middle" font-size="26" font-weight="bold" fill="#ffffff">P</text>
+    <text x="505" y="569" font-size="24" fill="#222222">Pharmacy · 1 kg</text>
+  </g>
+  <g>
+    <circle cx="320" cy="280" r="12" fill="#16a34a"/>
+    <path d="M315,280 L319,284 L326,276" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="850" cy="270" r="12" fill="#16a34a"/>
+    <path d="M845,270 L849,274 L856,266" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="490" cy="540" r="12" fill="#16a34a"/>
+    <path d="M485,540 L489,544 L496,536" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <circle cx="360" cy="655" r="27" fill="#b45309"/>
+    <text x="360" y="664" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">J</text>
+    <text x="360" y="708" text-anchor="middle" font-size="24" font-weight="bold" fill="#7c4a12">James · 61</text>
+    <circle cx="960" cy="430" r="27" fill="#0e7c7b"/>
+    <text x="960" y="439" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">D</text>
+    <text x="960" y="483" text-anchor="middle" font-size="24" font-weight="bold" fill="#0b5e5d">Deniz · 28 · e-bike</text>
+    <circle cx="170" cy="470" r="27" fill="#2563eb"/>
+    <text x="170" y="479" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">M</text>
+    <text x="170" y="523" text-anchor="middle" font-size="24" font-weight="bold" fill="#1e40af">Mara · 45 · car</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="23" fill="#333333">
+    <rect x="24" y="736" width="270" height="52" rx="26" fill="#ffffff" stroke="#e2e2df" stroke-width="2"/>
+    <text x="159" y="770" text-anchor="middle">61 y/o → ≤ 5 kg</text>
+    <rect x="306" y="736" width="270" height="52" rx="26" fill="#ffffff" stroke="#e2e2df" stroke-width="2"/>
+    <text x="441" y="770" text-anchor="middle">Rain → covered pickup</text>
+    <rect x="588" y="736" width="286" height="52" rx="26" fill="#ffffff" stroke="#e2e2df" stroke-width="2"/>
+    <text x="731" y="770" text-anchor="middle">Steep grade → e-bike</text>
+    <rect x="886" y="736" width="290" height="52" rx="26" fill="#ffffff" stroke="#e2e2df" stroke-width="2"/>
+    <text x="1031" y="770" text-anchor="middle">18 kg → car</text>
+  </g>
+</svg>
