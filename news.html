@@ -283,7 +283,9 @@
             color: var(--adaptive-text);
         }
 
-        .account-dialog button {
+        .account-dialog > button,
+        .account-dialog form button[type="submit"],
+        #logoutBtn {
             display: block;
             width: 100%;
             min-height: 44px;
@@ -297,8 +299,69 @@
             cursor: pointer;
         }
 
-        .account-dialog button:hover {
+        .account-dialog > button:hover,
+        .account-dialog form button[type="submit"]:hover,
+        #logoutBtn:hover {
             background: var(--adaptive-bg-hover);
+        }
+
+        .auth-title {
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 8px 6px 12px;
+            color: var(--adaptive-text);
+        }
+
+        .auth-field {
+            display: block;
+            margin: 0 6px 12px;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--adaptive-text-secondary);
+        }
+
+        .auth-field input {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 6px;
+            min-height: 44px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--adaptive-border);
+            background: transparent;
+            color: var(--adaptive-text);
+            font: inherit;
+            font-size: 0.9rem;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .auth-error {
+            margin: 0 6px 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--adaptive-text);
+        }
+
+        .auth-switch {
+            margin: 10px 6px 0;
+            font-size: 0.78rem;
+            color: var(--adaptive-text-secondary);
+        }
+
+        .auth-switch button {
+            background: none;
+            border: 0;
+            padding: 10px 4px;
+            min-height: 44px;
+            color: var(--adaptive-text);
+            font: inherit;
+            font-size: 0.78rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
         }
 
         .condition {
@@ -566,7 +629,7 @@
             <span class="apps-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
         </button>
         <button class="icon-btn" id="accountBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="accountDialog" aria-label="Account">
-            <span class="account-circle" aria-hidden="true">○</span>
+            <span class="account-circle" id="accountAvatar" aria-hidden="true">○</span>
         </button>
     </div>
 
@@ -575,8 +638,39 @@
         <a href="/news.html"><span aria-hidden="true">✦</span><span>News<small>Latest tech, live soon</small></span></a>
     </nav>
 
-    <div class="account-dialog" id="accountDialog" role="dialog" aria-modal="false" aria-labelledby="accountTitle" hidden>
-        <p id="accountTitle"><strong>Coming soon.</strong><br>Accounts, login and registration arrive in step 2.</p>
+    <div class="account-dialog" id="accountDialog" role="dialog" aria-modal="false" aria-label="Account" hidden>
+        <div id="authSoon">
+            <p><strong>Coming soon.</strong><br>Accounts, login and registration arrive in step 2.</p>
+        </div>
+        <form id="authLogin" hidden novalidate>
+            <p class="auth-title" id="accountTitleLogin">Welcome back</p>
+            <label class="auth-field">Email<input type="email" id="loginEmail" autocomplete="email" required></label>
+            <label class="auth-field">Password<input type="password" id="loginPass" autocomplete="current-password" required></label>
+            <p class="auth-error" id="loginError" role="alert" hidden></p>
+            <button type="submit">Log in</button>
+            <p class="auth-switch">No account? <button type="button" id="showRegister">Register</button></p>
+            <p class="auth-switch"><button type="button" id="showForgot">Forgot password?</button></p>
+        </form>
+        <form id="authRegister" hidden novalidate>
+            <p class="auth-title">Create account</p>
+            <label class="auth-field">Name<input type="text" id="registerName" autocomplete="name" required></label>
+            <label class="auth-field">Email<input type="email" id="registerEmail" autocomplete="email" required></label>
+            <label class="auth-field">Password (8+ characters)<input type="password" id="registerPass" autocomplete="new-password" required></label>
+            <p class="auth-error" id="registerError" role="alert" hidden></p>
+            <button type="submit">Register</button>
+            <p class="auth-switch">Have an account? <button type="button" id="showLogin">Log in</button></p>
+        </form>
+        <div id="authForgot" hidden>
+            <p class="auth-title">Reset password</p>
+            <p>Password reset by email is coming with the email setup — very soon.</p>
+            <p class="auth-switch"><button type="button" id="backToLogin">Back to login</button></p>
+        </div>
+        <div id="authAccount" hidden>
+            <p class="auth-title">Signed in</p>
+            <p><strong id="authName"></strong><br><span id="authEmail"></span></p>
+            <button type="button" id="logoutBtn">Log out</button>
+            <p class="auth-switch"><button type="button" id="backToLogin2">Switch account</button></p>
+        </div>
         <button id="accountClose">Close</button>
     </div>
 
@@ -1499,6 +1593,7 @@
         })();
     </script>
     <script src="/page-fade.js?v=20260910-fx2" defer></script>
+    <script src="/auth-ui.js?v=20260910-au1" defer></script>
 </body>
 
 </html>
