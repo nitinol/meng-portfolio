@@ -48,15 +48,20 @@ test('news page serves a live client-side tech feed', () => {
 });
 
 test('home button, sticky bars and coming-soon account note are consistent', () => {
-    for (const page of ['index.html', 'news.html', 'portfolio.html', 'product.html', 'app.html', 'projects.html', 'contact.html', 'blog/what-does-a-product-manager-do/index.html']) {
+    const pages = ['index.html', 'news.html', 'portfolio.html', 'product.html', 'app.html', 'projects.html', 'contact.html', 'blog/what-does-a-product-manager-do/index.html'];
+    for (const page of pages) {
         assert.match(read(page), /aria-label="Home"/, `${page} home button`);
+        assert.match(read(page), /page-fade\.js/, `${page} transition script`);
     }
     const css = read('portfolio-light.css');
     assert.match(css, /\.pl-topbar\s*\{[^}]*position:\s*sticky/s);
     assert.match(css, /\.pl-topbar\.no-stick\s*\{[^}]*position:\s*static/s);
+    assert.match(css, /\.home-btn\s*\{[^}]*position:\s*fixed[^}]*left:\s*40px[^}]*top:\s*32px/s);
     assert.match(css, /\.home-btn\s*\{[^}]*color:\s*#fff/s);
     assert.match(read('portfolio.html'), /pl-topbar no-stick/);
     for (const page of ['index.html', 'news.html']) {
         assert.match(read(page), /Coming soon\./);
+        assert.match(read(page), /home-fixed/);
     }
+    assert.match(read('page-fade.js'), /prefers-reduced-motion/);
 });

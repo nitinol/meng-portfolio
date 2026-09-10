@@ -190,6 +190,21 @@
             text-decoration: none;
         }
 
+        /* Fixed home position — identical coordinates on every page */
+        .top-bar a.home-fixed {
+            position: fixed;
+            left: 40px;
+            top: 32px;
+            z-index: 60;
+        }
+
+        @media (max-width: 640px) {
+            .top-bar a.home-fixed {
+                left: 20px;
+                top: 20px;
+            }
+        }
+
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(3, 5px);
@@ -382,19 +397,68 @@
 
         .news-list {
             list-style: none;
-            margin: 12px 0 0;
+            margin: 16px 0 0;
             padding: 0;
-            display: grid;
-            gap: 10px;
+            columns: 320px 2;
+            column-gap: 14px;
+        }
+
+        .news-list > li {
+            break-inside: avoid;
+            margin-bottom: 14px;
+            border: 1px solid var(--adaptive-border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--adaptive-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .news-list > li:first-child {
+            column-span: all;
+        }
+
+        .news-list > li:nth-child(3n) a.news-title {
+            font-size: 1.12rem;
+            line-height: 1.45;
+        }
+
+        .news-list > li:nth-child(4n) {
+            transform: rotate(-0.4deg);
+        }
+
+        .news-shot {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: var(--adaptive-bg-hover);
+        }
+
+        .news-shot[hidden] {
+            display: none;
+        }
+
+        .news-source {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px 0;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--adaptive-text-secondary);
+        }
+
+        .news-source img {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
         }
 
         .news-list a.news-title {
             display: block;
-            padding: 14px 16px 10px;
-            border: 1px solid var(--adaptive-border);
-            border-bottom: 0;
-            border-radius: 12px 12px 0 0;
-            background: var(--adaptive-bg);
+            padding: 8px 16px 10px;
             color: var(--adaptive-text);
             text-decoration: none;
             font-size: 1rem;
@@ -402,17 +466,12 @@
         }
 
         .news-list a.news-title:hover {
-            background: var(--adaptive-bg-hover);
             text-decoration: underline;
             text-underline-offset: 3px;
         }
 
         .news-meta {
-            padding: 0 16px 12px;
-            border: 1px solid var(--adaptive-border);
-            border-top: 0;
-            border-radius: 0 0 12px 12px;
-            background: var(--adaptive-bg);
+            padding: 0 16px 14px;
             color: var(--adaptive-text-secondary);
             font-size: 0.75rem;
             letter-spacing: 0.5px;
@@ -496,7 +555,7 @@
     </h1>
 
     <div class="top-bar">
-        <a class="icon-btn" href="/" aria-label="Home">
+        <a class="icon-btn home-fixed" href="/" aria-label="Home">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h5v-6h4v6h5V10" /></svg>
         </a>
         <div class="mini-stat" aria-live="off">
@@ -1341,14 +1400,60 @@
                 return Math.round(hours / 24) + 'd ago';
             }
 
+            function domainOf(url) {
+                try { return new URL(url).hostname.replace(/^www\./, ''); }
+                catch (e) { return 'news.ycombinator.com'; }
+            }
+
+            // Best-effort article pictures via the free Microlink screenshot
+            // service. Tiles look complete without them: failures hide the
+            // image and keep the favicon + text tile.
+            var shotObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    var img = entry.target;
+                    shotObserver.unobserve(img);
+                    var api = 'https://api.microlink.io?url=' + encodeURIComponent(img.getAttribute('data-shot')) + '&screenshot=true&meta=false';
+                    fetch(api).then(function (res) {
+                        if (!res.ok) throw new Error('shot unavailable');
+                        return res.json();
+                    }).then(function (data) {
+                        if (data && data.data && data.data.screenshot && data.data.screenshot.url) {
+                            img.src = data.data.screenshot.url;
+                        } else {
+                            img.hidden = true;
+                        }
+                    }).catch(function () { img.hidden = true; });
+                });
+            }, { rootMargin: '200px' }) : null;
+
             function render(items) {
                 list.textContent = '';
                 items.slice(0, 15).forEach(function (item) {
+                    var target = item.url || ('https://news.ycombinator.com/item?id=' + item.objectID);
+                    var domain = domainOf(target);
                     var li = document.createElement('li');
+                    var shot = document.createElement('img');
+                    shot.className = 'news-shot';
+                    shot.alt = '';
+                    shot.loading = 'lazy';
+                    shot.setAttribute('data-shot', target);
+                    shot.addEventListener('error', function () { shot.hidden = true; });
+                    if (shotObserver) shotObserver.observe(shot);
+                    else shot.hidden = true;
+                    var source = document.createElement('div');
+                    source.className = 'news-source';
+                    var fav = document.createElement('img');
+                    fav.alt = '';
+                    fav.loading = 'lazy';
+                    fav.src = 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64';
+                    fav.addEventListener('error', function () { fav.hidden = true; });
+                    source.appendChild(fav);
+                    source.appendChild(document.createTextNode(domain));
                     var a = document.createElement('a');
                     a.className = 'news-title';
                     a.textContent = item.title || '(untitled)';
-                    a.href = item.url || ('https://news.ycombinator.com/item?id=' + item.objectID);
+                    a.href = target;
                     a.target = '_blank';
                     a.rel = 'noopener';
                     var meta = document.createElement('div');
@@ -1360,6 +1465,8 @@
                     comments.rel = 'noopener';
                     comments.textContent = (item.num_comments || 0) + ' comments';
                     meta.appendChild(comments);
+                    li.appendChild(shot);
+                    li.appendChild(source);
                     li.appendChild(a);
                     li.appendChild(meta);
                     list.appendChild(li);
@@ -1391,6 +1498,7 @@
             load('top');
         })();
     </script>
+    <script src="/page-fade.js?v=20260910-fx1" defer></script>
 </body>
 
 </html>
