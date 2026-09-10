@@ -1,35 +1,29 @@
-// Soft page transitions: gentle fade-in on load, fade-out on same-site
-// navigation. Progressive enhancement only — without JS the site renders
-// and navigates normally. Skipped entirely under reduced-motion.
+// Soft page transitions: the old page dissolves out, the new page dissolves
+// in — no black overlay, no flicker. Progressive enhancement only: without
+// JS the site renders and navigates normally. Skipped under reduced-motion.
 (function () {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    var overlay = document.createElement('div');
-    overlay.setAttribute('aria-hidden', 'true');
-    overlay.style.cssText = 'position:fixed;inset:0;background:#0a0a0a;opacity:1;pointer-events:none;transition:opacity .35s ease;z-index:200;';
+    var body = document.body;
+    body.style.transition = 'opacity .22s ease';
+    body.style.opacity = '0';
 
-    function fadeIn() {
-        document.body.appendChild(overlay);
+    function reveal() {
         requestAnimationFrame(function () {
-            requestAnimationFrame(function () { overlay.style.opacity = '0'; });
+            requestAnimationFrame(function () { body.style.opacity = '1'; });
         });
-        setTimeout(function () { overlay.remove(); }, 450);
-    }
-
-    function fadeOutTo(url) {
-        document.body.appendChild(overlay);
-        overlay.style.transition = 'opacity .25s ease';
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () { overlay.style.opacity = '1'; });
-        });
-        setTimeout(function () { window.location.href = url; }, 260);
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fadeIn);
+        document.addEventListener('DOMContentLoaded', reveal);
     } else {
-        fadeIn();
+        reveal();
     }
+
+    // Back/forward cache can restore mid-fade state — always land visible.
+    window.addEventListener('pageshow', function (e) {
+        if (e.persisted) body.style.opacity = '1';
+    });
 
     document.addEventListener('click', function (e) {
         if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
@@ -44,6 +38,7 @@
         if (url.origin !== window.location.origin) return;
         if (url.href === window.location.href) return;
         e.preventDefault();
-        fadeOutTo(url.href);
+        body.style.opacity = '0';
+        setTimeout(function () { window.location.href = url.href; }, 200);
     });
 })();
