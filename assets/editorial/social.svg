@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="title desc">
+  <title id="title">What does a Product Manager actually do?</title>
+  <desc id="desc">Menguhan Bulut's product-management field guide. An original pen-drawn scene shows two people exploring an open question at a whiteboard, with a blue learning loop around their work. No metrics or live-service claims.</desc>
+  <rect width="1200" height="630" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M63 100 L1135 100" stroke-width="1" opacity=".3"/>
+    <path d="M66 416 Q267 407 489 416" stroke="#0a66c2" stroke-width="4"/>
+    <path d="M718 203 Q901 197 1080 204 L1075 378 Q897 383 718 377 Z M730 214 L1068 215"/>
+    <path d="M711 388 Q898 391 1084 386 M765 390 L756 444 M1033 390 L1044 445 M881 383 L912 383"/>
+    <path d="M881 383 L912 383" stroke="#0a66c2" stroke-width="5"/>
+    <path d="M692 346 Q674 338 681 318 Q690 301 707 312 Q722 325 707 341 L702 354 M681 319 Q673 303 691 296 Q714 299 717 318 M696 326 L697 329"/>
+    <path d="M685 357 Q671 371 675 414 L708 421 L723 376 M682 375 L710 389 L750 366 M711 367 L737 354 L748 339 M684 421 L674 466 L660 489 L681 490 M703 425 L718 467 L738 489 L756 490"/>
+    <path d="M748 340 L750 330 L758 326 M750 330 L759 308" stroke="#0a66c2" stroke-width="4"/>
+    <path d="M1047 346 Q1029 336 1038 319 Q1046 303 1063 314 Q1077 327 1062 341 L1058 355 M1038 319 Q1029 308 1041 299 L1065 303 L1071 320 M1050 328 L1050 331"/>
+    <path d="M1041 357 Q1027 372 1030 416 L1065 421 L1079 377 M1035 374 L1011 394 L992 378 M1067 375 L1093 398 L1065 410 M1037 421 L1028 465 L1010 488 L1033 489 M1060 425 L1072 467 L1092 489 L1110 490"/>
+    <path d="M981 369 L1001 359 L1018 378 L998 390 Z M987 372 L999 367" stroke="#0a66c2" stroke-width="2"/>
+    <path d="M775 470 Q875 510 994 467 M981 465 L999 465 L989 479 M1034 180 Q890 133 770 174 M784 162 L765 176 L787 178" stroke="#0a66c2"/>
+    <path d="M654 501 Q868 508 1116 500 M66 530 L1134 530" stroke-width="1" opacity=".3"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="64" y="70" font-size="26" letter-spacing="3">MENGUHAN BULUT / FIELD NOTES</text>
+    <text x="62" y="204" font-size="56" font-weight="700">What does a Product</text>
+    <text x="62" y="276" font-size="56" font-weight="700">Manager actually do?</text>
+    <text x="65" y="367" font-size="29">Questions. Decisions. Delivery. Learning.</text>
+    <text x="879" y="319" font-size="76" fill="#0a66c2" transform="rotate(8 879 319)">?</text>
+    <text x="64" y="583" font-size="28">Menguhan Bulut</text>
+    <text x="931" y="583" font-size="26">menguhan.com</text>
+  </g>
+</svg>

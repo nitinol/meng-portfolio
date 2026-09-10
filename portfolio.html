@@ -79,20 +79,22 @@
     }
     </script>
 
-    <link rel="stylesheet" href="portfolio-light.css?v=20260908-ref2">
+    <link rel="stylesheet" href="portfolio-light.css?v=20260910-btn1">
 </head>
 
 <body class="pl">
     <div class="pl-topbar">
     <header class="pl-wrap pl-header">
         <a href="portfolio.html" class="logo-link">MENGUHAN</a>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <button class="mobile-menu-btn" data-menu-toggle aria-expanded="false" aria-controls="mainNav" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <nav id="mainNav">
-            <a href="portfolio.html#about">About</a>
+        <nav id="mainNav" aria-label="Main navigation">
+            <a href="portfolio.html#about" aria-current="page">About</a>
+            <a href="product.html">Product</a>
+            <a href="app.html">App</a>
             <a href="projects.html">Projects</a>
             <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
         </nav>
@@ -104,7 +106,7 @@
         <img class="pl-hero-bg" src="hero-photo.jpg" onerror="this.onerror=null;this.src='personal.jpg'" alt="">
         <div class="pl-hero-inner">
             <h1>Menguhan Bulut</h1>
-            <p class="pl-role">Product Owner — AI, based in Turkey</p>
+            <p class="pl-role">Product Leader · Technology & AI</p>
         </div>
         <a href="#about" class="pl-scroll" aria-label="Scroll to about"></a>
     </section>
@@ -174,6 +176,13 @@
             </ul>
             <p>Languages: Turkish (Native) · English (Native) · Russian (Very Basic) · Italian (Beginner) · German (Beginner)</p>
         </section>
+
+        <!-- Field-guide teaser -->
+        <section id="field-guide" class="pl-section pl-rv" aria-labelledby="field-guide-h">
+            <h2 id="field-guide-h">What does a product manager actually do?</h2>
+            <p class="pl-lead">From a blank canvas to software in production.</p>
+            <p><a class="pl-btn" href="product.html">Read the field guide</a></p>
+        </section>
     </main>
 
     <footer class="pl-wrap pl-footer">
@@ -182,6 +191,7 @@
 
     <script src="translations.js?v=20260221-map6"></script>
     <script src="script.js?v=20260221-map6"></script>
+    <script src="site-nav.js?v=20260910" defer></script>
     <script>
     // Portfolio light-theme motion: hero parallax + section reveal (isolated, no shared symbols touched)
     (function () {

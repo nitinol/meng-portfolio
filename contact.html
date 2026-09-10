@@ -47,22 +47,24 @@
     <meta property="twitter:description"
         content="Get in touch with Menguhan Bulut about Product Manager and Product Owner roles.">
 
-    <link rel="stylesheet" href="portfolio-light.css?v=20260908-ref2">
+    <link rel="stylesheet" href="portfolio-light.css?v=20260910-btn1">
 </head>
 
 <body class="pl">
     <div class="pl-topbar">
     <header class="pl-wrap pl-header">
         <a href="portfolio.html" class="logo-link">MENGUHAN</a>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <button class="mobile-menu-btn" data-menu-toggle aria-expanded="false" aria-controls="mainNav" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <nav id="mainNav">
+        <nav id="mainNav" aria-label="Main navigation">
             <a href="portfolio.html#about">About</a>
+            <a href="product.html">Product</a>
+            <a href="app.html">App</a>
             <a href="projects.html">Projects</a>
-            <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
+            <a href="contact.html" class="nav-cta" data-i18n="nav.contact" aria-current="page">Contact</a>
         </nav>
     </header>
     </div>
@@ -121,6 +123,7 @@
 
     <script src="translations.js?v=20260221-map6"></script>
     <script src="script.js?v=20260221-map6"></script>
+    <script src="site-nav.js?v=20260910" defer></script>
     <script>
     // Section reveal (isolated, no shared symbols touched)
     (function () {

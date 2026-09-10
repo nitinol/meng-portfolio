@@ -47,21 +47,23 @@
     <meta property="twitter:description"
         content="Product case studies: AI recommendations, personalized pricing, replatforming, B2B catalog, and logistics.">
 
-    <link rel="stylesheet" href="portfolio-light.css?v=20260908-ref2">
+    <link rel="stylesheet" href="portfolio-light.css?v=20260910-btn1">
 </head>
 
 <body class="pl">
     <div class="pl-topbar">
     <header class="pl-wrap pl-header">
         <a href="portfolio.html" class="logo-link">MENGUHAN</a>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <button class="mobile-menu-btn" data-menu-toggle aria-expanded="false" aria-controls="mainNav" aria-label="Toggle menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <nav id="mainNav">
+        <nav id="mainNav" aria-label="Main navigation">
             <a href="portfolio.html#about">About</a>
-            <a href="projects.html">Projects</a>
+            <a href="product.html">Product</a>
+            <a href="app.html">App</a>
+            <a href="projects.html" aria-current="page">Projects</a>
             <a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a>
         </nav>
     </header>
@@ -106,7 +108,7 @@
                     <span class="pl-case">View Case Study</span>
                 </article>
                 <article class="pl-card pl-rv" onclick="openModal('modal-p6')">
-                    <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=1200&q=70" alt="Delivery logistics" loading="lazy">
+                    <img src="dispatch-map.svg" alt="Dispatch map matching drivers to pickups by age, terrain and weather" loading="lazy">
                     <h3>Dispatch &amp; Pickup Optimization</h3>
                     <p>Postmates</p>
                     <span class="pl-case">View Case Study</span>
@@ -165,7 +167,7 @@
         <div class="pl-modal-box">
             <span class="close-modal" onclick="closeModal('modal-p6')">&times;</span>
             <h2>Dispatch &amp; Pickup Optimization</h2>
-            <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=1200&q=70" alt="Delivery logistics" loading="lazy">
+            <img src="dispatch-map.svg" alt="Dispatch map matching drivers to pickups by age, terrain and weather" loading="lazy">
             <p>Re-engineered driver dispatch and pickup algorithms on terrain elevation, package weights, and driver parameters — driving faster fulfillment and higher order throughput.</p>
         </div>
     </div>
@@ -176,6 +178,7 @@
 
     <script src="translations.js?v=20260221-map6"></script>
     <script src="script.js?v=20260221-map6"></script>
+    <script src="site-nav.js?v=20260910" defer></script>
     <script>
     // Section reveal (isolated, no shared symbols touched)
     (function () {

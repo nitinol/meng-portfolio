@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">The system answers back</title>
+  <desc id="desc">A person turns a change lever connected to a winding machine. Another person experiences its output and sends a blue feedback line back around the whole system. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M211 207 Q340 201 466 207 L465 325 Q338 331 211 325 Z M225 326 L222 346 M453 328 L457 347"/>
+    <path d="M243 240 Q277 211 297 249 Q314 284 339 246 Q360 211 380 256 Q399 291 434 259 M245 295 L277 295 M303 297 L335 297 M359 297 L391 297 M416 297 L444 297"/>
+    <circle cx="243" cy="240" r="7"/><circle cx="339" cy="246" r="7"/><circle cx="434" cy="259" r="7"/>
+    <path d="M211 282 L176 282 L162 249 M161 250 L154 230"/>
+    <circle cx="153" cy="225" r="8" fill="#0a66c2" stroke="#0a66c2"/>
+    <path d="M106 235 Q89 226 96 209 Q105 192 121 205 Q135 218 120 232 L117 245 M96 212 Q89 195 108 190 Q125 193 129 209 M110 216 L111 219"/>
+    <path d="M102 248 L91 286 L120 300 L139 263 M99 260 L125 268 L151 237 M126 253 L145 247 M100 299 L88 337 L75 351 M118 304 L132 336 L148 347"/>
+    <path d="M467 274 L508 274 M499 266 L509 274 L499 282"/>
+    <path d="M551 236 Q533 228 540 210 Q548 194 566 205 Q581 217 565 232 L560 246 M540 211 Q530 200 543 191 L567 196 L574 211 M553 216 L553 219"/>
+    <path d="M544 249 Q531 263 536 302 L570 306 L578 264 M537 264 L515 284 L531 294 M570 264 L595 267 L605 253 M543 307 L531 346 L514 353 M565 310 L579 344 L595 351"/>
+    <path d="M599 194 Q622 176 646 193 L643 223 L620 224 L608 237 L610 219 L599 218 Z M610 202 L635 202 M611 212 L628 212" stroke-width="2"/>
+    <path d="M584 325 Q654 376 555 391 Q332 422 149 390 Q70 376 80 283 M71 291 L80 279 L90 288" stroke="#0a66c2"/>
+    <path d="M208 355 L466 355" stroke-width="1" opacity=".4"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">The system answers back</text>
+    <text x="83" y="155" font-size="28">Change</text><text x="514" y="155" font-size="28">People</text>
+    <text x="275" y="384" font-size="28" fill="#0a66c2">Feedback</text>
+    <text x="56" y="454" font-size="28">The whole is the work.</text>
+  </g>
+</svg>

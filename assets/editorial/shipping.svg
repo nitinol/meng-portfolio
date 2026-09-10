@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">Deployed versus understood</title>
+  <desc id="desc">A parcel with a release flag has shipped. Beside it, a person looks through a magnifying glass at an unlabelled analytical trace and asks what was learned. The trace is illustrative, not a metric or live service. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M87 263 L180 229 L271 262 L267 353 L178 388 L89 351 Z M87 263 L178 299 L271 262 M178 299 L178 388 M131 247 L220 280 L218 310 L196 319 L196 290"/>
+    <path d="M174 231 L174 169 M175 170 Q204 157 236 170 L224 186 L236 203 Q203 190 175 201" stroke="#0a66c2"/>
+    <path d="M121 316 L133 329 L153 305" stroke="#0a66c2" stroke-width="4"/>
+    <path d="M353 162 L353 386" stroke-dasharray="2 10" stroke-width="2" opacity=".3"/>
+    <path d="M399 228 L553 225 L554 347 L396 349 Z M413 332 L414 247 M414 332 L537 331 M462 350 L458 372 M485 350 L491 372 M443 373 L505 373"/>
+    <path d="M424 312 Q435 279 450 298 T477 283 T502 297 T534 269" stroke="#0a66c2"/>
+    <path d="M581 235 Q564 226 572 209 Q581 191 597 205 Q610 219 595 232 L592 244 M572 212 Q564 198 580 190 L597 197 M588 216 L589 219"/>
+    <path d="M578 247 Q565 260 568 301 L604 309 L613 264 M572 261 L548 276 L530 261 M604 266 L625 292 L603 302 M574 306 L566 357 L553 388 L574 389 M597 312 L606 356 L629 386 L646 387"/>
+    <circle cx="517" cy="247" r="25" fill="#f5f3ed" stroke="#0a66c2"/>
+    <path d="M536 267 L550 284" stroke="#0a66c2" stroke-width="6"/>
+    <path d="M506 248 Q511 233 518 245 T530 240 M515 260 L521 258" stroke="#0a66c2" stroke-width="2"/>
+    <path d="M74 400 Q174 407 288 398 M393 396 Q519 403 650 397 M105 196 L94 185 M127 183 L125 169 M248 219 L261 211" stroke-width="2"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">Deployed is not done</text>
+    <text x="109" y="137" font-size="28">Shipped</text><text x="445" y="137" font-size="28" fill="#0a66c2">Learned?</text>
+    <text x="56" y="454" font-size="28">Look. Listen. Learn.</text>
+  </g>
+</svg>

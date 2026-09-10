@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">The empty whiteboard</title>
+  <desc id="desc">An expectant product manager holds a blue marker beside a conspicuously empty whiteboard. Start with a question, not a feature. Original hand-drawn vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M58 132 Q282 128 493 134 L490 339 Q284 344 56 338 Z"/>
+    <path d="M66 141 L482 143 M63 332 L481 334" stroke-width="1" opacity=".35"/>
+    <path d="M53 348 Q271 352 499 346 M118 352 L106 407 M430 352 L444 408 M78 410 Q280 414 465 408"/>
+    <path d="M261 343 L298 343" stroke="#0a66c2" stroke-width="6"/>
+    <path d="M548 208 Q529 194 535 174 Q541 154 561 164 Q579 173 569 193 L560 202 L563 221"/>
+    <path d="M534 174 Q528 152 549 148 Q571 148 575 169 M552 180 L554 184 M568 181 L574 187 L567 189"/>
+    <path d="M541 219 Q522 224 519 257 L530 302 Q549 312 580 299 L577 244 Q573 226 562 221"/>
+    <path d="M525 234 L504 250 L480 227 M573 240 L592 277 L568 290 M541 309 L530 370 L518 401 L539 402 M566 308 L571 366 L589 402 L608 403"/>
+    <path d="M480 226 L470 220 L466 226 L479 237 M465 222 L452 209" stroke="#0a66c2" stroke-width="4"/>
+    <path d="M513 408 Q560 412 614 408 M598 185 Q612 179 616 166 M615 167 L616 179 M615 167 L605 171" stroke-width="2"/>
+    <path d="M548 254 L552 281 M555 254 L559 278" stroke-width="1"/>
+    <path d="M72 89 Q237 83 401 88" stroke="#0a66c2" stroke-width="2"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">Start with a question</text>
+    <text x="56" y="454" font-size="28">Not a feature.</text>
+    <text x="617" y="152" font-size="34" fill="#0a66c2" transform="rotate(9 617 152)">?</text>
+  </g>
+</svg>

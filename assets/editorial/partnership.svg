@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">Product and engineering build a bridge together</title>
+  <desc id="desc">A product partner and an engineer each hold one end of a blue plank, closing a gap between two bridge halves. Shared understanding supports the crossing. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M49 330 Q157 284 282 291 M438 291 Q555 281 673 329 M49 345 Q174 304 282 307 M438 307 Q563 301 673 345"/>
+    <path d="M82 321 L82 241 M222 293 L222 217 M502 294 L502 217 M638 321 L638 241 M82 249 Q150 301 222 223 M502 223 Q569 302 638 249"/>
+    <path d="M89 265 L88 318 M113 285 L112 310 M141 294 L140 304 M167 289 L166 299 M194 266 L193 296 M528 263 L529 296 M555 286 L556 301 M583 294 L584 307 M612 282 L613 316" stroke-width="2"/>
+    <path d="M57 379 Q130 347 205 360 L191 413 M664 379 Q589 349 516 360 L531 413 M238 378 Q282 369 320 380 T401 380 T480 380 M224 401 Q269 391 306 402 T386 402 T473 402" stroke-width="2" opacity=".55"/>
+    <path d="M258 185 Q240 175 248 157 Q258 140 274 154 Q287 165 270 182 L268 194 M247 158 Q244 141 259 139 Q277 141 282 159 M263 164 L264 167"/>
+    <path d="M251 197 L238 238 L270 246 L287 212 M244 211 L272 222 L302 211 M276 203 L299 211 M247 245 L241 280 L225 288 M264 249 L276 281 L287 287"/>
+    <path d="M460 185 Q442 177 449 158 Q458 141 475 152 Q490 165 475 181 L469 195 M449 158 L445 149 L455 139 L478 144 L484 158 M461 164 L461 167"/>
+    <path d="M454 197 L437 231 L464 245 L483 209 M448 209 L423 218 L404 208 M476 210 L451 227 L405 214 M444 243 L435 279 L421 287 M462 248 L478 280 L493 288"/>
+    <path d="M297 211 Q350 202 410 209 L410 222 Q351 215 298 224 Z" stroke="#0a66c2" fill="#f5f3ed"/>
+    <path d="M311 239 L311 266 M304 258 L311 268 L319 258 M397 239 L397 266 M390 258 L397 268 L404 258" stroke="#0a66c2" stroke-width="2"/>
+    <path d="M286 292 L434 292 M286 305 L434 305" stroke="#0a66c2" stroke-dasharray="4 7"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">Build the bridge together</text>
+    <text x="105" y="129" font-size="28">Product</text><text x="465" y="129" font-size="28">Engineering</text>
+    <text x="56" y="454" font-size="28" fill="#0a66c2">Shared understanding</text>
+  </g>
+</svg>

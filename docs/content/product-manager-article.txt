@@ -1,0 +1,740 @@
+WHAT DOES A PRODUCT MANAGER ACTUALLY DO?
+
+From a blank canvas to software in production — and everything that happens in between.
+
+Ask ten companies what a Product Manager does and you may get twelve different answers.
+
+At one company, the Product Manager is a strategist. At another, they are practically a Product Owner. Somewhere else, they are the person everyone asks:
+
+“When will it be ready?”
+
+And, of course:
+
+“Can we just add this one tiny thing?”
+
+Spoiler: it is rarely tiny.
+
+But underneath all the titles, methodologies, Jira boards, meetings and colorful sticky notes, the job is surprisingly simple to describe:
+
+“A Product Manager helps a team understand the right problem, decide what is worth building, turn that understanding into something deliverable, and learn whether it actually worked.”
+
+The difficult part is everything between those words.
+
+01 — IT STARTS BEFORE THERE IS A BACKLOG
+
+A product doesn't begin with Jira.
+
+It begins with uncertainty.
+
+Someone has an idea. A customer has a problem. The business sees an opportunity. A competitor launches something interesting. Revenue is dropping somewhere. Support tickets keep mentioning the same problem.
+
+And somebody eventually says:
+
+“We should build something.”
+
+This is where Product Management should start asking questions rather than immediately creating tickets.
+
+Who actually has this problem?
+
+What exactly is the problem?
+
+How painful is it?
+
+How are people solving it today?
+
+Why should we solve it?
+
+Why now?
+
+And perhaps the most uncomfortable question:
+
+What happens if we build nothing?
+
+One of the most important ideas behind Running Lean is that you should understand and validate the problem before becoming emotionally attached to your solution.
+
+That's harder than it sounds.
+
+People love solutions.
+
+Solutions are exciting.
+
+Solutions have buttons.
+
+Problems are messy.
+
+A Product Manager has to resist the temptation to jump directly into features.
+
+Before asking:
+
+“What should we build?”
+
+ask:
+
+“What problem are we actually solving?”
+
+That single question can save months of development.
+
+02 — PUT THE ASSUMPTIONS ON THE TABLE: LEAN CANVAS
+
+Every product idea contains assumptions.
+
+The dangerous ones are the assumptions that everybody has quietly started treating as facts.
+
+Customers want this.
+
+Do they?
+
+They'll pay for it.
+
+Will they?
+
+This feature will increase conversion.
+
+How do we know?
+
+This is where something like a Lean Canvas becomes extremely useful.
+
+Instead of writing a fifty-page business plan that nobody will read again, you put the fundamental assumptions of the product on one page:
+
+Problem. Customer Segments. Unique Value Proposition. Solution. Channels. Revenue. Costs. Key Metrics. Unfair Advantage.
+
+But the real value of the canvas isn't the canvas itself.
+
+It's the conversation it creates.
+
+Suddenly somebody asks:
+
+“Is that really our customer?”
+
+Someone else asks:
+
+“Do we know this, or are we assuming it?”
+
+And then the uncomfortable silence begins.
+
+Good.
+
+That's exactly what should happen.
+
+“A good Product Manager doesn't hide uncertainty. A good Product Manager makes uncertainty visible.”
+
+Once assumptions become visible, they can be tested.
+
+03 — INCEPTION: GET EVERYONE ON THE SAME BUS
+
+Now imagine this situation.
+
+Product thinks we're building A.
+
+Development thinks we're building B.
+
+Marketing has already announced C.
+
+And management expects all three by Friday.
+
+Welcome to software development.
+
+Before a team starts running, it helps enormously if everyone agrees about where they're actually going.
+
+That's the purpose of a good product inception.
+
+An inception should answer questions like:
+
+Why are we here?
+
+What are we trying to achieve?
+
+Who are we building this for?
+
+What does success look like?
+
+What's inside the scope?
+
+What's explicitly outside the scope?
+
+What are the biggest risks?
+
+What might the solution look like?
+
+How much effort might this require?
+
+The Agile Samurai presents a wonderfully practical way of thinking about this with tools such as the elevator pitch, product box, NOT list, stakeholders, risks, solution visualization and rough sizing.
+
+None of these exercises exist because Product Managers desperately need more workshops.
+
+They exist because misunderstandings are expensive.
+
+A two-hour disagreement in an inception meeting is cheap.
+
+Discovering the same disagreement after three months of development is not.
+
+“Get everyone on the bus before you hit the accelerator.”
+
+04 — STAKEHOLDER MANAGEMENT IS NOT MEETING MANAGEMENT
+
+Product Managers live at an intersection.
+
+Customers want something.
+
+The business wants something.
+
+Development sees technical reality.
+
+Design sees usability problems.
+
+Data sees patterns.
+
+Marketing sees positioning.
+
+Leadership sees strategy.
+
+Everyone is looking at the same product from a different angle.
+
+The Product Manager's job isn't simply to forward messages between these groups.
+
+You're not a human Slack integration.
+
+The job is to create shared understanding.
+
+This is one of the ideas that makes User Stories Applied so valuable: software requirements are fundamentally a communication problem.
+
+If business dominates the conversation, you can end up promising things that are unrealistic.
+
+If technology dominates it, you can build technically elegant software that nobody particularly needs.
+
+Product sits in the middle.
+
+So instead of saying:
+
+“Development says no.”
+
+A better Product Manager says:
+
+“Here's the goal. Here's the constraint. Here are our options. Here are the trade-offs. And here's what I recommend.”
+
+That's stakeholder management.
+
+Not having more meetings.
+
+Creating clarity.
+
+05 — THE ROADMAP IS A DIRECTION, NOT A PROPHECY
+
+People love roadmaps.
+
+Especially roadmaps containing exact dates six months into the future.
+
+They look wonderfully reassuring.
+
+Unfortunately, software development has a habit of interacting with reality.
+
+Customers behave differently than expected.
+
+Technical problems appear.
+
+Priorities change.
+
+Experiments fail.
+
+Markets move.
+
+New information arrives.
+
+A useful roadmap communicates:
+
+direction, priorities, outcomes and sequence.
+
+It should not pretend that the future is perfectly known.
+
+The further into the future you go, the less artificial precision you should have.
+
+Near-term work can be relatively concrete.
+
+Future work should increasingly represent intent rather than promises carved into stone.
+
+Running Lean describes the journey from Plan A to a plan that works.
+
+That sentence contains an important product lesson.
+
+Your first plan is not sacred.
+
+It's a hypothesis.
+
+And The Agile Samurai gives us another useful idea: planning becomes more credible when you use the team's actual delivery rate to understand what is realistically possible.
+
+So yes:
+
+Have a roadmap.
+
+Just don't confuse it with a time machine.
+
+06 — NOW WE CAN TALK ABOUT CARDS
+
+Eventually ideas have to become things a development team can actually build.
+
+Welcome to the world of:
+
+user stories, cards, tasks and acceptance criteria.
+
+But here's an important distinction:
+
+A Jira ticket is not a product requirement simply because it exists in Jira.
+
+And a 47-page specification pasted inside a Jira card is not automatically better.
+
+A good story exists to support a conversation.
+
+Who needs something?
+
+What are they trying to accomplish?
+
+Why does it matter?
+
+How will we know it works?
+
+Then we add the details necessary to remove ambiguity:
+
+examples, business rules, edge cases and acceptance criteria.
+
+User Stories Applied gives us a useful way to think about good stories. They should ideally be:
+
+Independent. Negotiable. Valuable. Estimatable. Small. Testable.
+
+Even the physical size of old-fashioned story cards had a benefit.
+
+There wasn't enough room to write a novel.
+
+That limitation forced people to keep the story concise and actually talk to each other.
+
+SO HOW BIG SHOULD A CARD BE?
+
+Small enough that the team can understand it.
+
+Small enough to estimate it reasonably.
+
+Small enough to finish and test it.
+
+But large enough to still represent something meaningful.
+
+If opening the Jira card requires twenty minutes of scrolling...
+
+we may have a hostage situation.
+
+The answer isn't always to create smaller tasks.
+
+The skill is learning how to slice value.
+
+“Slice the work. Don't slice the value.”
+
+07 — LEAD THE DEVELOPMENT TEAM WITHOUT TRYING TO BE THEIR DEVELOPER
+
+This relationship matters enormously.
+
+Product should own the what and why.
+
+Engineering should have strong ownership of the how.
+
+That doesn't mean throwing requirements over a wall and waiting for software to come back.
+
+The development team should understand the problem deeply enough to participate in solving it.
+
+Tell them why the customer struggles.
+
+Show them the evidence.
+
+Explain the business constraint.
+
+Explain what success looks like.
+
+Then listen.
+
+Developers often see possibilities that Product doesn't.
+
+They may find a simpler solution.
+
+They may notice a technical constraint early.
+
+They may challenge an assumption.
+
+Good.
+
+That's not resistance.
+
+That's collaboration.
+
+A Product Manager doesn't lead developers by pretending to be the smartest engineer in the room.
+
+You lead by providing:
+
+context, clarity, priorities and decisions.
+
+Then you solve the problem together.
+
+08 — BUT UNDERSTAND THE MACHINE
+
+There's another side to this.
+
+You don't need to be a software engineer to manage software products.
+
+But technical literacy is incredibly valuable.
+
+You should gradually understand things like:
+
+APIs.
+
+Databases.
+
+Clients and servers.
+
+Events.
+
+Caching.
+
+Dependencies.
+
+Authentication.
+
+Analytics.
+
+Releases.
+
+Architecture.
+
+Technical constraints.
+
+You don't need to manufacture the engine.
+
+But if you're helping decide where the car should go, understanding what happens when you press the accelerator is useful.
+
+That's why a book like But How Do It Know? belongs on a Product Manager's bookshelf.
+
+It takes something that appears mysterious — a computer — and breaks it into understandable pieces.
+
+That's a useful mindset beyond computers.
+
+Complexity becomes less intimidating when you understand the components and how they interact.
+
+“Technical literacy improves conversations. And better conversations produce better decisions.”
+
+09 — ITERATIONS: BUILD → LEARN → ADJUST → REPEAT
+
+Eventually the product becomes real.
+
+Not in Figma.
+
+Not in Jira.
+
+Not in PowerPoint.
+
+In working software.
+
+Now the team enters a cycle:
+
+Build. Test. Demo. Release. Measure. Listen. Decide.
+
+And then do it again.
+
+This is where Lean thinking becomes particularly powerful.
+
+Running Lean repeatedly brings us back to validation loops.
+
+Build something.
+
+Put it in front of reality.
+
+Measure what happens.
+
+Learn.
+
+Adjust.
+
+Repeat.
+
+The goal isn't to become extremely efficient at producing features.
+
+A factory producing unwanted features faster is still producing unwanted features.
+
+The goal is to create value.
+
+Iterations give us opportunities to correct course before mistakes become enormous.
+
+10 — SHIPPING IS NOT THE FINISH LINE
+
+There's a beautiful moment in software development.
+
+The release goes live.
+
+Development:
+
+🎉 IT'S DEPLOYED!
+
+Product:
+
+👀 opens analytics
+
+Because releasing software answers only one question:
+
+Can we build it?
+
+Now come the more interesting questions.
+
+Did people use it?
+
+Did they understand it?
+
+Did it solve the problem?
+
+Did conversion change?
+
+Did retention change?
+
+Did support tickets change?
+
+Did the metric we cared about actually move?
+
+Should we iterate?
+
+Scale it?
+
+Change it?
+
+Or perhaps remove it?
+
+This is why measurement and feedback are part of Product Management, not something that happens after Product Management.
+
+Running Lean connects releasing with instrumentation, measurement, customer feedback and learning.
+
+Shipping isn't the end.
+
+Shipping is when your assumptions finally meet reality.
+
+“Output is what we shipped. Outcome is what changed.”
+
+11 — THINK IN SYSTEMS, NOT FEATURES
+
+Products are systems.
+
+Change one thing and something else may move.
+
+Improve acquisition and activation becomes the bottleneck.
+
+Improve activation and infrastructure begins struggling.
+
+Increase conversion and customer support gets overwhelmed.
+
+Optimize one metric and accidentally damage another.
+
+This is why Thinking in Systems is such a useful book for Product Managers.
+
+It encourages us to look beyond isolated events and examine structures, behavior, feedback loops, traps and leverage points.
+
+The mature product question isn't always:
+
+“How do we build more?”
+
+Sometimes it's:
+
+“Where should we intervene to create the greatest useful change?”
+
+A Product Manager who only sees features sees individual gears.
+
+A Product Manager who understands systems sees the machine.
+
+“Don't optimize a gear while ignoring the machine.”
+
+12 — AND SOMETIMES THE PROBLEM IS FLOW
+
+Here's another familiar situation.
+
+Everyone is busy.
+
+Development is busy.
+
+QA is busy.
+
+Product is busy.
+
+There are 27 tickets in progress.
+
+Slack is glowing.
+
+Meetings are happening.
+
+Jira looks magnificent.
+
+And somehow...
+
+nothing is getting finished.
+
+This is where thinking about flow and constraints becomes important.
+
+Starting more work feels productive.
+
+Finishing valuable work is productive.
+
+Books such as The Goal and The Phoenix Project are useful because they force us to think beyond individual productivity.
+
+Where is work waiting?
+
+Where are decisions waiting?
+
+Where are dependencies blocking progress?
+
+Where is the actual constraint?
+
+If ten people work faster but everything eventually queues behind one bottleneck, making those ten people even faster doesn't necessarily improve the system.
+
+Product Management isn't only about deciding what enters the pipeline.
+
+It's also about understanding whether valuable work can actually flow through it.
+
+“Starting more work is easy. Finishing valuable work is the game.”
+
+13 — SO, WHAT IS A PRODUCT MANAGER?
+
+After all of that, my definition is still relatively simple:
+
+“A Product Manager creates clarity where there is uncertainty and helps a team turn that clarity into measurable customer and business value.”
+
+Sometimes that means strategy.
+
+Sometimes discovery.
+
+Sometimes saying no.
+
+Sometimes writing a user story.
+
+Sometimes sitting beside a developer trying to explain a bizarre edge case.
+
+Sometimes talking to marketing.
+
+Sometimes defending the development team from unnecessary interruption.
+
+Sometimes challenging the development team.
+
+Sometimes staring at analytics wondering why users are doing exactly the opposite of what everyone predicted.
+
+And occasionally...
+
+deleting something from the roadmap.
+
+A Product Manager doesn't need to have every answer.
+
+But they should help the team keep asking the right questions.
+
+THE PRODUCT MANAGER'S LOOP
+
+If I had to reduce the entire job to one loop, it would be this:
+
+UNDERSTAND
+
+the customer, problem and context.
+
+↓
+
+ALIGN
+
+the people who need to solve it.
+
+↓
+
+DECIDE
+
+what matters now.
+
+↓
+
+SLICE
+
+the problem into something meaningful and deliverable.
+
+↓
+
+BUILD
+
+with the team.
+
+↓
+
+RELEASE
+
+into the real world.
+
+↓
+
+MEASURE
+
+what actually happened.
+
+↓
+
+LEARN
+
+from reality.
+
+↓
+
+REPEAT
+
+And then do it again.
+
+Product Management is not Jira administration.
+
+It's not meeting administration.
+
+It's not feature collection.
+
+And it definitely isn't pretending that you can perfectly predict the future.
+
+It's about understanding the problem.
+
+Bringing the right people together.
+
+Making decisions.
+
+Building the smallest meaningful thing.
+
+Putting it in front of reality.
+
+Learning.
+
+And going again.
+
+And if somewhere along the way you encounter a 34-point user story...
+
+well...
+
+that's why every Product Manager should keep a small samurai sword nearby. ⚔️
+
+THE PRODUCT MANAGER'S BOOKSHELF
+
+There are a handful of books behind many of the ideas in this article. They approach Product Management from different directions, which is exactly why I like putting them together.
+
+PRODUCT & DISCOVERY
+
+Running Lean — Ash Maurya
+The Lean Startup — Eric Ries
+
+AGILE & DELIVERY
+
+The Agile Samurai — Jonathan Rasmusson
+User Stories Applied — Mike Cohn
+Extreme Programming Explained — Kent Beck
+
+SYSTEMS & FLOW
+
+Thinking in Systems — Donella H. Meadows
+The Goal — Eliyahu M. Goldratt & Jeff Cox
+The Phoenix Project — Gene Kim, Kevin Behr & George Spafford
+
+TECHNICAL THINKING
+
+But How Do It Know? — J. Clark Scott
+
+None of these books provides a magic recipe for Product Management.
+
+Together, however, they teach something much more useful:
+
+how to think about problems, people, software, uncertainty and systems.
+
+And that, more than any framework or tool, is what makes Product Management interesting.

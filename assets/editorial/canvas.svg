@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">Lean canvas: an idea made testable</title>
+  <desc id="desc">Two people unroll an oversized working canvas. Problem, people, value and test are connected by blue annotations; the canvas is a conversation, not a finished answer. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M138 126 Q358 116 591 126 L580 351 Q365 340 137 352 Q150 244 138 126 Z"/>
+    <path d="M138 126 Q111 112 116 146 L123 334 Q114 359 137 352 M591 126 Q612 112 611 139 L603 331 Q607 355 580 351"/>
+    <path d="M154 231 Q372 223 593 233 M368 127 Q360 237 365 345" stroke-width="2"/>
+    <path d="M172 188 L273 185 M172 198 L246 196 M398 190 L518 187 M398 201 L464 199 M173 305 L284 301 M398 305 L481 306" stroke-width="2" opacity=".5"/>
+    <path d="M279 209 Q312 213 327 194 M316 193 L328 193 L327 206 M510 215 Q540 237 526 271 M518 262 L526 274 L538 266" stroke="#0a66c2"/>
+    <path d="M295 271 l16 16 25 -36" stroke="#0a66c2" stroke-width="4"/>
+    <path d="M72 261 Q52 254 58 234 Q66 215 82 228 Q93 236 85 254 L79 265 M58 238 Q55 217 74 218 M73 240 L74 243"/>
+    <path d="M65 268 Q48 280 53 319 L86 324 L91 286 M54 283 L84 293 L115 278 M87 279 L105 267 L120 252 M61 325 L53 376 L40 386 L61 387 M80 326 L91 378 L106 385 L86 387"/>
+    <path d="M635 296 Q616 289 621 271 Q627 253 644 261 Q661 271 648 289 L644 301 M623 270 Q627 249 650 261 M633 275 L633 278"/>
+    <path d="M626 304 Q614 318 620 353 L652 355 L654 320 L644 302 M620 316 L600 304 L590 283 M651 319 L668 339 L650 346 M626 357 L615 397 L603 402 M645 357 L657 397 L675 402"/>
+    <path d="M33 394 L110 395 M599 409 L678 410 M155 364 Q353 354 573 362" stroke-width="1" opacity=".5"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">Lean canvas</text>
+    <text x="169" y="170" font-size="28">Problem</text><text x="395" y="170" font-size="28">People</text>
+    <text x="169" y="276" font-size="28">Value</text><text x="395" y="277" font-size="28" fill="#0a66c2">Test</text>
+    <text x="56" y="454" font-size="28">Make the assumptions visible.</text>
+  </g>
+</svg>

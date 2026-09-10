@@ -45,9 +45,10 @@ body.pl a { color: var(--pl-accent); }
 @media (prefers-reduced-motion: reduce) { .pl-rv { opacity: 1; transform: none; transition: none; } }
 
 /* Outline buttons (reference style) */
-.pl-btn { display: inline-block; border: 1px solid var(--pl-text); color: var(--pl-text); background: transparent; padding: 13px 34px; border-radius: 3px; text-decoration: none; font-family: var(--pl-display); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 20px; }
-.pl-btn:hover { background: var(--pl-text); color: #fff; }
+.pl-btn { display: inline-block; border: 1px solid var(--pl-text); color: var(--pl-text); background: transparent; padding: 13px 34px; border-radius: 3px; text-decoration: none; font-family: var(--pl-display); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 20px; transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
 body.pl .pl-btn { color: var(--pl-text); }
+body.pl .pl-btn:hover { background: var(--pl-text); border-color: var(--pl-text); color: #fff; }
+body.pl .pl-btn:focus-visible { background: var(--pl-text); border-color: var(--pl-text); color: #fff; }
 
 /* Timeline */
 .pl-timeline { list-style: none; padding: 0; }
@@ -90,7 +91,13 @@ body.pl .pl-btn { color: var(--pl-text); }
   .pl-header nav { display: none; position: absolute; top: 100%; right: 16px; background: #000; border: 1px solid #333; border-radius: 6px; padding: 12px 20px; z-index: 40; }
   .pl-header nav.active { display: block; }
   .pl-header nav a { display: block; margin: 10px 0; }
+  .pl-header.nav-enhanced nav:not(.active) { display: none; }
 }
+
+/* Shared five-link business navigation + keyboard focus */
+body.pl :focus-visible { outline: 3px solid var(--pl-accent); outline-offset: 4px; }
+body.pl .pl-topbar :focus-visible { outline-color: #fff; }
+.pl-header nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 8px; }
 
 /* Compact page head (projects / contact pages) */
 .pl-pagehead { text-align: center; padding: 64px 24px 8px; }

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">An uncertain roadmap</title>
+  <desc id="desc">A person studies a folded map as a road twists from now to next and later, then dissolves into dotted possibilities and an unknown horizon. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M247 403 Q210 350 295 323 Q375 301 449 320 Q559 347 554 292 Q551 262 416 263 Q287 264 323 219 Q350 190 444 208"/>
+    <path d="M344 405 Q290 368 336 353 Q374 339 446 354 Q601 378 602 292 Q609 225 433 230 Q364 235 361 222 Q366 215 443 220"/>
+    <path d="M296 402 Q244 359 316 340 Q364 325 446 338 Q581 360 578 292 Q578 244 426 247 Q333 249 343 221" stroke="#0a66c2" stroke-dasharray="11 12"/>
+    <path d="M444 208 Q559 221 577 179 Q594 144 537 139 M443 220 Q563 242 594 189 Q626 135 539 126 M537 132 Q468 121 497 100" stroke-dasharray="4 10" opacity=".55"/>
+    <path d="M287 324 L281 290 M467 277 L464 249 M579 180 L607 156 M281 291 L229 291 M464 249 L414 249" stroke-width="2"/>
+    <path d="M125 280 Q105 271 113 250 Q124 232 141 246 Q156 260 138 276 L134 289 M113 252 Q106 237 124 233 Q141 231 148 249 M133 256 L134 259"/>
+    <path d="M115 291 Q104 304 107 343 L145 344 L151 306 M111 307 L130 320 L155 309 M143 307 L165 313 M115 347 L104 388 L91 401 L112 402 M138 348 L146 389 L164 400 L141 402"/>
+    <path d="M144 283 L169 291 L190 277 L183 318 L163 330 L140 318 Z M169 291 L163 330" fill="#f5f3ed"/>
+    <path d="M153 298 L159 302 L170 299 L177 294 M151 311 L157 308" stroke="#0a66c2" stroke-width="2"/>
+    <path d="M77 409 Q128 414 177 409 M625 288 L635 279 L644 289 M203 221 L211 213 L220 224" stroke-width="2" opacity=".5"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">A map, not a promise</text>
+    <text x="214" y="283" font-size="28">Now</text><text x="397" y="241" font-size="28">Next</text>
+    <text x="584" y="148" font-size="28">Later</text><text x="335" y="131" font-size="28" fill="#0a66c2">Unknown</text>
+    <text x="56" y="454" font-size="28">Direction survives the detour.</text>
+  </g>
+</svg>

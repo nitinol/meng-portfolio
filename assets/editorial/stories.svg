@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">Slicing a giant story into usable pieces</title>
+  <desc id="desc">A tiny team cuts an enormous layered story loaf into three complete vertical slices. Each slice contains all layers, rather than separating work into technical layers. Original vector artwork for Menguhan Bulut.</desc>
+  <rect width="720" height="480" fill="#f5f3ed"/>
+  <g fill="none" stroke="#282824" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M78 218 L119 181 Q247 170 364 183 L361 331 L318 365 L77 357 Z M78 218 Q199 208 318 219 L364 183 M318 219 L318 365"/>
+    <path d="M80 258 Q197 248 318 261 L362 225 M79 309 Q201 300 318 312 L361 277" stroke="#0a66c2"/>
+    <path d="M91 240 L132 238 M174 237 L218 238 M249 239 L291 242 M93 290 L154 287 M192 288 L235 289 M261 289 L299 292 M96 337 L172 335 M204 334 L274 338" stroke-width="2" opacity=".45"/>
+    <path d="M400 232 L426 209 L453 212 L451 339 L426 362 L399 359 Z M400 232 L427 235 L453 212 M427 235 L426 362 M400 268 L427 271 L452 247 M399 312 L426 315 L452 290"/>
+    <path d="M482 249 L508 226 L535 229 L533 356 L508 379 L481 376 Z M482 249 L509 252 L535 229 M509 252 L508 379 M482 285 L509 288 L534 264 M481 329 L508 332 L534 307"/>
+    <path d="M563 266 L589 243 L616 246 L614 373 L589 396 L562 393 Z M563 266 L590 269 L616 246 M590 269 L589 396 M563 302 L590 305 L615 281 M562 346 L589 349 L615 324"/>
+    <path d="M403 269 L425 271 M485 286 L507 288 M566 303 L588 305" stroke="#0a66c2" stroke-width="5"/>
+    <path d="M252 177 L258 134 L286 131 L281 177 M259 135 L247 126 L229 141 M283 139 L305 146 L323 120 M265 127 Q249 119 259 104 Q271 95 282 109 Q287 119 275 127 M257 111 L253 102 L267 96 L280 101"/>
+    <path d="M322 120 L337 99 L345 103 L329 126 M333 116 L372 172 L365 177 L327 124" stroke="#0a66c2"/>
+    <path d="M377 180 L379 350" stroke-dasharray="3 8" stroke-width="2"/>
+    <path d="M91 373 Q211 380 325 376 M411 385 L442 386 M493 400 L525 402 M576 416 L611 417" stroke-width="2" opacity=".4"/>
+  </g>
+  <g fill="#282824" font-family="Helvetica, Arial, sans-serif">
+    <text x="56" y="69" font-size="32" font-weight="700">Slice the story</text>
+    <text x="56" y="159" font-size="28">One giant story</text>
+    <text x="401" y="161" font-size="28" fill="#0a66c2"><tspan x="401">Small, usable slices</tspan></text>
+    <text x="56" y="454" font-size="28">A little of every layer.</text>
+  </g>
+</svg>
