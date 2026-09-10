@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { db } = require('../_lib/db');
-const { sessionUser } = require('../_lib/auth');
+const { sessionUser, describeDbError } = require('../_lib/auth');
 
 module.exports = async (req, res) => {
     if (req.method !== 'GET') {
@@ -21,6 +21,6 @@ module.exports = async (req, res) => {
         }
         res.status(200).json({ name: user.name, email: user.email });
     } catch (e) {
-        res.status(e.status || 500).json({ error: e.status ? e.message : 'Something went wrong.' });
+        res.status(e.status || 500).json({ error: e.status ? e.message : (describeDbError(e) || 'Something went wrong.') });
     }
 };

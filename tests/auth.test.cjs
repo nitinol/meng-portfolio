@@ -60,6 +60,7 @@ const login = require('../api/auth/login.js');
 const logout = require('../api/auth/logout.js');
 const me = require('../api/auth/me.js');
 const { validateEmail, validatePassword, validateName } = require('../api/_lib/validate.js');
+const { describeDbError } = require('../api/_lib/auth.js');
 
 function req(method, body, cookie) {
     return {
@@ -87,6 +88,13 @@ test('validation accepts good input and rejects bad input', () => {
     assert.equal(validatePassword('short'), false);
     assert.equal(validateName('Menguhan'), true);
     assert.equal(validateName('  '), false);
+});
+
+test('db errors translate to safe actionable messages', () => {
+    assert.match(describeDbError({ message: 'bad auth : authentication failed' }), /password/);
+    assert.match(describeDbError({ name: 'MongoServerSelectionError', message: 'connection timed out' }), /running/);
+    assert.match(describeDbError({ message: 'Invalid scheme, expected connection string to start with "mongodb://"' }), /malformed/);
+    assert.equal(describeDbError(new Error('weird')), null);
 });
 
 test('register validates, refuses duplicates, creates users', async () => {

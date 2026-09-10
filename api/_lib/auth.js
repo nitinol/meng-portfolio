@@ -55,7 +55,23 @@ function clearSession(res) {
     res.setHeader('Set-Cookie', cookieValue('', 0));
 }
 
+// Safe diagnostics: naming the failure class without leaking secrets.
+function describeDbError(e) {
+    const msg = (e && e.message) || '';
+    if (/invalid scheme|must start with|parse/i.test(msg)) {
+        return 'The connection string looks malformed — it should start with mongodb+srv:// and contain no < > brackets.';
+    }
+    if (e && (e.code === 8000 || e.code === 18 || /bad auth|authentication failed/i.test(msg))) {
+        return 'Database rejected the login — the password in the connection string looks wrong.';
+    }
+    if (e && (/server selection|timed out|ENOTFOUND|ECONNREFUSED/i.test(e.name + ' ' + msg))) {
+        return 'Could not reach the database — is the cluster running and not paused?';
+    }
+    return null;
+}
+
 module.exports = {
     readJson, signToken, sessionUser, setSession, clearSession,
+    describeDbError,
     validateEmail, validatePassword, validateName
 };
