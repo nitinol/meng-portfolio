@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="news-scroll">
 
 <head>
     <!-- Google tag (gtag.js) -->
@@ -13,27 +13,27 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menguhan Bulut | Product Owner, Product Manager, AI Product Lead</title>
+    <title>Tech News | Menguhan Bulut</title>
     <meta name="description"
-        content="Menguhan Bulut — Product Owner, Product Manager and AI Product Lead. A living homepage that mirrors the real sky: time of day, season and weather, live.">
+        content="The latest technology news on Android, iOS and more — under the same living sky. The live news feed arrives in step 4.">
     <meta name="author" content="Menguhan Bulut">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href="https://www.menguhan.com/">
+    <link rel="canonical" href="https://www.menguhan.com/news.html">
     <meta name="theme-color" content="#000000">
     <meta name="google-site-verification" content="hfoZjczhrVTxaq6ig8yT6ss32rcXSP04rWCYETW5PQI" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.menguhan.com/">
-    <meta property="og:title" content="Menguhan Bulut | Product Owner, Product Manager, AI Product Lead">
-    <meta property="og:description" content="A living homepage that mirrors the real sky — plus portfolio, tech news and community.">
+    <meta property="og:url" content="https://www.menguhan.com/news.html">
+    <meta property="og:title" content="Tech News | Menguhan Bulut">
+    <meta property="og:description" content="The latest technology news on Android, iOS and more — under the same living sky.">
     <meta property="og:image" content="https://www.menguhan.com/personal.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.menguhan.com/">
-    <meta property="twitter:title" content="Menguhan Bulut | Product Owner, Product Manager, AI Product Lead">
-    <meta property="twitter:description" content="A living homepage that mirrors the real sky — plus portfolio, tech news and community.">
+    <meta property="twitter:url" content="https://www.menguhan.com/news.html">
+    <meta property="twitter:title" content="Tech News | Menguhan Bulut">
+    <meta property="twitter:description" content="The latest technology news on Android, iOS and more — under the same living sky.">
     <meta property="twitter:image" content="https://www.menguhan.com/personal.jpg">
 
     <!-- JSON-LD Structured Data -->
@@ -333,6 +333,161 @@
             }
         }
 
+        /* News page: scrollable feed over the living sky */
+        html.news-scroll,
+        html.news-scroll body {
+            overflow: auto;
+            height: auto;
+            min-height: 100%;
+        }
+
+        .news-wrap {
+            position: relative;
+            z-index: 10;
+            width: min(760px, 100%);
+            margin: 0 auto;
+            padding: 130px 24px 80px;
+            color: var(--adaptive-text);
+        }
+
+        .news-wrap h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: var(--adaptive-font-weight);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin: 0 0 6px;
+        }
+
+        .news-wrap .lede {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--adaptive-text-secondary);
+            margin: 0;
+        }
+
+        .news-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 22px 0 6px;
+        }
+
+        .news-tabs button {
+            min-height: 44px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--adaptive-border);
+            background: var(--adaptive-bg);
+            color: var(--adaptive-text);
+            font: inherit;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .news-tabs button:hover {
+            background: var(--adaptive-bg-hover);
+        }
+
+        .news-tabs button[aria-selected="true"] {
+            border-width: 2px;
+            font-weight: 700;
+        }
+
+        .news-list {
+            list-style: none;
+            margin: 16px 0 0;
+            padding: 0;
+            columns: 320px 2;
+            column-gap: 14px;
+        }
+
+        .news-list > li {
+            break-inside: avoid;
+            margin-bottom: 14px;
+            border: 1px solid var(--adaptive-border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--adaptive-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .news-list > li:first-child {
+            column-span: all;
+        }
+
+        .news-list > li:nth-child(3n) a.news-title {
+            font-size: 1.12rem;
+            line-height: 1.45;
+        }
+
+        .news-list > li:nth-child(4n) {
+            transform: rotate(-0.4deg);
+        }
+
+        .news-shot {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: var(--adaptive-bg-hover);
+        }
+
+        .news-shot[hidden] {
+            display: none;
+        }
+
+        .news-source {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px 0;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--adaptive-text-secondary);
+        }
+
+        .news-source img {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+
+        .news-list a.news-title {
+            display: block;
+            padding: 8px 16px 10px;
+            color: var(--adaptive-text);
+            text-decoration: none;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .news-list a.news-title:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .news-meta {
+            padding: 0 16px 14px;
+            color: var(--adaptive-text-secondary);
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .news-meta a {
+            color: inherit;
+        }
+
+        .news-status {
+            margin: 16px 2px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--adaptive-text-secondary);
+        }
+
         .mini-stat {
             display: flex;
             align-items: center;
@@ -425,11 +580,19 @@
         <button id="accountClose">Close</button>
     </div>
 
-    <div class="center-message">
-        <p class="title">Menguhan</p>
-        <p class="subtitle">Living Atmosphere - Interactive Portfolio</p>
-        <p class="condition"><span id="wCond">Reading the sky…</span></p>
-    </div>
+    <main class="news-wrap">
+        <h1>News</h1>
+        <p class="lede">Fresh tech from Hacker News — Android, iOS &amp; beyond, under your sky. <span id="wCond">Reading the sky…</span></p>
+        <div class="news-tabs" role="tablist" aria-label="News topics">
+            <button role="tab" aria-selected="true" data-feed="top">Top</button>
+            <button role="tab" aria-selected="false" data-feed="android">Android</button>
+            <button role="tab" aria-selected="false" data-feed="ios">iOS</button>
+            <button role="tab" aria-selected="false" data-feed="ai">AI</button>
+        </div>
+        <p class="news-status" id="newsStatus" role="status">Loading top stories…</p>
+        <ol class="news-list" id="newsList"></ol>
+        <noscript><p class="news-status">The news feed needs JavaScript. The sky above works without it.</p></noscript>
+    </main>
 
 
 
@@ -1214,6 +1377,126 @@
         // initBirdBehavior();
 
         init();
+    </script>
+    <script>
+        // Live tech-news feed (client-side, no backend, no API key).
+        // Source: Hacker News via the public Algolia API.
+        (function () {
+            var FEEDS = {
+                top: 'https://hn.algolia.com/api/v1/search?tags=front_page',
+                android: 'https://hn.algolia.com/api/v1/search?query=android&tags=story',
+                ios: 'https://hn.algolia.com/api/v1/search?query=iOS&tags=story',
+                ai: 'https://hn.algolia.com/api/v1/search?query=artificial%20intelligence&tags=story'
+            };
+            var list = document.getElementById('newsList');
+            var status = document.getElementById('newsStatus');
+            var tabs = Array.prototype.slice.call(document.querySelectorAll('.news-tabs button'));
+
+            function timeAgo(iso) {
+                var mins = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+                if (mins < 60) return mins + 'm ago';
+                var hours = Math.round(mins / 60);
+                if (hours < 24) return hours + 'h ago';
+                return Math.round(hours / 24) + 'd ago';
+            }
+
+            function domainOf(url) {
+                try { return new URL(url).hostname.replace(/^www\./, ''); }
+                catch (e) { return 'news.ycombinator.com'; }
+            }
+
+            // Best-effort article pictures via the free Microlink screenshot
+            // service. Tiles look complete without them: failures hide the
+            // image and keep the favicon + text tile.
+            var shotObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    var img = entry.target;
+                    shotObserver.unobserve(img);
+                    var api = 'https://api.microlink.io?url=' + encodeURIComponent(img.getAttribute('data-shot')) + '&screenshot=true&meta=false';
+                    fetch(api).then(function (res) {
+                        if (!res.ok) throw new Error('shot unavailable');
+                        return res.json();
+                    }).then(function (data) {
+                        if (data && data.data && data.data.screenshot && data.data.screenshot.url) {
+                            img.src = data.data.screenshot.url;
+                        } else {
+                            img.hidden = true;
+                        }
+                    }).catch(function () { img.hidden = true; });
+                });
+            }, { rootMargin: '200px' }) : null;
+
+            function render(items) {
+                list.textContent = '';
+                items.slice(0, 15).forEach(function (item) {
+                    var target = item.url || ('https://news.ycombinator.com/item?id=' + item.objectID);
+                    var domain = domainOf(target);
+                    var li = document.createElement('li');
+                    var shot = document.createElement('img');
+                    shot.className = 'news-shot';
+                    shot.alt = '';
+                    shot.loading = 'lazy';
+                    shot.setAttribute('data-shot', target);
+                    shot.addEventListener('error', function () { shot.hidden = true; });
+                    if (shotObserver) shotObserver.observe(shot);
+                    else shot.hidden = true;
+                    var source = document.createElement('div');
+                    source.className = 'news-source';
+                    var fav = document.createElement('img');
+                    fav.alt = '';
+                    fav.loading = 'lazy';
+                    fav.src = 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64';
+                    fav.addEventListener('error', function () { fav.hidden = true; });
+                    source.appendChild(fav);
+                    source.appendChild(document.createTextNode(domain));
+                    var a = document.createElement('a');
+                    a.className = 'news-title';
+                    a.textContent = item.title || '(untitled)';
+                    a.href = target;
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    var meta = document.createElement('div');
+                    meta.className = 'news-meta';
+                    meta.textContent = (item.points || 0) + ' points · by ' + (item.author || 'unknown') + ' · ' + timeAgo(item.created_at) + ' · ';
+                    var comments = document.createElement('a');
+                    comments.href = 'https://news.ycombinator.com/item?id=' + item.objectID;
+                    comments.target = '_blank';
+                    comments.rel = 'noopener';
+                    comments.textContent = (item.num_comments || 0) + ' comments';
+                    meta.appendChild(comments);
+                    li.appendChild(shot);
+                    li.appendChild(source);
+                    li.appendChild(a);
+                    li.appendChild(meta);
+                    list.appendChild(li);
+                });
+            }
+
+            function load(name) {
+                status.textContent = 'Loading stories…';
+                list.textContent = '';
+                fetch(FEEDS[name]).then(function (res) {
+                    if (!res.ok) throw new Error('feed unavailable');
+                    return res.json();
+                }).then(function (data) {
+                    render(data.hits || []);
+                    status.textContent = (data.hits || []).length ? '' : 'No stories right now — try another topic.';
+                }).catch(function () {
+                    status.textContent = 'Could not reach the news feed. Check your connection and try again.';
+                });
+            }
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+                    tab.setAttribute('aria-selected', 'true');
+                    load(tab.getAttribute('data-feed'));
+                });
+            });
+
+            load('top');
+        })();
     </script>
     <script src="/page-fade.js?v=20260910-fx2" defer></script>
 </body>
