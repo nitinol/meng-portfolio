@@ -673,15 +673,15 @@
             <span id="wIcon" class="weather-icon"></span>
             <span id="wTemp" class="degree-text">--°</span>
         </a>
-        <button class="icon-btn" id="appsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="appsMenu" aria-label="Open site menu">
+        <button class="icon-btn" id="appsBtn" data-track="menu_open" aria-haspopup="true" aria-expanded="false" aria-controls="appsMenu" aria-label="Open site menu">
             <span class="apps-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
         </button>
     </div>
 
     <nav class="apps-menu" id="appsMenu" aria-label="Site sections" hidden>
-        <a class="app-tile" href="/portfolio.html"><span class="app-visual app-glyph" aria-hidden="true">▦</span><span>Portfolio<small>Product work &amp; case studies</small></span></a>
-        <a class="app-tile" href="/news.html"><img class="app-visual" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=200&amp;q=60" alt="" loading="lazy"><span>News<small>Enjoy the latest tech news</small></span></a>
-        <a class="app-tile" href="https://www.moonstove.com" target="_blank" rel="noopener"><img class="app-visual contain" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></a>
+        <a class="app-tile" href="/portfolio.html" data-track="tile" data-app="portfolio"><span class="app-visual app-glyph" aria-hidden="true">▦</span><span>Portfolio<small>Product work &amp; case studies</small></span></a>
+        <a class="app-tile" href="/news.html" data-track="tile" data-app="news"><img class="app-visual" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=200&amp;q=60" alt="" loading="lazy"><span>News<small>Enjoy the latest tech news</small></span></a>
+        <a class="app-tile" href="https://www.moonstove.com" target="_blank" rel="noopener" data-track="tile" data-app="moonstove"><img class="app-visual contain" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></a>
     </nav>
 
 
@@ -689,10 +689,10 @@
         <h1>News</h1>
         <p class="lede">Fresh tech from Hacker News — Android, iOS &amp; beyond, under your sky. <span id="wCond">Reading the sky…</span></p>
         <div class="news-tabs" role="tablist" aria-label="News topics">
-            <button role="tab" aria-selected="true" data-feed="top">Top</button>
-            <button role="tab" aria-selected="false" data-feed="android">Android</button>
-            <button role="tab" aria-selected="false" data-feed="ios">iOS</button>
-            <button role="tab" aria-selected="false" data-feed="ai">AI</button>
+            <button role="tab" aria-selected="true" data-feed="top" data-track="news_tab">Top</button>
+            <button role="tab" aria-selected="false" data-feed="android" data-track="news_tab">Android</button>
+            <button role="tab" aria-selected="false" data-feed="ios" data-track="news_tab">iOS</button>
+            <button role="tab" aria-selected="false" data-feed="ai" data-track="news_tab">AI</button>
         </div>
         <p class="news-status" id="newsStatus" role="status">Loading top stories…</p>
         <ol class="news-list" id="newsList"></ol>
@@ -1604,6 +1604,7 @@
         })();
     </script>
     <script src="/page-fade.js?v=20260910-fx2" defer></script>
+    <script src="/analytics.js?v=20260911-an1" defer></script>
 </body>
 
 </html>

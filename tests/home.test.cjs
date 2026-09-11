@@ -24,7 +24,7 @@ test('top-right cluster exposes apps menu with portfolio, news and moonstove til
         assert.match(html, /id="appsBtn"[^>]*aria-haspopup="true"[^>]*aria-controls="appsMenu"/);
         assert.doesNotMatch(html, /id="accountBtn"/);
         assert.match(html, /<nav class="apps-menu" id="appsMenu"[^>]*hidden>/);
-        assert.match(html, /<a class="app-tile" href="\/portfolio\.html">/);
+        assert.match(html, /<a class="app-tile" href="\/portfolio\.html"[^>]*>/);
         assert.match(html, /Enjoy the latest tech news/);
         assert.match(html, /<a class="app-tile" href="https:\/\/www\.moonstove\.com" target="_blank"/);
         assert.match(html, /src="\/assets\/moonstove\.svg"/);
@@ -67,7 +67,7 @@ test('news page serves a live client-side tech feed', () => {
     assert.match(html, /data-feed="ios"/);
     assert.match(html, /data-feed="ai"/);
     assert.match(html, /id="newsList"/);
-    assert.match(html, /<a class="app-tile" href="\/portfolio\.html">/);
+    assert.match(html, /<a class="app-tile" href="\/portfolio\.html"[^>]*>/);
     const sitemap = read('sitemap.xml');
     assert.ok(sitemap.includes('news.html'), 'sitemap missing news');
 });
