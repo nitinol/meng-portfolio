@@ -26,9 +26,9 @@ test('top-right cluster exposes apps menu with portfolio, news and moonstove til
         assert.match(html, /<nav class="apps-menu" id="appsMenu"[^>]*hidden>/);
         assert.match(html, /<a class="app-tile" href="\/portfolio\.html">/);
         assert.match(html, /Enjoy the latest tech news/);
-        assert.match(html, /id="moonTile"[^>]*aria-controls="moonDialog"/);
+        assert.match(html, /<a class="app-tile" href="https:\/\/www\.moonstove\.com" target="_blank"/);
         assert.match(html, /src="\/assets\/moonstove\.svg"/);
-        assert.match(html, /id="moonDialog"[^>]*role="dialog"/);
+        assert.doesNotMatch(html, /id="moonDialog"/);
         assert.match(html, /prefers-reduced-motion/);
         assert.match(html, /setupMenus|setMenuState/);
     }

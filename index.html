@@ -548,13 +548,9 @@
     <nav class="apps-menu" id="appsMenu" aria-label="Site sections" hidden>
         <a class="app-tile" href="/portfolio.html"><span class="app-visual app-glyph" aria-hidden="true">▦</span><span>Portfolio<small>Product work &amp; case studies</small></span></a>
         <a class="app-tile" href="/news.html"><img class="app-visual" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=200&amp;q=60" alt="" loading="lazy"><span>News<small>Enjoy the latest tech news</small></span></a>
-        <button type="button" class="app-tile" id="moonTile" aria-haspopup="dialog" aria-controls="moonDialog"><img class="app-visual contain" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></button>
+        <a class="app-tile" href="https://www.moonstove.com" target="_blank" rel="noopener"><img class="app-visual contain" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></a>
     </nav>
 
-    <div class="account-dialog" id="moonDialog" role="dialog" aria-modal="false" aria-label="Moonstove" hidden>
-        <p><strong>Moonstove is brewing.</strong><br>Something new is on the stove — check back soon.</p>
-        <button id="moonClose">Close</button>
-    </div>
 
     <div class="center-message">
         <figure class="spotlight">
@@ -605,9 +601,6 @@
             centerTitle: document.querySelector('.title'),
             appsBtn: document.getElementById('appsBtn'),
             appsMenu: document.getElementById('appsMenu'),
-            moonTile: document.getElementById('moonTile'),
-            moonDialog: document.getElementById('moonDialog'),
-            moonClose: document.getElementById('moonClose'),
 
         };
 
@@ -649,7 +642,6 @@
 
         function closeAllMenus(returnFocus) {
             setMenuState(ELS.appsMenu, ELS.appsBtn, false);
-            ELS.moonDialog.hidden = true;
             if (returnFocus && returnFocus.focus) returnFocus.focus();
         }
 
@@ -658,15 +650,6 @@
                 const open = ELS.appsMenu.hidden;
                 closeAllMenus();
                 setMenuState(ELS.appsMenu, ELS.appsBtn, open);
-            });
-            ELS.moonTile.addEventListener('click', () => {
-                closeAllMenus();
-                ELS.moonDialog.hidden = false;
-                ELS.moonClose.focus();
-            });
-            ELS.moonClose.addEventListener('click', () => {
-                ELS.moonDialog.hidden = true;
-                ELS.appsBtn.focus();
             });
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeAllMenus(document.activeElement);
