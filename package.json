@@ -1,0 +1,17 @@
+{
+  "name": "meng-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Menguhan Bulut portfolio — static site plus Vercel serverless API",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.9.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.cjs"
+  }
+}
