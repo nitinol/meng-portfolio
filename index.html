@@ -252,28 +252,53 @@
             display: none;
         }
 
-        .apps-menu a {
+        .apps-menu a,
+        .apps-menu button.app-tile {
             display: flex;
             align-items: center;
             gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
             padding: 12px 14px;
             min-height: 48px;
+            border: 0;
             border-radius: 10px;
+            background: none;
             color: var(--adaptive-text);
             text-decoration: none;
+            font: inherit;
             font-size: 0.85rem;
             letter-spacing: 1px;
+            text-align: left;
+            cursor: pointer;
         }
 
-        .apps-menu a:hover {
+        .apps-menu a:hover,
+        .apps-menu button.app-tile:hover {
             background: var(--adaptive-bg-hover);
         }
 
-        .apps-menu a small {
+        .apps-menu a small,
+        .apps-menu button.app-tile small {
             display: block;
             font-size: 0.68rem;
             letter-spacing: 0.5px;
             color: var(--adaptive-text-secondary);
+        }
+
+        .app-visual {
+            width: 56px;
+            height: 56px;
+            flex: none;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #111;
+        }
+
+        .app-glyph {
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
         }
 
         .account-dialog p {
@@ -473,50 +498,17 @@
         <button class="icon-btn" id="appsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="appsMenu" aria-label="Open site menu">
             <span class="apps-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
         </button>
-        <button class="icon-btn" id="accountBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="accountDialog" aria-label="Account">
-            <span class="account-circle" id="accountAvatar" aria-hidden="true">○</span>
-        </button>
     </div>
 
     <nav class="apps-menu" id="appsMenu" aria-label="Site sections" hidden>
-        <a href="/portfolio.html"><span aria-hidden="true">▦</span><span>Portfolio<small>Product work &amp; case studies</small></span></a>
-        <a href="/news.html"><span aria-hidden="true">✦</span><span>News<small>Latest tech, live soon</small></span></a>
+        <a class="app-tile" href="/portfolio.html"><span class="app-visual app-glyph" aria-hidden="true">▦</span><span>Portfolio<small>Product work &amp; case studies</small></span></a>
+        <a class="app-tile" href="/news.html"><img class="app-visual" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=200&amp;q=60" alt="" loading="lazy"><span>News<small>Enjoy the latest tech news</small></span></a>
+        <button type="button" class="app-tile" id="moonTile" aria-haspopup="dialog" aria-controls="moonDialog"><img class="app-visual" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></button>
     </nav>
 
-    <div class="account-dialog" id="accountDialog" role="dialog" aria-modal="false" aria-label="Account" hidden>
-        <div id="authSoon">
-            <p><strong>Coming soon.</strong><br>Accounts, login and registration arrive in step 2.</p>
-        </div>
-        <form id="authLogin" hidden novalidate>
-            <p class="auth-title" id="accountTitleLogin">Welcome back</p>
-            <label class="auth-field">Email<input type="email" id="loginEmail" autocomplete="email" required></label>
-            <label class="auth-field">Password<input type="password" id="loginPass" autocomplete="current-password" required></label>
-            <p class="auth-error" id="loginError" role="alert" hidden></p>
-            <button type="submit">Log in</button>
-            <p class="auth-switch">No account? <button type="button" id="showRegister">Register</button></p>
-            <p class="auth-switch"><button type="button" id="showForgot">Forgot password?</button></p>
-        </form>
-        <form id="authRegister" hidden novalidate>
-            <p class="auth-title">Create account</p>
-            <label class="auth-field">Name<input type="text" id="registerName" autocomplete="name" required></label>
-            <label class="auth-field">Email<input type="email" id="registerEmail" autocomplete="email" required></label>
-            <label class="auth-field">Password (8+ characters)<input type="password" id="registerPass" autocomplete="new-password" required></label>
-            <p class="auth-error" id="registerError" role="alert" hidden></p>
-            <button type="submit">Register</button>
-            <p class="auth-switch">Have an account? <button type="button" id="showLogin">Log in</button></p>
-        </form>
-        <div id="authForgot" hidden>
-            <p class="auth-title">Reset password</p>
-            <p>Password reset by email is coming with the email setup — very soon.</p>
-            <p class="auth-switch"><button type="button" id="backToLogin">Back to login</button></p>
-        </div>
-        <div id="authAccount" hidden>
-            <p class="auth-title">Signed in</p>
-            <p><strong id="authName"></strong><br><span id="authEmail"></span></p>
-            <button type="button" id="logoutBtn">Log out</button>
-            <p class="auth-switch"><button type="button" id="backToLogin2">Switch account</button></p>
-        </div>
-        <button id="accountClose">Close</button>
+    <div class="account-dialog" id="moonDialog" role="dialog" aria-modal="false" aria-label="Moonstove" hidden>
+        <p><strong>Moonstove is brewing.</strong><br>Something new is on the stove — check back soon.</p>
+        <button id="moonClose">Close</button>
     </div>
 
     <div class="center-message">
@@ -565,9 +557,9 @@
             centerTitle: document.querySelector('.title'),
             appsBtn: document.getElementById('appsBtn'),
             appsMenu: document.getElementById('appsMenu'),
-            accountBtn: document.getElementById('accountBtn'),
-            accountDialog: document.getElementById('accountDialog'),
-            accountClose: document.getElementById('accountClose'),
+            moonTile: document.getElementById('moonTile'),
+            moonDialog: document.getElementById('moonDialog'),
+            moonClose: document.getElementById('moonClose'),
 
         };
 
@@ -609,7 +601,7 @@
 
         function closeAllMenus(returnFocus) {
             setMenuState(ELS.appsMenu, ELS.appsBtn, false);
-            setMenuState(ELS.accountDialog, ELS.accountBtn, false);
+            ELS.moonDialog.hidden = true;
             if (returnFocus && returnFocus.focus) returnFocus.focus();
         }
 
@@ -619,13 +611,15 @@
                 closeAllMenus();
                 setMenuState(ELS.appsMenu, ELS.appsBtn, open);
             });
-            ELS.accountBtn.addEventListener('click', () => {
-                const open = ELS.accountDialog.hidden;
+            ELS.moonTile.addEventListener('click', () => {
                 closeAllMenus();
-                setMenuState(ELS.accountDialog, ELS.accountBtn, open);
-                if (open) ELS.accountClose.focus();
+                ELS.moonDialog.hidden = false;
+                ELS.moonClose.focus();
             });
-            ELS.accountClose.addEventListener('click', () => closeAllMenus(ELS.accountBtn));
+            ELS.moonClose.addEventListener('click', () => {
+                ELS.moonDialog.hidden = true;
+                ELS.appsBtn.focus();
+            });
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeAllMenus(document.activeElement);
             });
@@ -1310,7 +1304,6 @@
         init();
     </script>
     <script src="/page-fade.js?v=20260910-fx2" defer></script>
-    <script src="/auth-ui.js?v=20260910-au1" defer></script>
 </body>
 
 </html>

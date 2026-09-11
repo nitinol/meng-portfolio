@@ -18,18 +18,21 @@ test('severance landing is gone; homepage is the living atmosphere', () => {
     assert.match(html, /gtag.*G-TE4EZV6NZH/s);
 });
 
-test('top-right cluster exposes apps menu and account entry', () => {
+test('top-right cluster exposes apps menu with portfolio, news and moonstove tiles', () => {
     for (const page of ['index.html', 'news.html']) {
         const html = read(page);
         assert.match(html, /id="appsBtn"[^>]*aria-haspopup="true"[^>]*aria-controls="appsMenu"/);
-        assert.match(html, /id="accountBtn"[^>]*aria-haspopup="dialog"[^>]*aria-controls="accountDialog"/);
+        assert.doesNotMatch(html, /id="accountBtn"/);
         assert.match(html, /<nav class="apps-menu" id="appsMenu"[^>]*hidden>/);
-        assert.match(html, /<a href="\/portfolio\.html">/);
-        assert.match(html, /<a href="\/news\.html">/);
-        assert.match(html, /id="accountDialog"[^>]*role="dialog"/);
+        assert.match(html, /<a class="app-tile" href="\/portfolio\.html">/);
+        assert.match(html, /Enjoy the latest tech news/);
+        assert.match(html, /id="moonTile"[^>]*aria-controls="moonDialog"/);
+        assert.match(html, /src="\/assets\/moonstove\.svg"/);
+        assert.match(html, /id="moonDialog"[^>]*role="dialog"/);
         assert.match(html, /prefers-reduced-motion/);
         assert.match(html, /setupMenus|setMenuState/);
     }
+    assert.ok(read('assets/moonstove.svg').includes('#fe6b01'), 'moonstove brand mark');
 });
 
 test('news page serves a live client-side tech feed', () => {
@@ -42,7 +45,7 @@ test('news page serves a live client-side tech feed', () => {
     assert.match(html, /data-feed="ios"/);
     assert.match(html, /data-feed="ai"/);
     assert.match(html, /id="newsList"/);
-    assert.match(html, /<a href="\/portfolio\.html"/);
+    assert.match(html, /<a class="app-tile" href="\/portfolio\.html">/);
     const sitemap = read('sitemap.xml');
     assert.ok(sitemap.includes('news.html'), 'sitemap missing news');
 });
@@ -60,7 +63,6 @@ test('home button, sticky bars and coming-soon account note are consistent', () 
     assert.match(css, /\.home-btn\s*\{[^}]*color:\s*#fff/s);
     assert.match(read('portfolio.html'), /pl-topbar no-stick/);
     for (const page of ['index.html', 'news.html']) {
-        assert.match(read(page), /Coming soon\./);
         assert.match(read(page), /home-fixed/);
     }
     assert.match(read('page-fade.js'), /prefers-reduced-motion/);
