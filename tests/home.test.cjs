@@ -33,6 +33,28 @@ test('top-right cluster exposes apps menu with portfolio, news and moonstove til
         assert.match(html, /setupMenus|setMenuState/);
     }
     assert.ok(read('assets/moonstove.svg').includes('#fe6b01'), 'moonstove brand mark');
+    for (const page of ['index.html', 'news.html']) {
+        const html = read(page);
+        assert.match(html, /text-transform:\s*uppercase/, `${page} compact uppercase tiles`);
+        assert.match(html, /app-visual contain/, `${page} moonstove fully visible`);
+        assert.match(html, /id="wLink"[^>]*weather\.com/, `${page} weather link`);
+        assert.match(html, /weather\.com\/weather\/today\/l\//, `${page} location weather URL`);
+    }
+});
+
+test('landing shows a random insight with picture; news uses original images', () => {
+    const index = read('index.html');
+    assert.match(index, /id="spotImg"/);
+    assert.match(index, /id="spotText"/);
+    assert.match(index, /src="\/info-spotlight\.js\?v=20260911-sp1"/);
+    const spots = read('info-spotlight.js');
+    assert.ok((spots.match(/text:/g) || []).length >= 8, 'a week of insights');
+    assert.match(spots, /Math\.random/);
+    const news = read('news.html');
+    assert.match(news, /&meta=true/);
+    assert.doesNotMatch(news, /screenshot=true/);
+    assert.match(news, /shotLink/);
+    assert.match(news, /aria-label/);
 });
 
 test('news page serves a live client-side tech feed', () => {

@@ -259,16 +259,18 @@
             gap: 12px;
             width: 100%;
             box-sizing: border-box;
-            padding: 12px 14px;
-            min-height: 48px;
+            padding: 10px 12px;
+            min-height: 44px;
             border: 0;
             border-radius: 10px;
             background: none;
             color: var(--adaptive-text);
             text-decoration: none;
             font: inherit;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             text-align: left;
             cursor: pointer;
         }
@@ -281,24 +283,32 @@
         .apps-menu a small,
         .apps-menu button.app-tile small {
             display: block;
-            font-size: 0.68rem;
+            font-size: 0.66rem;
+            font-weight: 400;
             letter-spacing: 0.5px;
+            text-transform: none;
             color: var(--adaptive-text-secondary);
         }
 
         .app-visual {
-            width: 56px;
-            height: 56px;
+            width: 40px;
+            height: 40px;
             flex: none;
-            border-radius: 12px;
+            border-radius: 10px;
             object-fit: cover;
             background: #111;
+        }
+
+        .app-visual.contain {
+            object-fit: contain;
+            padding: 6px;
+            box-sizing: border-box;
         }
 
         .app-glyph {
             display: grid;
             place-items: center;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }
 
         .account-dialog p {
@@ -523,7 +533,11 @@
             background: var(--adaptive-bg-hover);
         }
 
-        .news-shot[hidden] {
+        .news-list > li > a:first-child {
+            display: block;
+        }
+
+        .news-list > li > a:first-child[hidden] {
             display: none;
         }
 
@@ -582,6 +596,15 @@
             gap: 10px;
             font-size: 1.5rem;
             opacity: 0.9;
+        }
+
+        a.mini-stat {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a.mini-stat:hover {
+            opacity: 1;
         }
 
         .weather-icon {
@@ -646,10 +669,10 @@
         <a class="icon-btn home-fixed" href="/" aria-label="Home">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h5v-6h4v6h5V10" /></svg>
         </a>
-        <div class="mini-stat" aria-live="off">
+        <a class="mini-stat" id="wLink" href="https://weather.com/" target="_blank" rel="noopener" aria-label="Open weather for my location">
             <span id="wIcon" class="weather-icon"></span>
             <span id="wTemp" class="degree-text">--°</span>
-        </div>
+        </a>
         <button class="icon-btn" id="appsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="appsMenu" aria-label="Open site menu">
             <span class="apps-grid" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
         </button>
@@ -658,7 +681,7 @@
     <nav class="apps-menu" id="appsMenu" aria-label="Site sections" hidden>
         <a class="app-tile" href="/portfolio.html"><span class="app-visual app-glyph" aria-hidden="true">▦</span><span>Portfolio<small>Product work &amp; case studies</small></span></a>
         <a class="app-tile" href="/news.html"><img class="app-visual" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=200&amp;q=60" alt="" loading="lazy"><span>News<small>Enjoy the latest tech news</small></span></a>
-        <button type="button" class="app-tile" id="moonTile" aria-haspopup="dialog" aria-controls="moonDialog"><img class="app-visual" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></button>
+        <button type="button" class="app-tile" id="moonTile" aria-haspopup="dialog" aria-controls="moonDialog"><img class="app-visual contain" src="/assets/moonstove.svg" alt="" loading="lazy"><span>Moonstove<small>Something is brewing</small></span></button>
     </nav>
 
     <div class="account-dialog" id="moonDialog" role="dialog" aria-modal="false" aria-label="Moonstove" hidden>
@@ -715,6 +738,7 @@
             icon: document.getElementById('wIcon'),
             temp: document.getElementById('wTemp'),
             cond: document.getElementById('wCond'),
+            wLink: document.getElementById('wLink'),
             canvas: document.getElementById('weatherCanvas'),
             topBar: document.querySelector('.top-bar'),
             centerTitle: document.querySelector('.title'),
@@ -1121,6 +1145,9 @@
                 const place = STATE.city ? STATE.city + ' · ' : '';
                 ELS.cond.textContent = `${place}${STATE.temp}° · ${codeToText(code)} · ${formatLocalTime(STATE.timezone)}`;
             }
+            if (ELS.wLink && STATE.lat && STATE.lon) {
+                ELS.wLink.href = `https://weather.com/weather/today/l/${STATE.lat.toFixed(2)},${STATE.lon.toFixed(2)}`;
+            }
 
             // Time
             let time = getRemoteTime(STATE.timezone);
@@ -1493,25 +1520,26 @@
                 catch (e) { return 'news.ycombinator.com'; }
             }
 
-            // Best-effort article pictures via the free Microlink screenshot
-            // service. Tiles look complete without them: failures hide the
-            // image and keep the favicon + text tile.
+            // Best-effort ORIGINAL article pictures via the free Microlink
+            // metadata service (the story's own og:image, not a screenshot).
+            // Tiles look complete without them: failures hide the image link
+            // and keep the favicon + text tile.
             var shotObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (!entry.isIntersecting) return;
                     var img = entry.target;
                     shotObserver.unobserve(img);
-                    var api = 'https://api.microlink.io?url=' + encodeURIComponent(img.getAttribute('data-shot')) + '&screenshot=true&meta=false';
+                    var api = 'https://api.microlink.io?url=' + encodeURIComponent(img.getAttribute('data-shot')) + '&meta=true';
                     fetch(api).then(function (res) {
                         if (!res.ok) throw new Error('shot unavailable');
                         return res.json();
                     }).then(function (data) {
-                        if (data && data.data && data.data.screenshot && data.data.screenshot.url) {
-                            img.src = data.data.screenshot.url;
+                        if (data && data.data && data.data.image && data.data.image.url) {
+                            img.src = data.data.image.url;
                         } else {
-                            img.hidden = true;
+                            img.closest('a').hidden = true;
                         }
-                    }).catch(function () { img.hidden = true; });
+                    }).catch(function () { img.closest('a').hidden = true; });
                 });
             }, { rootMargin: '200px' }) : null;
 
@@ -1521,14 +1549,20 @@
                     var target = item.url || ('https://news.ycombinator.com/item?id=' + item.objectID);
                     var domain = domainOf(target);
                     var li = document.createElement('li');
+                    var shotLink = document.createElement('a');
+                    shotLink.href = target;
+                    shotLink.target = '_blank';
+                    shotLink.rel = 'noopener';
+                    shotLink.setAttribute('aria-label', item.title || 'Open story');
                     var shot = document.createElement('img');
                     shot.className = 'news-shot';
                     shot.alt = '';
                     shot.loading = 'lazy';
                     shot.setAttribute('data-shot', target);
-                    shot.addEventListener('error', function () { shot.hidden = true; });
+                    shot.addEventListener('error', function () { shotLink.hidden = true; });
+                    shotLink.appendChild(shot);
                     if (shotObserver) shotObserver.observe(shot);
-                    else shot.hidden = true;
+                    else shotLink.hidden = true;
                     var source = document.createElement('div');
                     source.className = 'news-source';
                     var fav = document.createElement('img');
@@ -1553,7 +1587,7 @@
                     comments.rel = 'noopener';
                     comments.textContent = (item.num_comments || 0) + ' comments';
                     meta.appendChild(comments);
-                    li.appendChild(shot);
+                    li.appendChild(shotLink);
                     li.appendChild(source);
                     li.appendChild(a);
                     li.appendChild(meta);
