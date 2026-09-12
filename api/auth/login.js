@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { db } = require('../_lib/db');
 const { readJson, signToken, setSession, describeDbError, validateEmail } = require('../_lib/auth');
+const { checkLimit, rateCollection, clientIp } = require('../_lib/ratelimit');
 
 module.exports = async (req, res) => {
     if (req.method !== 'POST') {
@@ -13,6 +14,13 @@ module.exports = async (req, res) => {
             res.status(401).json({ error: 'Email or password is incorrect.' });
             return;
         }
+        try {
+            const allowed = await checkLimit(await rateCollection(), `login:${clientIp(req)}`, 20, 900000);
+            if (!allowed) {
+                res.status(429).json({ error: 'Too many login attempts. Try again in 15 minutes.' });
+                return;
+            }
+        } catch (e) { /* limiter unavailable — continue */ }
         const normalized = email.trim().toLowerCase();
         const users = (await db()).collection('users');
         const user = await users.findOne({ email: normalized });

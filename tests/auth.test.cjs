@@ -9,6 +9,7 @@ const root = path.resolve(__dirname, '..');
 
 // ---- dependency stubs (no node_modules needed for contract tests) ----
 const usersStore = new Map();
+const rateStore = new Map();
 const fakeCollection = {
     async findOne(query) {
         if (query.email) return usersStore.get(query.email) || null;
@@ -16,9 +17,17 @@ const fakeCollection = {
             for (const user of usersStore.values()) {
                 if (user._id && user._id.toString() === query._id.toString()) return user;
             }
+            return rateStore.get(query._id) || null;
         }
         return null;
     },
+    async updateOne(query, op, opts) {
+        const doc = rateStore.get(query._id) || { _id: query._id, count: 0, resetAt: 0 };
+        if (op.$set) Object.assign(doc, op.$set);
+        if (op.$inc) doc.count += op.$inc.count;
+        rateStore.set(query._id, doc);
+    },
+    async createIndex() { return 'resetAt_1'; },
     async insertOne(doc) {
         const id = `user_${usersStore.size + 1}`;
         usersStore.set(doc.email, { ...doc, _id: { toString: () => id } });
@@ -62,10 +71,13 @@ const me = require('../api/auth/me.js');
 const { validateEmail, validatePassword, validateName } = require('../api/_lib/validate.js');
 const { describeDbError } = require('../api/_lib/auth.js');
 
-function req(method, body, cookie) {
+function req(method, body, cookie, ip) {
+    const headers = {};
+    if (cookie) headers.cookie = cookie;
+    if (ip) headers['x-forwarded-for'] = ip;
     return {
         method,
-        headers: cookie ? { cookie } : {},
+        headers,
         on(event, handler) {
             if (event === 'data') handler(JSON.stringify(body));
             if (event === 'end') handler();
@@ -88,6 +100,38 @@ test('validation accepts good input and rejects bad input', () => {
     assert.equal(validatePassword('short'), false);
     assert.equal(validateName('Menguhan'), true);
     assert.equal(validateName('  '), false);
+});
+
+test('rate limiter allows, blocks, resets and isolates keys', async () => {
+    const { checkLimit, clientIp } = require('../api/_lib/ratelimit.js');
+    const store = new Map();
+    const collection = {
+        async findOne(q) { return store.get(q._id) || null; },
+        async updateOne(q, op) {
+            const doc = store.get(q._id) || { _id: q._id, count: 0, resetAt: 0 };
+            if (op.$set) Object.assign(doc, op.$set);
+            if (op.$inc) doc.count += op.$inc.count;
+            store.set(q._id, doc);
+        }
+    };
+    assert.equal(await checkLimit(collection, 'a', 2, 60000), true);
+    assert.equal(await checkLimit(collection, 'a', 2, 60000), true);
+    assert.equal(await checkLimit(collection, 'a', 2, 60000), false);
+    assert.equal(await checkLimit(collection, 'b', 2, 60000), true);
+    assert.equal(await checkLimit(collection, 'fast', 1, 1), true);
+    await new Promise((r) => setTimeout(r, 5));
+    assert.equal(await checkLimit(collection, 'fast', 1, 1), true);
+    assert.equal(clientIp({ headers: { 'x-forwarded-for': '1.2.3.4, 5.6.7.8' } }), '1.2.3.4');
+    assert.equal(clientIp({ headers: {}, socket: { remoteAddress: '9.9.9.9' } }), '9.9.9.9');
+});
+
+test('blocked IPs get 429 without touching the database logic', async () => {
+    rateStore.set('register:9.9.9.9', { _id: 'register:9.9.9.9', count: 99, resetAt: Date.now() + 3600000 });
+    const r = res();
+    await register(req('POST', { name: 'Spam', email: 'spam@x.com', password: '12345678' }, null, '9.9.9.9'), r);
+    assert.equal(r.statusCode, 429);
+    assert.match(r.body.error, /Too many/);
+    assert.ok(!usersStore.get('spam@x.com'), 'blocked attempt creates no user');
 });
 
 test('db errors translate to safe actionable messages', () => {

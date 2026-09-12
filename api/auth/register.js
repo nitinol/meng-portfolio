@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { db } = require('../_lib/db');
 const { readJson, signToken, setSession, describeDbError, validateEmail, validatePassword, validateName } = require('../_lib/auth');
+const { checkLimit, rateCollection, clientIp } = require('../_lib/ratelimit');
 
 module.exports = async (req, res) => {
     if (req.method !== 'POST') {
@@ -21,6 +22,13 @@ module.exports = async (req, res) => {
             res.status(400).json({ error: 'Password must be at least 8 characters.' });
             return;
         }
+        try {
+            const allowed = await checkLimit(await rateCollection(), `register:${clientIp(req)}`, 5, 3600000);
+            if (!allowed) {
+                res.status(429).json({ error: 'Too many accounts created. Try again in an hour.' });
+                return;
+            }
+        } catch (e) { /* limiter unavailable — continue */ }
         const normalized = email.trim().toLowerCase();
         const users = (await db()).collection('users');
         if (await users.findOne({ email: normalized })) {

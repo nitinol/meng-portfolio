@@ -33,8 +33,13 @@ dialog falls back to "Coming soon." (fetch failure = offline/pre-deploy).
 
 ## 4. Env (owner sets, never in chat/repo)
 
-Vercel dashboard (preview + production): `MONGODB_URI` (with password),
-`JWT_SECRET` (32+ random chars), `MONGODB_DB=menguhan`. `.env*` gitignored.
+Vercel dashboard (**Preview only — NEVER production**): `MONGODB_URI`
+(with password), `JWT_SECRET` (32+ random chars), `MONGODB_DB=menguhan`.
+`.env*` gitignored.
+
+> 2026-09-12 decision (owner): menguhan.com production will NEVER get
+> database variables. Auth/API is dev-only R&D. Production serves the
+> static site only; the deployed API routes stay inert there by design.
 
 ## 5. Verification
 
