@@ -16,8 +16,12 @@ body.pl a { color: var(--pl-accent); }
 .pl-topbar { background: #000; position: sticky; top: 0; z-index: 40; }
 .pl-topbar.no-stick { position: static; }
 .home-btn { position: fixed; left: 40px; top: 32px; z-index: 60; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #fff; }
+body.pl .home-btn { color: #fff; }
 .home-btn:hover { opacity: 0.65; }
 @media (max-width: 640px) { .home-btn { left: 20px; top: 20px; } }
+.portfolio-topbar { transition: background-color 280ms ease, box-shadow 280ms ease, border-color 280ms ease; border-bottom: 1px solid transparent; }
+.portfolio-topbar.is-scrolled { background: rgba(0, 0, 0, 0.5); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); border-bottom-color: rgba(255, 255, 255, 0.12); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16); }
+.portfolio-topbar .home-btn { position: absolute; left: 40px; top: auto; bottom: 4px; }
 .pl-header { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 0 22px; position: relative; }
 .pl-header .logo-link { color: #fff; text-decoration: none; font-family: var(--pl-display); font-weight: 800; letter-spacing: 0.22em; font-size: 1rem; border: 2px solid #fff; border-radius: 4px; padding: 6px 14px 6px 16px; }
 .pl-header nav a { margin: 0 16px; text-decoration: none; color: #fff; font-family: var(--pl-display); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
@@ -96,7 +100,10 @@ body.pl .pl-btn:focus-visible { background: var(--pl-text); border-color: var(--
   .pl-header nav.active { display: block; }
   .pl-header nav a { display: block; margin: 10px 0; }
   .pl-header.nav-enhanced nav:not(.active) { display: none; }
+  .portfolio-topbar .home-btn { left: 20px; top: 18px; bottom: auto; }
 }
+
+@media (prefers-reduced-motion: reduce) { .portfolio-topbar { transition: none; } }
 
 /* Shared five-link business navigation + keyboard focus */
 body.pl :focus-visible { outline: 3px solid var(--pl-accent); outline-offset: 4px; }

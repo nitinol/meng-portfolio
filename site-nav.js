@@ -1,5 +1,6 @@
 (() => {
     const header = document.querySelector('.pl-header');
+    const topbar = document.querySelector('.pl-topbar');
     const toggle = document.querySelector('[data-menu-toggle]');
     const nav = document.getElementById('mainNav');
     if (!header || !toggle || !nav) return;
@@ -17,4 +18,9 @@
             toggle.setAttribute('aria-expanded', 'false');
         });
     });
+    if (topbar) {
+        const updateScrolledState = () => topbar.classList.toggle('is-scrolled', window.scrollY > 12);
+        updateScrolledState();
+        window.addEventListener('scroll', updateScrolledState, { passive: true });
+    }
 })();

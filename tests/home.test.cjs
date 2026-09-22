@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const { readFileSync } = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..');
 const read = (file) => readFileSync(path.join(root, file), 'utf8');
@@ -81,11 +82,50 @@ test('home button, sticky bars and coming-soon account note are consistent', () 
     const css = read('portfolio-light.css');
     assert.match(css, /\.pl-topbar\s*\{[^}]*position:\s*sticky/s);
     assert.match(css, /\.pl-topbar\.no-stick\s*\{[^}]*position:\s*static/s);
-    assert.match(css, /\.home-btn\s*\{[^}]*position:\s*fixed[^}]*left:\s*40px[^}]*top:\s*32px/s);
-    assert.match(css, /\.home-btn\s*\{[^}]*color:\s*#fff/s);
-    assert.match(read('portfolio.html'), /pl-topbar no-stick/);
+    assert.match(css, /body\.pl \.home-btn\s*\{[^}]*color:\s*#fff/s);
+    assert.match(css, /\.portfolio-topbar \.home-btn\s*\{[^}]*bottom:/s);
+    assert.match(css, /\.portfolio-topbar\.is-scrolled\s*\{[^}]*rgba\(0,\s*0,\s*0,\s*0\.5\)[^}]*backdrop-filter:\s*blur/s);
+    assert.match(read('portfolio.html'), /class="pl-topbar portfolio-topbar"/);
     for (const page of ['index.html', 'news.html']) {
         assert.match(read(page), /home-fixed/);
     }
     assert.match(read('page-fade.js'), /prefers-reduced-motion/);
+});
+
+test('business navigation marks its top bar as scrolled', () => {
+    const listeners = {};
+    const classes = new Set();
+    const classList = {
+        add: (name) => classes.add(name),
+        remove: (name) => classes.delete(name),
+        toggle: (name, force) => {
+            if (force === true) classes.add(name);
+            else if (force === false) classes.delete(name);
+            else if (classes.has(name)) classes.delete(name);
+            else classes.add(name);
+            return classes.has(name);
+        }
+    };
+    const topbar = { classList };
+    const header = { classList: { add() {} } };
+    const toggle = { classList, setAttribute() {}, addEventListener() {} };
+    const nav = { classList, querySelectorAll: () => [] };
+    const window = {
+        scrollY: 0,
+        addEventListener: (type, listener) => { listeners[type] = listener; }
+    };
+    const document = {
+        querySelector: (selector) => ({
+            '.pl-header': header,
+            '.pl-topbar': topbar,
+            '[data-menu-toggle]': toggle
+        })[selector] || null,
+        getElementById: () => nav
+    };
+
+    vm.runInNewContext(read('site-nav.js'), { document, window });
+    assert.equal(classes.has('is-scrolled'), false);
+    window.scrollY = 24;
+    listeners.scroll();
+    assert.equal(classes.has('is-scrolled'), true);
 });
