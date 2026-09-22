@@ -84,7 +84,7 @@ test('home button, sticky bars and coming-soon account note are consistent', () 
     assert.match(css, /\.pl-topbar\.no-stick\s*\{[^}]*position:\s*static/s);
     assert.match(css, /body\.pl \.home-btn\s*\{[^}]*color:\s*#fff/s);
     assert.match(css, /\.portfolio-topbar \.home-btn\s*\{[^}]*bottom:/s);
-    assert.match(css, /\.portfolio-topbar\.is-scrolled\s*\{[^}]*rgba\(0,\s*0,\s*0,\s*0\.5\)[^}]*backdrop-filter:\s*blur/s);
+    assert.match(css, /\.pl-topbar\.is-scrolled\s*\{[^}]*rgba\(0,\s*0,\s*0,\s*0\.5\)[^}]*backdrop-filter:\s*blur/s);
     assert.match(read('portfolio.html'), /class="pl-topbar portfolio-topbar"/);
     for (const page of ['index.html', 'news.html']) {
         assert.match(read(page), /home-fixed/);

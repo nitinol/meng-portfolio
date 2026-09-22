@@ -15,6 +15,7 @@ test('business navigation is consistent and ordered on every page', () => {
         const hrefs = [...nav.matchAll(/href="([^"]+)"/g)].map((m) => m[1].replace(/^\//, ''));
         assert.deepEqual(hrefs, order, `${page} nav order`);
         assert.match(html, /data-menu-toggle aria-expanded="false" aria-controls="mainNav"/);
+        assert.match(html, /site-nav\.js/, `${page} shared navigation behavior`);
     }
     const portfolio = read('portfolio.html');
     assert.ok(portfolio.includes('Product Leader · Technology & AI'), 'dirty tagline preserved');
