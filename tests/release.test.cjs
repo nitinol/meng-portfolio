@@ -35,7 +35,7 @@ test('APP delivers the complete readable release journey and page contracts', ()
     }
     assert.match(html, /data-menu-toggle aria-expanded="false" aria-controls="mainNav"/);
     assert.doesNotMatch(html, /src="\/?script\.js/);
-    assert.match(html, /href="\/portfolio-light\.css\?v=20260922-nav1"/);
+    assert.match(html, /href="\/portfolio-light\.css\?v=20260922-nav2"/);
     assert.match(html, /href="\/release\.css\?v=20260910-btn2"/);
     assert.match(html, /rel="canonical" href="https:\/\/www\.menguhan\.com\/app.html"/);
     assert.match(html, /property="og:image" content="https:\/\/www\.menguhan\.com\/assets\/editorial\/social.jpg"/);
